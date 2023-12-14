@@ -6,7 +6,7 @@
 #include "SFML/Graphics.hpp"
 
 
-class Pawn { //dziedziczenie po animation i entity
+class Pawn {
 protected:
     sf::Texture textureSheet;
     sf::Sprite sprite;

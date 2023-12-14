@@ -18,10 +18,7 @@ int Animation::restartAnim() {
     return this->lastPlayedFrameIndex=0;
 }
 
-void Animation::getCurrentAnimImg(long deltaT){
-    int width=32; //do zmiany przez konstruktor
-    int height=32;
-
+void Animation::getCurrentAnimImg(long deltaT, int w, int h){
 //    if(this->currentAnim != this){
 //        restartAnim();
 //    }
@@ -38,11 +35,11 @@ void Animation::getCurrentAnimImg(long deltaT){
 
     if (this->lastPlayedFrameIndex==this->framesNumber-1) {
         restartAnim();
-        sf::IntRect currentFrame=sf::IntRect(0, 0, width, height);
+        sf::IntRect currentFrame=sf::IntRect(0, 0, w, h);
         sprite.setTextureRect(currentFrame);
         return;
     }
     this->lastPlayedFrameIndex+=1;
-    sf::IntRect currentFrame=sf::IntRect((this->lastPlayedFrameIndex)*width, 0, width, height);
+    sf::IntRect currentFrame=sf::IntRect((this->lastPlayedFrameIndex)*w, 0, w, h);
     sprite.setTextureRect(currentFrame);
 }

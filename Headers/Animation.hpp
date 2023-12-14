@@ -7,7 +7,7 @@
 
 class Animation {
 
-private:
+protected:
     const int frameDuration = 120;
     sf::Sprite sprite; //widoczny obrazek
     long elapsed; //czas jaki upłynął
@@ -22,7 +22,7 @@ public:
     virtual ~Animation();
 
     int restartAnim();
-    void getCurrentAnimImg(long deltaT);
+    void getCurrentAnimImg(long deltaT, int w, int h);
 
 //    void drawEntities(){
 //        for(Enity e : Enity.allEntities()){
