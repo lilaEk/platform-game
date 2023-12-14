@@ -4,10 +4,8 @@
 #include "Pawns.hpp"
 #include "Entity.hpp"
 
-//class Entity;
-//class Pawns;
 
-class Player : Pawns{
+class Player { //musi dziedziczyc po pawn
 
 private:
     sf::Sprite sprite;
