@@ -1,6 +1,4 @@
 #include "../Headers/Game.hpp"
-#include "../Headers/stdafx.hpp"
-
 
 auto main() -> int {
 
@@ -12,7 +10,9 @@ auto main() -> int {
     //game loop
     while (game.running())
     {
-        game.update();
+        // tutaj obliczamy deltaT
+
+        game.update(); //deltaT w nawiasie
         game.render();
     }
     //end of app

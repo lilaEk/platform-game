@@ -28,7 +28,13 @@ add_executable(my_game "Source Files/main.cpp"
         "Source Files/Player.cpp"
         "Headers/Player.hpp"
         "Source Files/Animation.cpp"
-        "Headers/Animation.hpp")
+        "Headers/Animation.hpp"
+        "Source Files/Entity.cpp"
+        Headers/Entity.hpp
+        "Source Files/Pawns.cpp"
+        Headers/Pawns.hpp
+        "Source Files/AI_Pawn.cpp"
+        Headers/AI_Pawn.hpp)
 
 target_link_libraries(my_game fmt)
 

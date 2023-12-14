@@ -23,9 +23,7 @@ Player::Player() {
     this->initSprite();
 }
 
-Player::~Player() {
-
-}
+Player::~Player() = default;
 
 void Player::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
@@ -39,7 +37,7 @@ void Player::updateMovement() {
     //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        this->sprite.move(-05.f, 0.f);
+        this->sprite.move(-05.F, 0.f);
     }
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)

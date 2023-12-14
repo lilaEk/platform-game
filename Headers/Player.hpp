@@ -3,8 +3,8 @@
 #include "../Headers/Game.hpp"
 
 
-
 class Player {
+
 private:
     sf::Sprite sprite;
     sf::Texture textureSheet;
