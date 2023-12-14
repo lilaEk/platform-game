@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Pawns.hpp"
+#include "Pawn.hpp"
 
-class AI_Pawn : public Pawns {
+class AI_Pawn : public Pawn {
 
 };

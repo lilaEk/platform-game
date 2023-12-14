@@ -1,7 +1,6 @@
 #include "../Headers/Game.hpp"
 #include "../Headers/Animation.hpp"
 
-
 Animation::Animation(std::string assetPath, int framesNumber) :
 assetPath(assetPath), framesNumber(framesNumber){
     sf::Texture texture;
@@ -19,8 +18,8 @@ int Animation::restartAnim() {
     return this->lastPlayedFrameIndex=0;
 }
 
-void Animation::createAnimation(long deltaT){
-    int width=32;
+void Animation::getCurrentAnimImg(long deltaT){
+    int width=32; //do zmiany przez konstruktor
     int height=32;
 
 //    if(this->currentAnim != this){
@@ -30,9 +29,9 @@ void Animation::createAnimation(long deltaT){
 
     this->elapsed += deltaT;
     if (this->elapsed >= this->frameDuration) {
-        lastPlayedFrameIndex++;
-        if (lastPlayedFrameIndex >= framesNumber) {
-            lastPlayedFrameIndex = 0;
+        this->lastPlayedFrameIndex++;
+        if (this->lastPlayedFrameIndex >= this->framesNumber) {
+            this->lastPlayedFrameIndex = 0;
         }
         this->elapsed = 0;
     }

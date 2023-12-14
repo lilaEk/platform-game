@@ -31,8 +31,7 @@ add_executable(my_game "Source Files/main.cpp"
         "Headers/Animation.hpp"
         "Source Files/Entity.cpp"
         Headers/Entity.hpp
-        "Source Files/Pawns.cpp"
-        Headers/Pawns.hpp
+        Headers/Pawn.hpp
         "Source Files/AI_Pawn.cpp"
         Headers/AI_Pawn.hpp
         Headers/PawnState.hpp)

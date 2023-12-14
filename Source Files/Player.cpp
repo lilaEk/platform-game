@@ -1,5 +1,13 @@
 #include "../Headers/Game.hpp"
 
+Player::Player() : Pawn(){
+    //inits
+    this->initTexture("../assets/Pink_Monster/Pink_Monster_Idle.png");
+    this->initSprite();
+}
+
+Player::~Player() = default;
+
 void Player::initSprite() {
     this->sprite.setTexture(this->textureSheet);
     this->currentFrame = sf::IntRect(64, 0, 32, 32);
@@ -7,23 +15,13 @@ void Player::initSprite() {
     this->sprite.setScale(2.5f, 2.5f);
 }
 
-void Player::initTexture() {
+void Player::initTexture(const std::string& texturePath) {
     if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
         std::cout << "ERROR::PLAYER::Could not load the player\n";
     }
 }
 
-void Player::initAnimations() {
-
-}
-
-Player::Player() {
-    //inits
-    this->initTexture();
-    this->initSprite();
-}
-
-Player::~Player() = default;
+void Player::initAnimations() { }
 
 void Player::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
@@ -31,6 +29,7 @@ void Player::render(sf::RenderTarget &target) {
 
 void Player::update() {
     this->updateMovement();
+    this->updateAnimations();
 }
 
 void Player::updateMovement() {

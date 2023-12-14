@@ -1,31 +1,20 @@
 #pragma once
 
-#include "../Headers/Game.hpp"
-#include "Pawns.hpp"
-#include "Entity.hpp"
+#include "Pawn.hpp"
 
-
-class Player { //musi dziedziczyc po pawn
+class Player : public Pawn {
 
 private:
-    sf::Sprite sprite;
-    sf::Texture textureSheet;
+    void initSprite() override;
+    void initTexture(const std::string& texturePath) override;
+    void initAnimations() override;
 
-    //animation
-    sf::IntRect currentFrame;
-
-    //movement
-    //core
-
-    void initTexture();
-    void initSprite();
-    void initAnimations();
 public:
     Player();
-    virtual ~Player();
+    ~Player() override;
 
-    void updateMovement();
-    void updateAnimations();
-    void update();
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target) override;
+    void update() override;
+    void updateMovement() override;
+    void updateAnimations() override;
 };

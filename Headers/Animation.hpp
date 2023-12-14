@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Headers/Game.hpp"
-#include "Pawns.hpp"
+#include "Pawn.hpp"
 #include "PawnState.hpp"
 
 
@@ -22,7 +22,7 @@ public:
     virtual ~Animation();
 
     int restartAnim();
-    void createAnimation(long deltaT);
+    void getCurrentAnimImg(long deltaT);
 
 //    void drawEntities(){
 //        for(Enity e : Enity.allEntities()){
