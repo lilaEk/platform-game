@@ -1,9 +1,13 @@
 #pragma once
 
 #include "../Headers/Game.hpp"
+#include "Pawns.hpp"
+#include "Entity.hpp"
 
+//class Entity;
+//class Pawns;
 
-class Player {
+class Player : Pawns{
 
 private:
     sf::Sprite sprite;

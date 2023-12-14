@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../Headers/Game.hpp"
+#include <iostream>
+#include <vector>
 
+class Entity;
 
 class Entity {
 
@@ -17,6 +19,4 @@ public:
     int width;
 
     Entity();
-
-//    void addEntityToVec(std::vector<Entity*> &allEntities, Entity& entity);
 };

@@ -1,5 +1,7 @@
 #pragma once
 
-class AI_Pawn {
+#include "Pawns.hpp"
+
+class AI_Pawn : public Pawns {
 
 };

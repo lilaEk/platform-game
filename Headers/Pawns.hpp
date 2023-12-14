@@ -1,5 +1,6 @@
 #pragma once
 
-class Pawns {
+#include "Entity.hpp"
 
-};
+
+class Pawns : public Entity { };
