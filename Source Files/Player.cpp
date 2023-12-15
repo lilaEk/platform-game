@@ -1,4 +1,6 @@
 #include "../Headers/Game.hpp"
+#include "../Headers/Player.hpp"
+
 
 Player::Player() : Pawn(),
     Animation("../assets/Pink_Monster/Pink_Monster_Idle.png",4),
@@ -11,6 +13,7 @@ Player::Player() : Pawn(),
 Player::~Player() = default;
 
 void Player::initSprite() {
+    this->currentPawnState=PawnState::idle;
     this->sprite.setTexture(this->textureSheet);
     this->currentFrame = sf::IntRect(64, 0, 32, 32);
     this->sprite.setTextureRect(this->currentFrame);
@@ -35,7 +38,7 @@ void Player::update() {
 }
 
 void Player::updateMovement() {
-    //left movement
+        //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
         this->Animation::sprite.move(-08.F, 0.f);
@@ -44,6 +47,8 @@ void Player::updateMovement() {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         this->Animation::sprite.move(08.f, 0.f);
+        this->currentPawnState=PawnState::run;
+        this->ramkiDlaAnimacji=6;
     }
         //jump later
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
@@ -55,8 +60,13 @@ void Player::updateMovement() {
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->Animation::sprite.move(0.f, 08.f);
     }
+        //brak ruchu
+    else {
+        this->currentPawnState = PawnState::idle;
+    }
 }
 
 void Player::updateAnimations() {
-    Animation::getCurrentAnimImg(deltaTime, width, height);
+    Animation::getCurrentAnimImg(deltaTime, width, height, this->currentPawnState,this->ramkiDlaAnimacji);
 }
+

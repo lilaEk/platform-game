@@ -8,6 +8,7 @@
 
 class Pawn {
 protected:
+    PawnState currentPawnState;
     sf::Texture textureSheet;
 //    sf::Sprite sprite;
     sf::IntRect currentFrame;
@@ -23,6 +24,7 @@ public:
     virtual void update() = 0;
     virtual void updateMovement() = 0;
     virtual void updateAnimations() = 0;
+//    virtual void changeAnimation()=0;
 
 //    PawnState pawnState;
 };

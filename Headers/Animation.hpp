@@ -10,6 +10,7 @@
 class Animation {
 
 protected:
+    sf::Texture texture;
     const int frameDuration = 120;
     sf::Sprite sprite; //widoczny obrazek
     long elapsed; //czas jaki upłynął
@@ -24,7 +25,8 @@ public:
     virtual ~Animation();
 
     int restartAnim();
-    void getCurrentAnimImg(long deltaT, int w, int h);
+    void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, int framesNumber);
+    void setTexture(const std::string& newAssetPath, int newFramesNumber);
 
 //    void drawEntities(){
 //        for(Enity e : Enity.allEntities()){

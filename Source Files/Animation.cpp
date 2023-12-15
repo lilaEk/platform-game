@@ -17,11 +17,39 @@ int Animation::restartAnim() {
     return this->lastPlayedFrameIndex=0;
 }
 
-void Animation::getCurrentAnimImg(long deltaT, int w, int h){
+void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, int framesNumber){
 //    if(this->currentAnim != this){
 //        restartAnim();
 //    }
 //    this->currentAnim = this;
+
+    switch (currentAnim) {
+        case PawnState::idle:
+            this->framesNumber=4;
+            if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
+                // Obsłuż błąd ładowania tekstury
+                std::cout << "ERROR: Could not load texture from file\n";
+            }
+            this->sprite.setTexture(texture);
+            break;
+        case PawnState::run:
+            this->framesNumber=6;
+            if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Run.png")) {
+                // Obsłuż błąd ładowania tekstury
+                std::cout << "ERROR: Could not load texture from file\n";
+            }
+            this->sprite.setTexture(texture);
+            break;
+            // Dodaj inne przypadki dla różnych stanów postaci
+        default:
+            this->framesNumber=4;
+            if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
+                // Obsłuż błąd ładowania tekstury
+                std::cout << "ERROR: Could not load texture from file\n";
+            }
+            this->sprite.setTexture(texture);
+            break;
+    }
 
     this->elapsed += deltaT;
     if (this->elapsed >= this->frameDuration) {
@@ -41,4 +69,17 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h){
     this->lastPlayedFrameIndex+=1;
     sf::IntRect currentFrame=sf::IntRect((this->lastPlayedFrameIndex)*w, 0, w, h);
     sprite.setTextureRect(currentFrame);
+}
+
+void Animation::setTexture(const std::string& newAssetPath, int newFramesNumber) {
+    assetPath = newAssetPath;
+    framesNumber = newFramesNumber;
+
+    sf::Texture texture;
+    if (!texture.loadFromFile(assetPath)) {
+        // Obsługa błędu ładowania tekstury
+    }
+
+    sprite.setTexture(texture);
+    lastPlayedFrameIndex = 0;
 }

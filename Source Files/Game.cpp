@@ -5,7 +5,7 @@ void Game::initWindow() {
     this->vm.height = 600;
     this->vm.width = 1200;
 
-    this->window.create(this->vm, "for test", Style::Titlebar | Style::Close);
+    this->window.create(this->vm, "my game", Style::Titlebar | Style::Close);
 //    this->window.create(sf::VideoMode::getFullscreenModes()[0],"my game",sf::Style::Fullscreen);
     this->window.setFramerateLimit(144);
 }
