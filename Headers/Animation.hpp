@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../Headers/Game.hpp"
-#include "Pawn.hpp"
+//#include "../Headers/Game.hpp"
+#include "iostream"
+#include "SFML/Graphics.hpp"
+
 #include "PawnState.hpp"
 
 

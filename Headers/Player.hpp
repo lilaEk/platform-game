@@ -3,7 +3,7 @@
 #include "Pawn.hpp"
 #include "Animation.hpp"
 
-class Player : public Pawn {
+class Player : public Pawn, public Animation {
 
 private:
     int width = 32;

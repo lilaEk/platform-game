@@ -1,6 +1,6 @@
 #include "../Headers/Game.hpp"
 
-Player::Player() : Pawn(){
+Player::Player() : Pawn(), Animation("../assets/Pink_Monster/Pink_Monster_Idle.png",4){
     //inits
     this->initTexture("../assets/Pink_Monster/Pink_Monster_Idle.png");
     this->initSprite();
@@ -30,28 +30,30 @@ void Player::render(sf::RenderTarget &target) {
 void Player::update() {
     this->updateMovement();
     this->updateAnimations();
+
+//    Animation::getCurrentAnimImg()
 }
 
 void Player::updateMovement() {
     //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        this->sprite.move(-05.F, 0.f);
+        this->Animation::sprite.move(-05.F, 0.f);
     }
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-        this->sprite.move(05.f, 0.f);
+        this->Animation::sprite.move(05.f, 0.f);
     }
         //jump later
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        this->sprite.move(0.f, -05.f);
+        this->Animation::sprite.move(0.f, -05.f);
     }
         //down - do wyrzucenia
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        this->sprite.move(0.f, 05.f);
+        this->Animation::sprite.move(0.f, 05.f);
     }
 }
 

@@ -9,7 +9,7 @@
 class Pawn {
 protected:
     sf::Texture textureSheet;
-    sf::Sprite sprite;
+//    sf::Sprite sprite;
     sf::IntRect currentFrame;
 
 public:
