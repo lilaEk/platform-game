@@ -1,12 +1,11 @@
 #include "../Headers/Game.hpp"
-#include "../Headers/Player.hpp"
 
 
 Player::Player() : Pawn(),
     Animation("../assets/Pink_Monster/Pink_Monster_Idle.png",4),
     deltaTime(0.0f){
     //inits
-    this->initTexture("../assets/Pink_Monster/Pink_Monster_Idle.png");
+//    this->initTexture("../assets/Pink_Monster/Pink_Monster_Idle.png");
     this->initSprite();
 }
 
@@ -20,13 +19,13 @@ void Player::initSprite() {
     this->sprite.setScale(2.5f, 2.5f);
 }
 
-void Player::initTexture(const std::string& texturePath) {
-    if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
-        std::cout << "ERROR::PLAYER::Could not load the player\n";
-    }
-}
+//void Player::initTexture(const std::string& texturePath) {
+//    if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
+//        std::cout << "ERROR::PLAYER::Could not load the player\n";
+//    }
+//}
 
-void Player::initAnimations() { }
+//void Player::initAnimations() { }
 
 void Player::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
@@ -41,8 +40,7 @@ void Player::updateMovement() {
         //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        this->Animation::sprite.move(-08.F, 0.f);
-    }
+        this->Animation::sprite.move(-08.F, 0.f);    }
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {

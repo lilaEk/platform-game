@@ -15,8 +15,8 @@ private:
     float deltaTime;
 
     void initSprite() override;
-    void initTexture(const std::string& texturePath) override;
-    void initAnimations() override;
+//    void initTexture(const std::string& texturePath) override;
+//    void initAnimations() override;
 
 public:
     Player();
