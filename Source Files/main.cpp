@@ -24,8 +24,6 @@ auto main() -> int {
             lastFunctionCallTime = 0.0f;
         }
 
-//        game.update();
-//        game.render();
     }
     //end of app
 
