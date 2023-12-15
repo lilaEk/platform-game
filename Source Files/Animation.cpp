@@ -57,10 +57,6 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
                 this->sprite.setTexture(texture);
                 break;
             }
-            //if zmiana kierunku to:
-//            sprite.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width, sprite.getPosition().y);
-//            sprite.setScale(-2.5f, 2.5f);
-
 
             break;
             // Dodac inne przypadki dla różnych stanów postaci
@@ -110,9 +106,4 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
 //
 //    sprite.setTexture(texture);
 //    lastPlayedFrameIndex = 0;
-//}
-
-//void Animation::rotateLeft(int w) {
-//    int newPosition=2*this->lastPlayedFrameIndex*w;
-//    sprite.setScale(-2.5f, 2.5f);
 //}

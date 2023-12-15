@@ -27,7 +27,6 @@ public:
 
     int restartAnim();
     void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, Direction direction);
-//    void rotateLeft(int w);
 
 //    void setTexture(const std::string& newAssetPath, int newFramesNumber);
 
