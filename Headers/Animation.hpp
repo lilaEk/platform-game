@@ -25,10 +25,11 @@ public:
     Animation(std::string assetPath, int framesNumber);
     virtual ~Animation();
 
-    int restartAnim();
     void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, Direction direction);
+    void checkDirection(Direction direction);
+    void checkAnimation(PawnState currentAnim);
+    int restartAnim();
 
-//    void setTexture(const std::string& newAssetPath, int newFramesNumber);
 
 //    void drawEntities(){
 //        for(Enity e : Enity.allEntities()){

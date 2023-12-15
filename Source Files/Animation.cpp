@@ -25,6 +25,31 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
     this->currentAnim = this;
 */
 
+    checkDirection(direction);
+    checkAnimation(currentAnim);
+
+    this->elapsed += deltaT;
+    if (this->elapsed >= this->frameDuration) {
+        this->lastPlayedFrameIndex++;
+        if (this->lastPlayedFrameIndex >= this->framesNumber) {
+            this->lastPlayedFrameIndex = 0;
+        }
+        this->elapsed = 0;
+    }
+
+    if (this->lastPlayedFrameIndex == this->framesNumber - 1) {
+        restartAnim();
+        sf::IntRect currentFrame = sf::IntRect(0, 0, w, h);
+        sprite.setTextureRect(currentFrame);
+        return;
+    }
+    this->lastPlayedFrameIndex += 1;
+    sf::IntRect currentFrame = sf::IntRect(
+            (this->lastPlayedFrameIndex) * w, 0, w, h);
+    sprite.setTextureRect(currentFrame);
+}
+
+void Animation::checkDirection(Direction direction) {
     if (direction != this->lastDirection) {
         if (direction == Direction::left) {
             sprite.setScale(-2.5f, 2.5f);
@@ -43,8 +68,9 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
 
         this->lastDirection = direction;
     }
+}
 
-
+void Animation::checkAnimation(PawnState currentAnim) {
     switch (currentAnim) {
         case PawnState::run:
             if (this->lastState != PawnState::run) {
@@ -73,37 +99,4 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
             }
             break;
     }
-
-    this->elapsed += deltaT;
-    if (this->elapsed >= this->frameDuration) {
-        this->lastPlayedFrameIndex++;
-        if (this->lastPlayedFrameIndex >= this->framesNumber) {
-            this->lastPlayedFrameIndex = 0;
-        }
-        this->elapsed = 0;
-    }
-
-    if (this->lastPlayedFrameIndex == this->framesNumber - 1) {
-        restartAnim();
-        sf::IntRect currentFrame = sf::IntRect(0, 0, w, h);
-        sprite.setTextureRect(currentFrame);
-        return;
-    }
-    this->lastPlayedFrameIndex += 1;
-    sf::IntRect currentFrame = sf::IntRect(
-            (this->lastPlayedFrameIndex) * w, 0, w, h);
-    sprite.setTextureRect(currentFrame);
 }
-
-//void Animation::setTexture(const std::string& newAssetPath, int newFramesNumber) {
-//    assetPath = newAssetPath;
-//    framesNumber = newFramesNumber;
-//
-//    sf::Texture texture;
-//    if (!texture.loadFromFile(assetPath)) {
-//        // Obsługa błędu ładowania tekstury
-//    }
-//
-//    sprite.setTexture(texture);
-//    lastPlayedFrameIndex = 0;
-//}
