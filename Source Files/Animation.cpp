@@ -1,4 +1,3 @@
-#include "../Headers/Game.hpp"
 #include "../Headers/Animation.hpp"
 
 Animation::Animation(std::string assetPath, int framesNumber) :

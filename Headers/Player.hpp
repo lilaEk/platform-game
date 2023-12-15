@@ -3,11 +3,12 @@
 #include "Pawn.hpp"
 #include "Animation.hpp"
 
-class Player : public Pawn{
+class Player : public Pawn {
 
 private:
     int width = 32;
     int height= 32;
+
 
     void initSprite() override;
     void initTexture(const std::string& texturePath) override;
