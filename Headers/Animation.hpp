@@ -13,7 +13,7 @@ protected:
     const int frameDuration = 120;
     sf::Sprite sprite; //widoczny obrazek
     long elapsed; //czas jaki upłynął
-    PawnState lastState = PawnState::idle;
+    PawnState lastState = PawnState::pic;
 
 public:
     int framesNumber; //klatki animacji
@@ -25,6 +25,8 @@ public:
 
     int restartAnim();
     void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim);
+//    void rotateLeft(int w);
+
 //    void setTexture(const std::string& newAssetPath, int newFramesNumber);
 
 //    void drawEntities(){

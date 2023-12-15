@@ -1,23 +1,23 @@
 #include "../Headers/Animation.hpp"
 
 Animation::Animation(std::string assetPath, int framesNumber) :
-assetPath(assetPath), framesNumber(framesNumber){
+        assetPath(assetPath), framesNumber(framesNumber) {
     sf::Texture texture;
     if (!texture.loadFromFile(assetPath)) {
         //obsluga bledu
     }
 
     this->sprite = sf::Sprite(texture);
-    this->lastPlayedFrameIndex=0;
+    this->lastPlayedFrameIndex = 0;
 }
 
-Animation::~Animation() { }
+Animation::~Animation() {}
 
 int Animation::restartAnim() {
-    return this->lastPlayedFrameIndex=0;
+    return this->lastPlayedFrameIndex = 0;
 }
 
-void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim){
+void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim) {
 /*
         if(this->currentAnim != this){
         restartAnim();
@@ -27,25 +27,36 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
 
     switch (currentAnim) {
         case PawnState::run:
-            if (this->lastState!=PawnState::run) this->lastPlayedFrameIndex=0;
-            this->lastState=PawnState::run;
-            this->framesNumber=6;
-            if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Run.png")) {
-                // Obsłużyc błąd ładowania tekstury
-                std::cout << "ERROR: Could not load texture from file\n";
+            if (this->lastState != PawnState::run) {
+                this->lastPlayedFrameIndex = 0;
+                this->lastState = PawnState::run;
+                this->framesNumber = 6;
+                if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Run.png")) {
+                    std::cout << "ERROR: Could not load texture from file\n";
+                }
+                this->sprite.setTexture(texture);
+//                sprite.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width, sprite.getPosition().y);
+//                sprite.setScale(-2.5f, 2.5f);
+                break;
             }
-            this->sprite.setTexture(texture);
+            //if zmiana kierunku to:
+//            sprite.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width, sprite.getPosition().y);
+//            sprite.setScale(-2.5f, 2.5f);
+
+
             break;
             // Dodac inne przypadki dla różnych stanów postaci
         default:
-            if (this->lastState!=PawnState::idle) this->lastPlayedFrameIndex=0;
-            this->lastState=PawnState::idle;
-            this->framesNumber=4;
-            if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
-                // Obsłuż błąd ładowania tekstury
-                std::cout << "ERROR: Could not load texture from file\n";
+            if (this->lastState != PawnState::idle) {
+                this->lastPlayedFrameIndex = 0;
+                this->lastState = PawnState::idle;
+                this->framesNumber = 4;
+                if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
+                    // Obsłuż błąd ładowania tekstury
+                    std::cout << "ERROR: Could not load texture from file\n";
+                }
+                this->sprite.setTexture(texture);
             }
-            this->sprite.setTexture(texture);
             break;
     }
 
@@ -58,14 +69,15 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
         this->elapsed = 0;
     }
 
-    if (this->lastPlayedFrameIndex==this->framesNumber-1) {
+    if (this->lastPlayedFrameIndex == this->framesNumber - 1) {
         restartAnim();
-        sf::IntRect currentFrame=sf::IntRect(0, 0, w, h);
+        sf::IntRect currentFrame = sf::IntRect(0, 0, w, h);
         sprite.setTextureRect(currentFrame);
         return;
     }
-    this->lastPlayedFrameIndex+=1;
-    sf::IntRect currentFrame=sf::IntRect((this->lastPlayedFrameIndex)*w, 0, w, h);
+    this->lastPlayedFrameIndex += 1;
+    sf::IntRect currentFrame = sf::IntRect(
+            (this->lastPlayedFrameIndex) * w, 0, w, h);
     sprite.setTextureRect(currentFrame);
 }
 
@@ -80,4 +92,9 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
 //
 //    sprite.setTexture(texture);
 //    lastPlayedFrameIndex = 0;
+//}
+
+//void Animation::rotateLeft(int w) {
+//    int newPosition=2*this->lastPlayedFrameIndex*w;
+//    sprite.setScale(-2.5f, 2.5f);
 //}
