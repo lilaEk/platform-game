@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 
 #include "PawnState.hpp"
+#include "Direction.hpp"
 
 
 class Animation {
@@ -14,6 +15,7 @@ protected:
     sf::Sprite sprite; //widoczny obrazek
     long elapsed; //czas jaki upłynął
     PawnState lastState = PawnState::pic;
+    Direction lastDirection=Direction::right;
 
 public:
     int framesNumber; //klatki animacji
@@ -24,7 +26,7 @@ public:
     virtual ~Animation();
 
     int restartAnim();
-    void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim);
+    void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, Direction direction);
 //    void rotateLeft(int w);
 
 //    void setTexture(const std::string& newAssetPath, int newFramesNumber);

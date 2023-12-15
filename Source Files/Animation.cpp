@@ -17,13 +17,33 @@ int Animation::restartAnim() {
     return this->lastPlayedFrameIndex = 0;
 }
 
-void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim) {
+void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, Direction direction) {
 /*
         if(this->currentAnim != this){
         restartAnim();
     }
     this->currentAnim = this;
 */
+
+    if (direction != this->lastDirection) {
+        if (direction == Direction::left) {
+            sprite.setScale(-2.5f, 2.5f);
+        } else if (direction == Direction::right) {
+            sprite.setScale(2.5f, 2.5f);
+        }
+
+        sf::FloatRect bounds = sprite.getLocalBounds();
+        sf::Vector2f oldPosition = sprite.getPosition();
+
+        if (direction == Direction::left) {
+            sprite.setPosition(oldPosition.x + bounds.width * 2.5f, oldPosition.y);
+        } else if (direction == Direction::right) {
+            sprite.setPosition(oldPosition.x - bounds.width * 2.5f, oldPosition.y);
+        }
+
+        this->lastDirection = direction;
+    }
+
 
     switch (currentAnim) {
         case PawnState::run:
@@ -35,8 +55,6 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
                     std::cout << "ERROR: Could not load texture from file\n";
                 }
                 this->sprite.setTexture(texture);
-//                sprite.setPosition(sprite.getPosition().x + sprite.getGlobalBounds().width, sprite.getPosition().y);
-//                sprite.setScale(-2.5f, 2.5f);
                 break;
             }
             //if zmiana kierunku to:

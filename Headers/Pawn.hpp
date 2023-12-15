@@ -4,6 +4,7 @@
 //#include "Animation.hpp"
 #include "PawnState.hpp"
 #include "SFML/Graphics.hpp"
+#include "Direction.hpp"
 
 
 class Pawn {
@@ -11,6 +12,7 @@ protected:
     PawnState currentPawnState;
     sf::Texture textureSheet;
     sf::IntRect currentFrame;
+    Direction direction;
 
 public:
     virtual ~Pawn() = default;

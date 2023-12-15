@@ -7,6 +7,7 @@ Player::Player() : Pawn(),
     //inits
 //    this->initTexture("../assets/Pink_Monster/Pink_Monster_Idle.png");
     this->initSprite();
+    this->direction=Direction::right;
 }
 
 Player::~Player() = default;
@@ -44,12 +45,14 @@ void Player::updateMovement() {
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
         this->Animation::sprite.move(-08.F, 0.f);
         this->currentPawnState=PawnState::run;
+        this->direction=Direction::left;
     }
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         this->Animation::sprite.move(08.f, 0.f);
         this->currentPawnState=PawnState::run;
+        this->direction=Direction::right;
     }
         //jump later
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
@@ -70,6 +73,6 @@ void Player::updateMovement() {
 }
 
 void Player::updateAnimations() {
-    Animation::getCurrentAnimImg(deltaTime, width, height, this->currentPawnState);
+    Animation::getCurrentAnimImg(deltaTime, width, height, this->currentPawnState, this->direction);
 }
 
