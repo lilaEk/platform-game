@@ -19,11 +19,13 @@ void Player::initSprite() {
     this->sprite.setScale(2.5f, 2.5f);
 }
 
-//void Player::initTexture(const std::string& texturePath) {
-//    if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
-//        std::cout << "ERROR::PLAYER::Could not load the player\n";
-//    }
-//}
+/*
+void Player::initTexture(const std::string& texturePath) {
+    if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
+        std::cout << "ERROR::PLAYER::Could not load the player\n";
+    }
+}
+ */
 
 //void Player::initAnimations() { }
 
@@ -40,23 +42,26 @@ void Player::updateMovement() {
         //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        this->Animation::sprite.move(-08.F, 0.f);    }
+        this->Animation::sprite.move(-08.F, 0.f);
+        this->currentPawnState=PawnState::run;
+    }
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         this->Animation::sprite.move(08.f, 0.f);
         this->currentPawnState=PawnState::run;
-        this->ramkiDlaAnimacji=6;
     }
         //jump later
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         this->Animation::sprite.move(0.f, -08.f);
+        this->currentPawnState=PawnState::run;
     }
         //down - do wyrzucenia
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->Animation::sprite.move(0.f, 08.f);
+        this->currentPawnState=PawnState::run;
     }
         //brak ruchu
     else {
@@ -65,6 +70,6 @@ void Player::updateMovement() {
 }
 
 void Player::updateAnimations() {
-    Animation::getCurrentAnimImg(deltaTime, width, height, this->currentPawnState,this->ramkiDlaAnimacji);
+    Animation::getCurrentAnimImg(deltaTime, width, height, this->currentPawnState);
 }
 

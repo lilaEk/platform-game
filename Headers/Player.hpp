@@ -6,7 +6,6 @@
 class Player : public Pawn, public Animation {
 
 private:
-    int ramkiDlaAnimacji=4; //do wyjebania
 
     int width = 32;
     int height= 32;
@@ -26,5 +25,4 @@ public:
     void update() override;
     void updateMovement() override;
     void updateAnimations() override;
-//    void changeAnimation() override;
 };

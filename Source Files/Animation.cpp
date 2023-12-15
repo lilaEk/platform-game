@@ -17,31 +17,29 @@ int Animation::restartAnim() {
     return this->lastPlayedFrameIndex=0;
 }
 
-void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, int framesNumber){
-//    if(this->currentAnim != this){
-//        restartAnim();
-//    }
-//    this->currentAnim = this;
+void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim){
+/*
+        if(this->currentAnim != this){
+        restartAnim();
+    }
+    this->currentAnim = this;
+*/
 
     switch (currentAnim) {
-        case PawnState::idle:
-            this->framesNumber=4;
-            if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
-                // Obsłuż błąd ładowania tekstury
-                std::cout << "ERROR: Could not load texture from file\n";
-            }
-            this->sprite.setTexture(texture);
-            break;
         case PawnState::run:
+            if (this->lastState!=PawnState::run) this->lastPlayedFrameIndex=0;
+            this->lastState=PawnState::run;
             this->framesNumber=6;
             if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Run.png")) {
-                // Obsłuż błąd ładowania tekstury
+                // Obsłużyc błąd ładowania tekstury
                 std::cout << "ERROR: Could not load texture from file\n";
             }
             this->sprite.setTexture(texture);
             break;
-            // Dodaj inne przypadki dla różnych stanów postaci
+            // Dodac inne przypadki dla różnych stanów postaci
         default:
+            if (this->lastState!=PawnState::idle) this->lastPlayedFrameIndex=0;
+            this->lastState=PawnState::idle;
             this->framesNumber=4;
             if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
                 // Obsłuż błąd ładowania tekstury
@@ -71,15 +69,15 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
     sprite.setTextureRect(currentFrame);
 }
 
-void Animation::setTexture(const std::string& newAssetPath, int newFramesNumber) {
-    assetPath = newAssetPath;
-    framesNumber = newFramesNumber;
-
-    sf::Texture texture;
-    if (!texture.loadFromFile(assetPath)) {
-        // Obsługa błędu ładowania tekstury
-    }
-
-    sprite.setTexture(texture);
-    lastPlayedFrameIndex = 0;
-}
+//void Animation::setTexture(const std::string& newAssetPath, int newFramesNumber) {
+//    assetPath = newAssetPath;
+//    framesNumber = newFramesNumber;
+//
+//    sf::Texture texture;
+//    if (!texture.loadFromFile(assetPath)) {
+//        // Obsługa błędu ładowania tekstury
+//    }
+//
+//    sprite.setTexture(texture);
+//    lastPlayedFrameIndex = 0;
+//}

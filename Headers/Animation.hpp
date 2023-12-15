@@ -1,6 +1,5 @@
 #pragma once
 
-//#include "../Headers/Game.hpp"
 #include "iostream"
 #include "SFML/Graphics.hpp"
 
@@ -14,7 +13,7 @@ protected:
     const int frameDuration = 120;
     sf::Sprite sprite; //widoczny obrazek
     long elapsed; //czas jaki upłynął
-    PawnState currentAnim = PawnState::pic; //obecna animacja
+    PawnState lastState = PawnState::idle;
 
 public:
     int framesNumber; //klatki animacji
@@ -25,8 +24,8 @@ public:
     virtual ~Animation();
 
     int restartAnim();
-    void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, int framesNumber);
-    void setTexture(const std::string& newAssetPath, int newFramesNumber);
+    void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim);
+//    void setTexture(const std::string& newAssetPath, int newFramesNumber);
 
 //    void drawEntities(){
 //        for(Enity e : Enity.allEntities()){
