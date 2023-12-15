@@ -1,6 +1,8 @@
 #include "../Headers/Game.hpp"
 
-Player::Player() : Pawn(), Animation("../assets/Pink_Monster/Pink_Monster_Idle.png",4){
+Player::Player() : Pawn(),
+    Animation("../assets/Pink_Monster/Pink_Monster_Idle.png",4),
+    deltaTime(0.0f){
     //inits
     this->initTexture("../assets/Pink_Monster/Pink_Monster_Idle.png");
     this->initSprite();
@@ -58,5 +60,5 @@ void Player::updateMovement() {
 }
 
 void Player::updateAnimations() {
-
+    Animation::getCurrentAnimImg(deltaTime, width, height);
 }

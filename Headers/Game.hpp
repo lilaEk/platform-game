@@ -23,6 +23,9 @@ public:
     Game();
     virtual ~Game();
 
+    sf::Clock clock;
+    float deltaTime;
+
     const bool running() const;    //accessors
 
     void pollEvents();

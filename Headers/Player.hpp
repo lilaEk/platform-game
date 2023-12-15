@@ -9,6 +9,8 @@ private:
     int width = 32;
     int height= 32;
 
+    sf::Clock clock;
+    float deltaTime;
 
     void initSprite() override;
     void initTexture(const std::string& texturePath) override;

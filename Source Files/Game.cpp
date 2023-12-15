@@ -16,7 +16,7 @@ void Game::initPlayer(){
 
 
 //constructor / destructor
-Game::Game() {
+Game::Game() : deltaTime(0.0f) {
     this->initWindow();
     this->initPlayer();
 }
@@ -51,6 +51,9 @@ void Game::pollEvents() {
 
 void Game::update() {
     this-> pollEvents();
+
+    deltaTime = clock.restart().asSeconds();
+
     this->updatePlayer();
 }
 
