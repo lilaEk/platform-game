@@ -22,8 +22,8 @@ public:
 //    virtual void initAnimations() = 0;
 
     virtual void render(sf::RenderTarget& target) = 0;
-    virtual void update() = 0;
+    virtual void update(float d) = 0;
     virtual void updateMovement() = 0;
-    virtual void updateAnimations() = 0;
+    virtual void updateAnimations(float d) = 0;
 
 };

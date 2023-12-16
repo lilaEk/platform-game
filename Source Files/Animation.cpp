@@ -18,12 +18,6 @@ int Animation::restartAnim() {
 }
 
 void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, Direction direction) {
-/*
-        if(this->currentAnim != this){
-        restartAnim();
-    }
-    this->currentAnim = this;
-*/
 
     checkDirection(direction);
     checkAnimation(currentAnim);
@@ -77,7 +71,7 @@ void Animation::checkAnimation(PawnState currentAnim) {
                 this->lastPlayedFrameIndex = 0;
                 this->lastState = PawnState::run;
                 this->framesNumber = 6;
-                if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Run.png")) {
+                if (!texture.loadFromFile("../assets/Pink_Monster/Run.png")) {
                     std::cout << "ERROR: Could not load texture from file\n";
                 }
                 this->sprite.setTexture(texture);
@@ -91,7 +85,7 @@ void Animation::checkAnimation(PawnState currentAnim) {
                 this->lastPlayedFrameIndex = 0;
                 this->lastState = PawnState::idle;
                 this->framesNumber = 4;
-                if (!texture.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
+                if (!texture.loadFromFile("../assets/Pink_Monster/Idle.png")) {
                     // Obsłuż błąd ładowania tekstury
                     std::cout << "ERROR: Could not load texture from file\n";
                 }

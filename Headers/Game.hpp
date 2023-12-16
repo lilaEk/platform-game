@@ -29,8 +29,8 @@ public:
     const bool running() const;    //accessors
 
     void pollEvents();
-    void update();
-    void updatePlayer();
+    void update(float d);
+    void updatePlayer(float d);
     void render();
     void renderPlayer();
     const RenderWindow& getWindow() const;

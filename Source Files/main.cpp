@@ -2,7 +2,7 @@
 
 auto main() -> int {
 
-    srand(static_cast<unsigned>(time(0)));
+//    srand(static_cast<unsigned>(time(0)));
     float lastFunctionCallTime = 0.0f;
     const float functionCallInterval = 0.12f;
 
@@ -19,7 +19,7 @@ auto main() -> int {
         if (lastFunctionCallTime >= functionCallInterval)
         {
 
-            game.update();
+            game.update(game.deltaTime);
             game.render();
             lastFunctionCallTime = 0.0f;
         }

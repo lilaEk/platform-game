@@ -30,7 +30,6 @@ const bool Game::running() const {
     return this->window.isOpen();
 }
 
-
 //functions
 void Game::pollEvents() {
 
@@ -49,14 +48,14 @@ void Game::pollEvents() {
     }
 }
 
-void Game::update() {
+void Game::update(float deltaTime) {
     this-> pollEvents();
 
-    this->updatePlayer();
+    this->updatePlayer(deltaTime);
 }
 
-void Game::updatePlayer() {
-    this->player->update();
+void Game::updatePlayer(float deltaTime) {
+    this->player->update(deltaTime);
 }
 
 void Game::renderPlayer() {

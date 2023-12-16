@@ -2,18 +2,15 @@
 
 
 Player::Player() : Pawn(),
-    Animation("../assets/Pink_Monster/Pink_Monster_Idle.png",4),
-    deltaTime(0.0f){
-    //inits
-//    this->initTexture("../assets/Pink_Monster/Pink_Monster_Idle.png");
+                   Animation("../assets/Pink_Monster/Idle.png", 4){
     this->initSprite();
-    this->direction=Direction::right;
+    this->direction = Direction::right;
 }
 
 Player::~Player() = default;
 
 void Player::initSprite() {
-    this->currentPawnState=PawnState::idle;
+    this->currentPawnState = PawnState::idle;
     this->sprite.setTexture(this->textureSheet);
     this->currentFrame = sf::IntRect(64, 0, 32, 32);
     this->sprite.setTextureRect(this->currentFrame);
@@ -22,7 +19,7 @@ void Player::initSprite() {
 
 /*
 void Player::initTexture(const std::string& texturePath) {
-    if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Pink_Monster_Idle.png")) {
+    if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Idle.png")) {
         std::cout << "ERROR::PLAYER::Could not load the player\n";
     }
 }
@@ -34,9 +31,9 @@ void Player::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
 }
 
-void Player::update() {
+void Player::update(float deltaTime) {
     this->updateMovement();
-    this->updateAnimations();
+    this->updateAnimations(deltaTime);
 }
 
 void Player::updateMovement() {
@@ -44,27 +41,27 @@ void Player::updateMovement() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
         this->Animation::sprite.move(-08.F, 0.f);
-        this->currentPawnState=PawnState::run;
-        this->direction=Direction::left;
+        this->currentPawnState = PawnState::run;
+        this->direction = Direction::left;
     }
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         this->Animation::sprite.move(08.f, 0.f);
-        this->currentPawnState=PawnState::run;
-        this->direction=Direction::right;
+        this->currentPawnState = PawnState::run;
+        this->direction = Direction::right;
     }
         //jump later
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         this->Animation::sprite.move(0.f, -08.f);
-        this->currentPawnState=PawnState::run;
+        this->currentPawnState = PawnState::run;
     }
         //down - do wyrzucenia
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->Animation::sprite.move(0.f, 08.f);
-        this->currentPawnState=PawnState::run;
+        this->currentPawnState = PawnState::run;
     }
         //brak ruchu
     else {
@@ -72,7 +69,7 @@ void Player::updateMovement() {
     }
 }
 
-void Player::updateAnimations() {
+void Player::updateAnimations(float deltaTime) {
     Animation::getCurrentAnimImg(deltaTime, width, height, this->currentPawnState, this->direction);
 }
 
