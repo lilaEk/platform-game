@@ -3,11 +3,15 @@
 #include "Pawn.hpp"
 #include "Animation.hpp"
 
-class Player : public Pawn, public Animation {
+class Player : public Pawn {
 
 private:
-    Animation idle = Animation("../assets/Pink_Monster/Run.png", 4);
-    Animation run = Animation("../assets/Pink_Monster/Run.png", 6);
+    Direction lastDirection;
+
+    const float scale = 2.5f;
+    Animation pic = Animation("../assets/Pink_Monster/Pic.png", 1);
+    Animation idle = Animation("../assets/Pink_Monster/Idle.png", 4, scale);
+    Animation run = Animation("../assets/Pink_Monster/Run.png", 6, scale);
     Animation jump = Animation("../assets/Pink_Monster/Jump.png", 8);
 //    Animation jumpAttack = Animation();
     Animation die = Animation("../assets/Pink_Monster/Death.png", 8);
@@ -21,23 +25,25 @@ private:
     Animation directDoubleAttack = Animation("../assets/Pink_Monster/Attack_Double.png", 6);
     Animation throwAttack = Animation("../assets/Pink_Monster/Throw.png", 4);
 
-
     int width = 32;
-    int height= 32;
-
-    sf::Clock clock;
-    float deltaTime;
+    int height = 32;
 
     void initSprite() override;
-//    void initTexture(const std::string& texturePath) override;
-//    void initAnimations() override;
 
 public:
     Player();
+
     ~Player() override;
 
-    void render(sf::RenderTarget& target) override;
+    void render(sf::RenderTarget &target) override;
+
     void update(float d) override;
-    void updateMovement() override;
+
+    void updateMovement(float d) override;
+
     void updateAnimations(float d) override;
+
+    sf::Sprite sprite;
+    float position_x = 0.0f;
+    float position_y= 0.0f;
 };

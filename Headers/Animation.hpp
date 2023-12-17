@@ -9,32 +9,26 @@
 
 class Animation {
 
-protected:
+private:
+    float scale;
     sf::Texture texture;
     const int frameDuration = 120;
     sf::Sprite sprite; //widoczny obrazek
-    long elapsed; //czas jaki upłynął
-    PawnState lastState = PawnState::pic;
-    Direction lastDirection=Direction::right;
+    long elapsed=0; //czas jaki upłynął
 
 public:
-    int framesNumber; //klatki animacji
-    int lastPlayedFrameIndex; //ostatnia klatka
-    std::string assetPath; //scieżka do assetu
+    const int framesNumber; //klatki animacji
+    int lastPlayedFrameIndex = 0; //ostatnia klatka
+    const std::string assetPath; //scieżka do assetu
 
-    Animation(std::string assetPath, int framesNumber);
+    Animation(const std::string &assetPath, int framesNumber);
+    Animation(const std::string &assetPath, int framesNumber, float scale);
     virtual ~Animation();
 
-    void getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, Direction direction);
-    void checkDirection(Direction direction);
-    void checkAnimation(PawnState currentAnim);
+    sf::Sprite getCurrentAnimImg(long deltaT, int w, int h);
+
+    static void checkDirection(sf::Sprite &sprite, Direction direction,float scale);
+
     int restartAnim();
-
-
-//    void drawEntities(){
-//        for(Enity e : Enity.allEntities()){
-//            e.draw()
-//        }
-//    }
 
 };

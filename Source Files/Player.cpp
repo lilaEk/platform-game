@@ -1,8 +1,8 @@
 #include "../Headers/Game.hpp"
+#include "fmt/core.h"
+#include "iostream"
 
-
-Player::Player() : Pawn(),
-                   Animation("../assets/Pink_Monster/Idle.png", 4){
+Player::Player() : Pawn() {
     this->initSprite();
     this->direction = Direction::right;
 }
@@ -11,65 +11,74 @@ Player::~Player() = default;
 
 void Player::initSprite() {
     this->currentPawnState = PawnState::idle;
-    this->sprite.setTexture(this->textureSheet);
-    this->currentFrame = sf::IntRect(64, 0, 32, 32);
-    this->sprite.setTextureRect(this->currentFrame);
-    this->sprite.setScale(2.5f, 2.5f);
+    this->lastDirection=Direction::right;
 }
-
-/*
-void Player::initTexture(const std::string& texturePath) {
-    if (!this->textureSheet.loadFromFile("../assets/Pink_Monster/Idle.png")) {
-        std::cout << "ERROR::PLAYER::Could not load the player\n";
-    }
-}
- */
-
-//void Player::initAnimations() { }
 
 void Player::render(sf::RenderTarget &target) {
+    this->sprite.setPosition(this->position_x, this->position_y);
+//    Animation::checkDirection(this->sprite,this->direction,this->scale);
+    std::cout << "position_x: " << this->sprite.getPosition().x << std::endl;
     target.draw(this->sprite);
 }
 
 void Player::update(float deltaTime) {
-    this->updateMovement();
+    this->updateMovement(deltaTime);
     this->updateAnimations(deltaTime);
 }
 
-void Player::updateMovement() {
-        //left movement
+void Player::updateMovement(float deltaTime) {
+    float movement_speed = 8000000.f;
+
+    //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        this->Animation::sprite.move(-08.F, 0.f);
+        this->position_x -= movement_speed * deltaTime;
+        if (this->position_x < 0) { this->position_x = 0; };
         this->currentPawnState = PawnState::run;
-        this->direction = Direction::left;
+        if (lastDirection==Direction::right) {
+            this->direction = Direction::left;
+            Animation::checkDirection(this->sprite, this->direction, this->scale);
+        }
     }
         //right movement
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
-             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-        this->Animation::sprite.move(08.f, 0.f);
-        this->currentPawnState = PawnState::run;
-        this->direction = Direction::right;
-    }
-        //jump later
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
-             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        this->Animation::sprite.move(0.f, -08.f);
-        this->currentPawnState = PawnState::run;
-    }
-        //down - do wyrzucenia
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
-             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        this->Animation::sprite.move(0.f, 08.f);
-        this->currentPawnState = PawnState::run;
-    }
-        //brak ruchu
     else {
-        this->currentPawnState = PawnState::idle;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
+            or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+            this->position_x += movement_speed * deltaTime;
+            this->currentPawnState = PawnState::run;
+            if (lastDirection==Direction::left){
+                std::cout<<"zmiana kierunku na lewo"<<std::endl;
+                this->direction = Direction::right;
+                Animation::checkDirection(this->sprite,this->direction,this->scale);
+            }
+        }
+            //jump later
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
+                 or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+            this->sprite.move(0.f, -movement_speed);
+            this->currentPawnState = PawnState::run;
+        }
+            //down - do wyrzucenia
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
+                 or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+
+            this->sprite.move(0.f, movement_speed);
+            this->currentPawnState = PawnState::run;
+        }
+            //brak ruchu
+        else {
+            this->currentPawnState = PawnState::idle;
+        }
     }
 }
 
 void Player::updateAnimations(float deltaTime) {
-    Animation::getCurrentAnimImg(deltaTime, width, height, this->currentPawnState, this->direction);
+    switch (this->currentPawnState) {
+        case PawnState::run:
+            this->sprite = run.getCurrentAnimImg(deltaTime, this->width, this->height);
+            break;
+        default:
+            this->sprite = idle.getCurrentAnimImg(deltaTime, this->width, this->height);
+            break;
+    }
 }
-

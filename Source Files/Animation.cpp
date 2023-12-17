@@ -1,14 +1,26 @@
 #include "../Headers/Animation.hpp"
 
-Animation::Animation(std::string assetPath, int framesNumber) :
-        assetPath(assetPath), framesNumber(framesNumber) {
-    sf::Texture texture;
+Animation::Animation(const std::string &assetPath, int framesNumber, float scale) :
+        assetPath(assetPath), framesNumber(framesNumber), scale(scale) {
     if (!texture.loadFromFile(assetPath)) {
-        //obsluga bledu
+        std::cout << "ERROR: Could not load texture from file\n";
     }
 
     this->sprite = sf::Sprite(texture);
-    this->lastPlayedFrameIndex = 0;
+    sprite.setScale(scale, scale);
+
+}
+
+Animation::Animation(const std::string &assetPath, int framesNumber) :
+        assetPath(assetPath), framesNumber(framesNumber) {
+    this->scale = 1.0F;
+    if (!texture.loadFromFile(assetPath)) {
+        std::cout << "ERROR: Could not load texture from file\n";
+    }
+
+    this->sprite = sf::Sprite(texture);
+    sprite.setScale(scale, scale);
+
 }
 
 Animation::~Animation() {}
@@ -17,10 +29,7 @@ int Animation::restartAnim() {
     return this->lastPlayedFrameIndex = 0;
 }
 
-void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAnim, Direction direction) {
-
-    checkDirection(direction);
-    checkAnimation(currentAnim);
+sf::Sprite Animation::getCurrentAnimImg(long deltaT, int w, int h) {
 
     this->elapsed += deltaT;
     if (this->elapsed >= this->frameDuration) {
@@ -33,64 +42,34 @@ void Animation::getCurrentAnimImg(long deltaT, int w, int h, PawnState currentAn
 
     if (this->lastPlayedFrameIndex == this->framesNumber - 1) {
         restartAnim();
-        sf::IntRect currentFrame = sf::IntRect(0, 0, w, h);
+        sf::IntRect currentFrame = sf::IntRect((this->lastPlayedFrameIndex) * w, 0, w, h);
         sprite.setTextureRect(currentFrame);
-        return;
+        return sprite;
     }
     this->lastPlayedFrameIndex += 1;
     sf::IntRect currentFrame = sf::IntRect(
             (this->lastPlayedFrameIndex) * w, 0, w, h);
     sprite.setTextureRect(currentFrame);
+
+    return sprite;
 }
 
-void Animation::checkDirection(Direction direction) {
-    if (direction != this->lastDirection) {
-        if (direction == Direction::left) {
-            sprite.setScale(-2.5f, 2.5f);
-        } else if (direction == Direction::right) {
-            sprite.setScale(2.5f, 2.5f);
-        }
+void Animation::checkDirection(sf::Sprite &sprite, Direction direction, float scale) {
 
-        sf::FloatRect bounds = sprite.getLocalBounds();
-        sf::Vector2f oldPosition = sprite.getPosition();
-
-        if (direction == Direction::left) {
-            sprite.setPosition(oldPosition.x + bounds.width * 2.5f, oldPosition.y);
-        } else if (direction == Direction::right) {
-            sprite.setPosition(oldPosition.x - bounds.width * 2.5f, oldPosition.y);
-        }
-
-        this->lastDirection = direction;
+    if (direction == Direction::left) {
+        sprite.setScale(-scale, scale);
     }
-}
+    if (direction == Direction::right) {
+        sprite.setScale(scale, scale);
+    }
 
-void Animation::checkAnimation(PawnState currentAnim) {
-    switch (currentAnim) {
-        case PawnState::run:
-            if (this->lastState != PawnState::run) {
-                this->lastPlayedFrameIndex = 0;
-                this->lastState = PawnState::run;
-                this->framesNumber = 6;
-                if (!texture.loadFromFile("../assets/Pink_Monster/Run.png")) {
-                    std::cout << "ERROR: Could not load texture from file\n";
-                }
-                this->sprite.setTexture(texture);
-                break;
-            }
+    sf::FloatRect bounds = sprite.getLocalBounds();
+    sf::Vector2f oldPosition = sprite.getPosition();
 
-            break;
-            // Dodac inne przypadki dla różnych stanów postaci
-        default:
-            if (this->lastState != PawnState::idle) {
-                this->lastPlayedFrameIndex = 0;
-                this->lastState = PawnState::idle;
-                this->framesNumber = 4;
-                if (!texture.loadFromFile("../assets/Pink_Monster/Idle.png")) {
-                    // Obsłuż błąd ładowania tekstury
-                    std::cout << "ERROR: Could not load texture from file\n";
-                }
-                this->sprite.setTexture(texture);
-            }
-            break;
+    if (direction == Direction::left) {
+        sprite.setPosition(oldPosition.x + bounds.width * scale, oldPosition.y);
+    }
+    if (direction == Direction::right) {
+        sprite.setPosition(oldPosition.x - bounds.width * scale, oldPosition.y);
     }
 }
