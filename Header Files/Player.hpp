@@ -21,7 +21,7 @@ private:
 //    Animation hurt = Animation("../assets/Pink_Monster/Hurt.png", 4);
 //    Animation directAttack = Animation("../assets/Pink_Monster/Attack.png", 4);
     Animation directDoubleAttack = Animation("../assets/Pink_Monster/Attack_Double.png", 6, scale, &this->lastPawnState);
-//    Animation throwAttack = Animation("../assets/Pink_Monster/Throw.png", 4);
+    Animation throwAttack = Animation("../assets/Pink_Monster/Throw.png", 4, scale, &this->lastPawnState);
 
     int width = 32;
     int height = 32;
@@ -44,5 +44,5 @@ public:
     sf::Sprite sprite;
     float position_x = 0.0f + width;
     float position_y = 450.f;
-    float movement_speed = 8000000.f;
+    float movement_speed = 350.f;
 };

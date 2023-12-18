@@ -31,8 +31,9 @@ void Player::updateMovement(float currentTime) {
     //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-//        this->position_x -= movement_speed * currentTime;
-        this->position_x -= 8.F;
+
+        this->position_x -= movement_speed * currentTime;
+
         if (this->position_x < 0 + width) {
             this->position_x = 0 + width;
         };
@@ -44,8 +45,8 @@ void Player::updateMovement(float currentTime) {
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-//        this->position_x += movement_speed * currentTime;
-        this->position_x += 8.F;
+        this->position_x += movement_speed * currentTime;
+
         if (this->position_x > 1200 - width) {
             this->position_x = 1200 - width;
         };
@@ -90,8 +91,8 @@ void Player::updateAnimations(float deltaTime) {
 
     switch (this->currentPawnState) {
         case PawnState::run:
-            this->sprite = run.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
-                                                 PawnState::run);
+            this->sprite = run.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction,
+                                                 this->scale, PawnState::run);
             break;
 //        case ::PawnState::jump:
 //            this->sprite = jump.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::jump);
@@ -127,9 +128,9 @@ void Player::updateAnimations(float deltaTime) {
                                                                 this->scale,
                                                                 PawnState::directDoubleAttack);
             break;
-//        case ::PawnState::throwAttack:
-//            this->sprite = throwAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::throwAttack);
-//            break;
+        case ::PawnState::throwAttack:
+            this->sprite = throwAttack.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale, PawnState::throwAttack);
+            break;
         default: //idle
             this->sprite = idle.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
                                                   PawnState::idle);
