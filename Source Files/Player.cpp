@@ -58,8 +58,8 @@ void Player::updateMovement(float currentTime) {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         this->position_y -= 20.F;
-        if (this->position_y < 0.f) {
-            this->position_y = 0.f;
+        if (this->position_y < 50.f) {
+            this->position_y = 50.f;
         };
         this->currentPawnState = PawnState::jump;
     }
@@ -67,8 +67,8 @@ void Player::updateMovement(float currentTime) {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->position_y += 20.F;
-        if (this->position_y > 500.f) {
-            this->position_y = 500.f;
+        if (this->position_y > 450.f) {
+            this->position_y = 450.f;
         };
         this->currentPawnState = PawnState::roll;
     }

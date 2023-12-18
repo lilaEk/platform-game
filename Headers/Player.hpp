@@ -44,6 +44,6 @@ public:
 
     sf::Sprite sprite;
     float position_x = 0.0f+width;
-    float position_y= 500.f;
+    float position_y= 450.f;
     float movement_speed = 8000000.f;
 };
