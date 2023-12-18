@@ -11,6 +11,8 @@ class Pawn {
 
 protected:
     PawnState currentPawnState = PawnState::idle;
+    PawnState lastPawnState = PawnState::idle;
+
     sf::Texture textureSheet;
     Direction direction;
 
@@ -22,9 +24,12 @@ public:
 
     virtual void initPlayer() = 0;
 
-    virtual void render(sf::RenderTarget& target) = 0;
+    virtual void render(sf::RenderTarget &target) = 0;
+
     virtual void update(float d) = 0;
+
     virtual void updateMovement(float d) = 0;
+
     virtual void updateAnimations(float d) = 0;
 
 };

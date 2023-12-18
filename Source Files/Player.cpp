@@ -11,7 +11,7 @@ Player::~Player() = default;
 
 void Player::initPlayer() {
     this->currentPawnState = PawnState::idle;
-    this->sprite.setScale(scale,scale);
+    this->sprite.setScale(scale, scale);
 }
 
 void Player::render(sf::RenderTarget &target) {
@@ -27,7 +27,7 @@ void Player::update(float currentTime) {
 }
 
 void Player::updateMovement(float currentTime) {
-
+    this->lastPawnState = this->currentPawnState;
     //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
@@ -72,9 +72,9 @@ void Player::updateMovement(float currentTime) {
         };
         this->currentPawnState = PawnState::roll;
     }
-        //directAttack - k - todo
+        //directDoubleAttack - k - todo
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)) {
-        this->currentPawnState = PawnState::directAttack;
+        this->currentPawnState = PawnState::directDoubleAttack;
     }
         //throwAtack - l - todo
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)) {
@@ -90,45 +90,48 @@ void Player::updateAnimations(float deltaTime) {
 
     switch (this->currentPawnState) {
         case PawnState::run:
-            this->sprite = run.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
+            this->sprite = run.getCurrentAnimImg(this->width, this->height, this->direction, this->scale,
+                                                 PawnState::run);
             break;
-        case ::jump:
-            this->sprite = jump.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            break;
+//        case ::PawnState::jump:
+//            this->sprite = jump.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::jump);
+//            break;
 //        case jumpAttack:
 //            break;
-        case ::die:
-            this->sprite = death.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            break;
+//        case ::PawnState::die:
+//            this->sprite = death.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::die);
+//            break;
 //        case roll:
 //            break;
 //        case squat:
 //            break;
 //        case happy:
 //            break;
-        case ::push:
-            this->sprite = push.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            break;
+//        case ::PawnState::push:
+//            this->sprite = push.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::push);
+//            break;
 //        case lift:
 //            break;
-        case ::hurt:
-            this->sprite = hurt.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            break;
+//        case ::PawnState::hurt:
+//            this->sprite = hurt.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::hurt);
+//            break;
 //        case fly:
 //            break;
 //        case ::pic:
 //            break;
-        case ::directAttack:
-            this->sprite = directAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
+//        case ::directAttack:
+//            this->sprite = directAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
+//            break;
+        case ::PawnState::directDoubleAttack:
+            this->sprite = directDoubleAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale,
+                                                                PawnState::directDoubleAttack);
             break;
-        case ::directDoubleAttack:
-            this->sprite = directDoubleAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            break;
-        case ::throwAttack:
-            this->sprite = throwAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            break;
+//        case ::PawnState::throwAttack:
+//            this->sprite = throwAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::throwAttack);
+//            break;
         default: //idle
-            this->sprite = idle.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
+            this->sprite = idle.getCurrentAnimImg(this->width, this->height, this->direction, this->scale,
+                                                  PawnState::idle);
             break;
     }
 }

@@ -14,10 +14,10 @@ auto main() -> int {
     while (game.running()) {
 
         game.currentTime = game.clock.restart().asSeconds();
-        std::cout<<"current time: "<<game.currentTime<<std::endl;
+//        std::cout<<"current time: "<<game.currentTime<<std::endl;
 
         float fps = 1.0F / (game.currentTime);
-        std::cout<<"fps: "<<fps<<std::endl;
+//        std::cout<<"fps: "<<fps<<std::endl;
 
         lastFunctionCallTime += game.currentTime;
 

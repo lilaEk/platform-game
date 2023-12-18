@@ -1,35 +1,33 @@
 #include "../Headers/Animation.hpp"
 
-Animation::Animation(const std::string &assetPath, int framesNumber, float scale) :
-        assetPath(assetPath), framesNumber(framesNumber), scale(scale) {
-    if (!texture.loadFromFile(assetPath)) {
-        std::cout << "ERROR: Could not load texture from file\n";
-    }
 
-    this->sprite = sf::Sprite(texture);
-    sprite.setScale(scale, scale);
 
-}
-
-Animation::Animation(const std::string &assetPath, int framesNumber) :
-        assetPath(assetPath), framesNumber(framesNumber) {
+Animation::Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *lastPawnState) :
+        assetPath(assetPath), framesNumber(framesNumber), lastPawnState(lastPawnState) {
     this->scale = 1.0F;
     if (!texture.loadFromFile(assetPath)) {
         std::cout << "ERROR: Could not load texture from file\n";
     }
-
     this->sprite = sf::Sprite(texture);
     sprite.setScale(scale, scale);
+
 
 }
 
 Animation::~Animation() = default;
 
-int Animation::restartAnim() {
-    return this->lastPlayedFrameIndex = 0;
+void Animation::restartAnim() {
+    this->lastPlayedFrameIndex = 0;
 }
 
-sf::Sprite Animation::getCurrentAnimImg(int w, int h, Direction direction, float scale) {
+sf::Sprite Animation::getCurrentAnimImg(int w, int h, Direction direction, float scale, PawnState newPawnState) {
+
+    if (*lastPawnState != newPawnState) {
+        std::cout << "Current State: " << *lastPawnState << std::endl;
+        std::cout << "New State: " << newPawnState << std::endl << std::endl;
+        *lastPawnState = newPawnState;
+        restartAnim();
+    }
 
     newDirectionAndScale(this->sprite, direction, scale);
 

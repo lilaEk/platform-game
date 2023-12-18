@@ -1,7 +1,7 @@
 #pragma once
+#include "iostream"
 
-enum PawnState
-{
+enum class PawnState {
 //PLAYER
     idle,
     jump, //w lewo i w prawo
@@ -22,3 +22,5 @@ enum PawnState
     directDoubleAttack, //w lewo i w prawo
     throwAttack //w lewo i w prawo
 };
+
+extern std::ostream& operator<<(std::ostream& os, const PawnState& state);
