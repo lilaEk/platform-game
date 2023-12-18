@@ -22,20 +22,20 @@ FetchContent_MakeAvailable(sfml)
 
 add_executable(my_game "Source Files/main.cpp"
         "Source Files/Game.cpp"
-        "Headers/Game.hpp"
+        "Header Files/Game.hpp"
         "Source Files/stdafx.cpp"
-        "Headers/stdafx.hpp"
+        "Header Files/stdafx.hpp"
         "Source Files/Player.cpp"
-        "Headers/Player.hpp"
+        "Header Files/Player.hpp"
         "Source Files/Animation.cpp"
-        "Headers/Animation.hpp"
+        "Header Files/Animation.hpp"
         "Source Files/Entity.cpp"
-        Headers/Entity.hpp
-        Headers/Pawn.hpp
+        "Header Files/Entity.hpp"
+        "Header Files/Pawn.hpp"
         "Source Files/AI_Pawn.cpp"
-        Headers/AI_Pawn.hpp
-        Headers/PawnState.hpp
-        Headers/Direction.hpp
+        "Header Files/AI_Pawn.hpp"
+        "Header Files/PawnState.hpp"
+        "Header Files/Direction.hpp"
         "Source Files/PawnState.cpp")
 
 target_link_libraries(my_game fmt)

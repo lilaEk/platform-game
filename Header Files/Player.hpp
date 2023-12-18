@@ -12,7 +12,7 @@ private:
     Animation run = Animation("../assets/Pink_Monster/Run.png", 6, scale, &this->lastPawnState);
 //    Animation jump = Animation("../assets/Pink_Monster/Jump.png", 8);
 ////    Animation jumpAttack = Animation();
-//    Animation death = Animation("../assets/Pink_Monster/Death.png", 8);
+//      Animation death = Animation("../assets/Pink_Monster/Death.png", 8);
 ////    Animation roll = Animation("../assets/Pink_Monster/Roll.png");
 ////    Animation squat = Animation("../assets/Pink_Monster/Squat.png");
 ////    Animation happy = Animation("../assets/Pink_Monster/Happy.png");

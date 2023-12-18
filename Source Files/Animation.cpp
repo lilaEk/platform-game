@@ -1,5 +1,4 @@
-#include "../Headers/Animation.hpp"
-
+#include "../Header Files/Animation.hpp"
 
 
 Animation::Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *lastPawnState) :
@@ -20,8 +19,8 @@ void Animation::restartAnim() {
     this->lastPlayedFrameIndex = 0;
 }
 
-sf::Sprite Animation::getCurrentAnimImg(int w, int h, Direction direction, float scale, PawnState newPawnState) {
-
+sf::Sprite
+Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState) {
     if (*lastPawnState != newPawnState) {
         std::cout << "Current State: " << *lastPawnState << std::endl;
         std::cout << "New State: " << newPawnState << std::endl << std::endl;
@@ -29,13 +28,16 @@ sf::Sprite Animation::getCurrentAnimImg(int w, int h, Direction direction, float
         restartAnim();
     }
 
-    newDirectionAndScale(this->sprite, direction, scale);
-
-    if (this->lastPlayedFrameIndex >= this->framesNumber - 1) {
-        restartAnim();
-        return getSprite(w, h);
+    this->elapsed += deltaTime;
+    if(elapsed>=frameDuration){
+        lastPlayedFrameIndex++;
+        if (lastPlayedFrameIndex >= framesNumber) {
+            restartAnim();
+        }
+        elapsed = 0;
     }
-    this->lastPlayedFrameIndex += 1;
+
+    newDirectionAndScale(this->sprite, direction, scale);
     return getSprite(w, h);
 }
 

@@ -1,4 +1,4 @@
-#include "../Headers/Game.hpp"
+#include "../Header Files/Game.hpp"
 
 //inits
 void Game::initWindow() {

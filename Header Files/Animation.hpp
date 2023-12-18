@@ -13,7 +13,8 @@ private:
     float scale;
     sf::Texture texture;
     sf::Sprite sprite; //widoczny obrazek
-    long elapsed = 0; //czas jaki upłynął
+    float elapsed = 0; //czas jaki upłynął
+    const float frameDuration = 120/1000.0f; //ms
     PawnState *lastPawnState;
 
 public:
@@ -26,7 +27,8 @@ public:
 
     virtual ~Animation();
 
-    sf::Sprite getCurrentAnimImg(int w, int h, Direction direction, float scale, PawnState newPawnState);
+    sf::Sprite
+    getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState);
 
     static void newDirectionAndScale(sf::Sprite &sprite, Direction direction, float scale);
 

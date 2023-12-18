@@ -1,4 +1,4 @@
-#include "../Headers/Game.hpp"
+#include "../Header Files/Game.hpp"
 #include "fmt/core.h"
 //#include "iostream"
 
@@ -90,7 +90,7 @@ void Player::updateAnimations(float deltaTime) {
 
     switch (this->currentPawnState) {
         case PawnState::run:
-            this->sprite = run.getCurrentAnimImg(this->width, this->height, this->direction, this->scale,
+            this->sprite = run.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
                                                  PawnState::run);
             break;
 //        case ::PawnState::jump:
@@ -123,14 +123,15 @@ void Player::updateAnimations(float deltaTime) {
 //            this->sprite = directAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
 //            break;
         case ::PawnState::directDoubleAttack:
-            this->sprite = directDoubleAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale,
+            this->sprite = directDoubleAttack.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction,
+                                                                this->scale,
                                                                 PawnState::directDoubleAttack);
             break;
 //        case ::PawnState::throwAttack:
 //            this->sprite = throwAttack.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::throwAttack);
 //            break;
         default: //idle
-            this->sprite = idle.getCurrentAnimImg(this->width, this->height, this->direction, this->scale,
+            this->sprite = idle.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
                                                   PawnState::idle);
             break;
     }

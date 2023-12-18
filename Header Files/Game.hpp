@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Headers/Game.hpp"
-#include "../Headers/stdafx.hpp"
+#include "../Header Files/Game.hpp"
+#include "../Header Files/stdafx.hpp"
 #include "Player.hpp"
 
 
