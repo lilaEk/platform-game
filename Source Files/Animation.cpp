@@ -31,10 +31,7 @@ int Animation::restartAnim() {
 
 sf::Sprite Animation::getCurrentAnimImg(int w, int h, Direction direction, float scale) {
 
-    if (this->lastDirectionToCompare != direction) {
-        newDirection(this->sprite, direction, scale);
-        lastDirectionToCompare = direction;
-    }
+    newDirectionAndScale(this->sprite, direction, scale);
 
     if (this->lastPlayedFrameIndex >= this->framesNumber - 1) {
         restartAnim();
@@ -42,7 +39,6 @@ sf::Sprite Animation::getCurrentAnimImg(int w, int h, Direction direction, float
     }
     this->lastPlayedFrameIndex += 1;
     return getSprite(w, h);
-
 }
 
 sf::Sprite Animation::getSprite(int w, int h) {
@@ -51,9 +47,7 @@ sf::Sprite Animation::getSprite(int w, int h) {
     return sprite;
 }
 
-void Animation::newDirection(sf::Sprite &sprite, Direction direction, float scale) {
-
-    sprite.setOrigin(sprite.getLocalBounds().width / 2, 0);
+void Animation::newDirectionAndScale(sf::Sprite &sprite, Direction direction, float scale) {
 
     if (direction == Direction::left) {
         sprite.setScale(-scale, scale);

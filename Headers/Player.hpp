@@ -27,7 +27,7 @@ private:
     int width = 32;
     int height = 32;
 
-    void initPlayerState() override;
+    void initPlayer() override;
 
 public:
     Player();
@@ -44,8 +44,6 @@ public:
 
     sf::Sprite sprite;
     float position_x = 0.0f+width;
-    float position_y= 0.0f;
+    float position_y= 500.f;
     float movement_speed = 8000000.f;
-
-    void adjustPositionAfterDirectionChange();
 };
