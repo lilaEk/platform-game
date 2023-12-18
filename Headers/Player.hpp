@@ -31,15 +31,11 @@ private:
 
 public:
     Player();
-
     ~Player() override;
 
     void render(sf::RenderTarget &target) override;
-
     void update(float d) override;
-
     void updateMovement(float d) override;
-
     void updateAnimations(float d) override;
 
     sf::Sprite sprite;
