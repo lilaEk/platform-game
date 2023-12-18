@@ -50,7 +50,6 @@ void Game::pollEvents() {
 
 void Game::update(float deltaTime) {
     this-> pollEvents();
-
     this->updatePlayer(deltaTime);
 }
 

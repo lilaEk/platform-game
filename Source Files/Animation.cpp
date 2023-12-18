@@ -23,53 +23,51 @@ Animation::Animation(const std::string &assetPath, int framesNumber) :
 
 }
 
-Animation::~Animation() {}
+Animation::~Animation() = default;
 
 int Animation::restartAnim() {
     return this->lastPlayedFrameIndex = 0;
 }
 
-sf::Sprite Animation::getCurrentAnimImg(long deltaT, int w, int h) {
+sf::Sprite Animation::getCurrentAnimImg(int w, int h, Direction direction, float scale) {
 
-    this->elapsed += deltaT;
-    if (this->elapsed >= this->frameDuration) {
-        this->lastPlayedFrameIndex++;
-        if (this->lastPlayedFrameIndex >= this->framesNumber) {
-            this->lastPlayedFrameIndex = 0;
-        }
-        this->elapsed = 0;
+    if (this->lastDirectionToCompare != direction) {
+        newDirection(this->sprite, direction, scale);
+        lastDirectionToCompare = direction;
+
+        if (this->lastPlayedFrameIndex >= this->framesNumber - 1) restartAnim();
+
+        return getSprite(w, h);
     }
 
-    if (this->lastPlayedFrameIndex == this->framesNumber - 1) {
+    if (this->lastPlayedFrameIndex >= this->framesNumber - 1) {
         restartAnim();
-        sf::IntRect currentFrame = sf::IntRect((this->lastPlayedFrameIndex) * w, 0, w, h);
-        sprite.setTextureRect(currentFrame);
-        return sprite;
+        return getSprite(w, h);
     }
     this->lastPlayedFrameIndex += 1;
-    sf::IntRect currentFrame = sf::IntRect(
-            (this->lastPlayedFrameIndex) * w, 0, w, h);
-    sprite.setTextureRect(currentFrame);
+    return getSprite(w, h);
 
+}
+
+sf::Sprite Animation::getSprite(int w, int h) {
+    sf::IntRect currentFrame = sf::IntRect((lastPlayedFrameIndex) * w, 0, w, h);
+    sprite.setTextureRect(currentFrame);
     return sprite;
 }
 
-void Animation::checkDirection(sf::Sprite &sprite, Direction direction, float scale) {
+void Animation::newDirection(sf::Sprite &sprite, Direction direction, float scale) {
 
     if (direction == Direction::left) {
         sprite.setScale(-scale, scale);
-    }
-    if (direction == Direction::right) {
+//        sprite.setPosition(position_x+w*lastPlayedFrameIndex, position_y);
+
+    } else {
         sprite.setScale(scale, scale);
-    }
+//        sprite.setPosition(position_x-w*lastPlayedFrameIndex, position_y);
 
-    sf::FloatRect bounds = sprite.getLocalBounds();
-    sf::Vector2f oldPosition = sprite.getPosition();
+    }
+}
 
-    if (direction == Direction::left) {
-        sprite.setPosition(oldPosition.x + bounds.width * scale, oldPosition.y);
-    }
-    if (direction == Direction::right) {
-        sprite.setPosition(oldPosition.x - bounds.width * scale, oldPosition.y);
-    }
+int Animation::getLastFrameIndex() {
+    return lastPlayedFrameIndex;
 }

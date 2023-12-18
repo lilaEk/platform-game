@@ -6,7 +6,7 @@
 class Player : public Pawn {
 
 private:
-    Direction lastDirection;
+//    Direction lastDirection; //0 - lewo, 1 -prawo
 
     const float scale = 2.5f;
     Animation pic = Animation("../assets/Pink_Monster/Pic.png", 1);
@@ -14,7 +14,7 @@ private:
     Animation run = Animation("../assets/Pink_Monster/Run.png", 6, scale);
     Animation jump = Animation("../assets/Pink_Monster/Jump.png", 8);
 //    Animation jumpAttack = Animation();
-    Animation die = Animation("../assets/Pink_Monster/Death.png", 8);
+    Animation death = Animation("../assets/Pink_Monster/Death.png", 8);
 //    Animation roll = Animation("../assets/Pink_Monster/Roll.png");
 //    Animation squat = Animation("../assets/Pink_Monster/Squat.png");
 //    Animation happy = Animation("../assets/Pink_Monster/Happy.png");
@@ -46,4 +46,6 @@ public:
     sf::Sprite sprite;
     float position_x = 0.0f;
     float position_y= 0.0f;
+    float movement_speed = 8000000.f;
+
 };

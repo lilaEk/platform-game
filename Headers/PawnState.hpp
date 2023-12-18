@@ -19,5 +19,6 @@ enum PawnState
     pic,
     run, //w lewo i w prawo
     directAttack, //w lewo i w prawo
+    directDoubleAttack, //w lewo i w prawo
     throwAttack //w lewo i w prawo
 };

@@ -11,14 +11,13 @@ Player::~Player() = default;
 
 void Player::initSprite() {
     this->currentPawnState = PawnState::idle;
-    this->lastDirection=Direction::right;
 }
 
 void Player::render(sf::RenderTarget &target) {
     this->sprite.setPosition(this->position_x, this->position_y);
-//    Animation::checkDirection(this->sprite,this->direction,this->scale);
-    std::cout << "position_x: " << this->sprite.getPosition().x << std::endl;
     target.draw(this->sprite);
+
+    std::cout << "position_x: " << this->sprite.getPosition().x << std::endl;
 }
 
 void Player::update(float deltaTime) {
@@ -27,7 +26,6 @@ void Player::update(float deltaTime) {
 }
 
 void Player::updateMovement(float deltaTime) {
-    float movement_speed = 8000000.f;
 
     //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
@@ -35,50 +33,81 @@ void Player::updateMovement(float deltaTime) {
         this->position_x -= movement_speed * deltaTime;
         if (this->position_x < 0) { this->position_x = 0; };
         this->currentPawnState = PawnState::run;
-        if (lastDirection==Direction::right) {
+        if (this->direction == Direction::right) {
             this->direction = Direction::left;
-            Animation::checkDirection(this->sprite, this->direction, this->scale);
         }
     }
         //right movement
-    else {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
-            or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-            this->position_x += movement_speed * deltaTime;
-            this->currentPawnState = PawnState::run;
-            if (lastDirection==Direction::left){
-                std::cout<<"zmiana kierunku na lewo"<<std::endl;
-                this->direction = Direction::right;
-                Animation::checkDirection(this->sprite,this->direction,this->scale);
-            }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
+             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+        this->position_x += movement_speed * deltaTime;
+        this->currentPawnState = PawnState::run;
+        if (this->direction == Direction::left) {
+            this->direction = Direction::right;
         }
-            //jump later
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
-                 or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-            this->sprite.move(0.f, -movement_speed);
-            this->currentPawnState = PawnState::run;
-        }
-            //down - do wyrzucenia
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
-                 or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+    }
 
-            this->sprite.move(0.f, movement_speed);
-            this->currentPawnState = PawnState::run;
-        }
-            //brak ruchu
-        else {
-            this->currentPawnState = PawnState::idle;
-        }
+/*
+//            //jump later
+//        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
+//                 or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+//            this->sprite.move(0.f, -movement_speed);
+//            this->currentPawnState = PawnState::run;
+//        }
+//            //down - do wyrzucenia
+//        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
+//                 or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+//
+//            this->sprite.move(0.f, movement_speed);
+//            this->currentPawnState = PawnState::run;
+//        }
+ */
+        //brak ruchu
+    else {
+        this->currentPawnState = PawnState::idle;
     }
 }
 
+
 void Player::updateAnimations(float deltaTime) {
+
     switch (this->currentPawnState) {
         case PawnState::run:
-            this->sprite = run.getCurrentAnimImg(deltaTime, this->width, this->height);
+            this->sprite = run.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
+            this->lastPlayedFrameIndex=run.getLastFrameIndex();
             break;
-        default:
-            this->sprite = idle.getCurrentAnimImg(deltaTime, this->width, this->height);
+        case ::jump:
+            break;
+//        case jumpAttack:
+//            break;
+        case ::die:
+            break;
+//        case roll:
+//            break;
+//        case squat:
+//            break;
+//        case happy:
+//            break;
+        case ::push:
+            break;
+//        case lift:
+//            break;
+        case ::hurt:
+            break;
+//        case fly:
+//            break;
+//        case ::pic:
+//            break;
+        case ::directAttack:
+            break;
+        case ::directDoubleAttack:
+            break;
+        case ::throwAttack:
+            break;
+        default: //idle
+            this->sprite = idle.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
+            this->lastPlayedFrameIndex=idle.getLastFrameIndex();
+
             break;
     }
 }

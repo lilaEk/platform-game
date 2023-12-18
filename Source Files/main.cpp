@@ -12,13 +12,11 @@ auto main() -> int {
     //game loop
     while (game.running())
     {
-        // tutaj obliczamy deltaT
         game.deltaTime = game.clock.restart().asSeconds();
         lastFunctionCallTime += game.deltaTime;
 
         if (lastFunctionCallTime >= functionCallInterval)
         {
-
             game.update(game.deltaTime);
             game.render();
             lastFunctionCallTime = 0.0f;

@@ -12,12 +12,12 @@ class Animation {
 private:
     float scale;
     sf::Texture texture;
-    const int frameDuration = 120;
     sf::Sprite sprite; //widoczny obrazek
     long elapsed=0; //czas jaki upłynął
+    Direction lastDirectionToCompare=Direction::right;
 
 public:
-    const int framesNumber; //klatki animacji
+    int framesNumber; //klatki animacji
     int lastPlayedFrameIndex = 0; //ostatnia klatka
     const std::string assetPath; //scieżka do assetu
 
@@ -25,10 +25,13 @@ public:
     Animation(const std::string &assetPath, int framesNumber, float scale);
     virtual ~Animation();
 
-    sf::Sprite getCurrentAnimImg(long deltaT, int w, int h);
+    sf::Sprite getCurrentAnimImg(int w, int h,Direction direction, float scale);
 
-    static void checkDirection(sf::Sprite &sprite, Direction direction,float scale);
+    static void newDirection(sf::Sprite &sprite, Direction direction, float scale);
 
     int restartAnim();
 
+    sf::Sprite getSprite(int w, int h);
+
+    int getLastFrameIndex();
 };
