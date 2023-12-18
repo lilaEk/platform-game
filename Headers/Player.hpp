@@ -27,7 +27,7 @@ private:
     int width = 32;
     int height = 32;
 
-    void initSprite() override;
+    void initPlayerState() override;
 
 public:
     Player();

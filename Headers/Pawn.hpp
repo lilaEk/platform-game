@@ -21,7 +21,7 @@ protected:
 public:
     virtual ~Pawn() = default;
 
-    virtual void initSprite() = 0;
+    virtual void initPlayerState() = 0;
 
     virtual void render(sf::RenderTarget& target) = 0;
     virtual void update(float d) = 0;

@@ -3,13 +3,13 @@
 #include "iostream"
 
 Player::Player() : Pawn() {
-    this->initSprite();
+    this->initPlayerState();
     this->direction = Direction::right;
 }
 
 Player::~Player() = default;
 
-void Player::initSprite() {
+void Player::initPlayerState() {
     this->currentPawnState = PawnState::idle;
 }
 
