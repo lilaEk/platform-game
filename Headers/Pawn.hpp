@@ -10,13 +10,13 @@
 class Pawn {
 
 protected:
-    PawnState currentPawnState;
+    PawnState currentPawnState = PawnState::idle;
     PawnState lastPawnState = PawnState::pic;
     sf::Texture textureSheet;
-    sf::IntRect currentFrame;
+//    sf::IntRect currentFrame;
     Direction direction;
-    Direction lastDirectionToCompare = right;
-    int lastPlayedFrameIndex = 0;
+//    Direction lastDirectionToCompare = right;
+//    int lastPlayedFrameIndex = 0;
 
 public:
     virtual ~Pawn() = default;

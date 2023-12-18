@@ -43,7 +43,7 @@ public:
     void updateAnimations(float d) override;
 
     sf::Sprite sprite;
-    float position_x = 0.0f;
+    float position_x = 0.0f+width;
     float position_y= 0.0f;
     float movement_speed = 8000000.f;
 

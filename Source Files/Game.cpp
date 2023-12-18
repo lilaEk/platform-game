@@ -7,7 +7,6 @@ void Game::initWindow() {
 
     this->window.create(this->vm, "my game", Style::Titlebar | Style::Close);
 //    this->window.create(sf::VideoMode::getFullscreenModes()[0],"my game",sf::Style::Fullscreen);
-    this->window.setFramerateLimit(144);
 }
 
 void Game::initPlayer(){
@@ -33,14 +32,13 @@ const bool Game::running() const {
 //functions
 void Game::pollEvents() {
 
-    while (this->window.pollEvent(this->e)) { //jesli cos sie dzieje w oknie chcemy to zapisac w e
+    while (this->window.pollEvent(this->e)) {
         switch (this->e.type) {
             //mouse click, keyboard, data
             case Event::Closed:
                 this->window.close();
                 break;
             case Event::KeyPressed:
-                //do wyjebania
                 if (e.key.code == Keyboard::Escape)
                     this->window.close();
                 break;

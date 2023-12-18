@@ -21,18 +21,20 @@ void Player::render(sf::RenderTarget &target) {
     std::cout << "position_x: " << this->sprite.getPosition().x << std::endl;
 }
 
-void Player::update(float deltaTime) {
-    this->updateMovement(deltaTime);
-    this->updateAnimations(deltaTime);
+void Player::update(float currentTime) {
+    this->updateMovement(currentTime);
+    this->updateAnimations(currentTime);
 }
 
-void Player::updateMovement(float deltaTime) {
+void Player::updateMovement(float currentTime) {
 
     //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-        this->position_x -= movement_speed * deltaTime;
-        if (this->position_x < 0) { this->position_x = 0; };
+//        this->position_x -= movement_speed * currentTime;
+        this->position_x -= 8.F;
+        if (this->position_x < 0+width) {
+            this->position_x = 0+width; };
         this->currentPawnState = PawnState::run;
         if (this->direction == Direction::right) {
             this->direction = Direction::left;
@@ -41,7 +43,10 @@ void Player::updateMovement(float deltaTime) {
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-        this->position_x += movement_speed * deltaTime;
+//        this->position_x += movement_speed * currentTime;
+        this->position_x += 8.F;
+        if (this->position_x > 1200-width) {
+            this->position_x = 1200-width; };
         this->currentPawnState = PawnState::run;
         if (this->direction == Direction::left) {
             this->direction = Direction::right;

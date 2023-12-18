@@ -10,7 +10,6 @@ using namespace sf;
 class Game { //acts like the game engine - wrapper class
 
 private:
-    RenderWindow window;
     VideoMode vm;
     Event e;
 
@@ -23,8 +22,9 @@ public:
     Game();
     virtual ~Game();
 
+    RenderWindow window;
     sf::Clock clock;
-    float deltaTime;
+    float currentTime;
 
     const bool running() const;    //accessors
 
