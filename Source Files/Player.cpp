@@ -14,6 +14,7 @@ void Player::initSprite() {
 }
 
 void Player::render(sf::RenderTarget &target) {
+
     this->sprite.setPosition(this->position_x, this->position_y);
     target.draw(this->sprite);
 
@@ -62,19 +63,18 @@ void Player::updateMovement(float deltaTime) {
 //            this->currentPawnState = PawnState::run;
 //        }
  */
+
         //brak ruchu
     else {
         this->currentPawnState = PawnState::idle;
     }
 }
 
-
 void Player::updateAnimations(float deltaTime) {
 
     switch (this->currentPawnState) {
         case PawnState::run:
             this->sprite = run.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            this->lastPlayedFrameIndex=run.getLastFrameIndex();
             break;
         case ::jump:
             break;
@@ -106,7 +106,6 @@ void Player::updateAnimations(float deltaTime) {
             break;
         default: //idle
             this->sprite = idle.getCurrentAnimImg(this->width, this->height, this->direction, this->scale);
-            this->lastPlayedFrameIndex=idle.getLastFrameIndex();
 
             break;
     }

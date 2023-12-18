@@ -6,7 +6,6 @@
 class Player : public Pawn {
 
 private:
-//    Direction lastDirection; //0 - lewo, 1 -prawo
 
     const float scale = 2.5f;
     Animation pic = Animation("../assets/Pink_Monster/Pic.png", 1);
@@ -48,4 +47,5 @@ public:
     float position_y= 0.0f;
     float movement_speed = 8000000.f;
 
+    void adjustPositionAfterDirectionChange();
 };

@@ -15,6 +15,7 @@ protected:
     sf::Texture textureSheet;
     sf::IntRect currentFrame;
     Direction direction;
+    Direction lastDirectionToCompare = right;
     int lastPlayedFrameIndex = 0;
 
 public:

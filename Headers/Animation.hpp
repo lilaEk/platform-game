@@ -33,5 +33,4 @@ public:
 
     sf::Sprite getSprite(int w, int h);
 
-    int getLastFrameIndex();
 };
