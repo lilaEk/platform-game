@@ -15,6 +15,7 @@ auto main() -> int {
         }
 
         std::cout << "FPS: " << 1.0f / game.clock.getElapsedTime().asSeconds() << std::endl;
+
         game.update(deltaTime);
         game.render();
         game.clock.restart();

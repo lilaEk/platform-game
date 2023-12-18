@@ -12,7 +12,6 @@ class Game { //acts like the game engine - wrapper class
 private:
     VideoMode vm;
     Event e;
-
     Player* player;
 
     void initWindow();
@@ -33,6 +32,7 @@ public:
     void updatePlayer(float d);
     void render();
     void renderPlayer();
+
     const RenderWindow& getWindow() const;
 };
 

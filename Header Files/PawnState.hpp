@@ -4,23 +4,22 @@
 enum class PawnState {
 //PLAYER
     idle,
-    jump, //w lewo i w prawo
-    jumpAttack, //w lewo i w prawo
+    jump,
     die,
-    roll, //w lewo i w prawo
-    squat, //w lewo i w prawo
+    roll,
+    squat,
     happy,
-    push, //w lewo i w prawo
-    lift, //w lewo i w prawo
-    hurt, //w lewo i w prawo
+    push,
+    lift,
+    hurt,
 //ENEMY
-    fly, //w lewo i w prawo
+    fly,
 //BOTH
     pic,
-    run, //w lewo i w prawo
-    directAttack, //w lewo i w prawo
-    directDoubleAttack, //w lewo i w prawo
-    throwAttack //w lewo i w prawo
+    run,
+    directAttack,
+    directDoubleAttack,
+    throwAttack
 };
 
 extern std::ostream& operator<<(std::ostream& os, const PawnState& state);

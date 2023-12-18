@@ -8,9 +8,6 @@ std::ostream& operator<<(std::ostream& os, const PawnState& state) {
         case PawnState::jump:
             os << "jump";
             break;
-        case PawnState::jumpAttack:
-            os << "jumpAttack";
-            break;
         case PawnState::die:
             os << "die";
             break;

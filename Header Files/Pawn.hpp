@@ -23,13 +23,9 @@ public:
     virtual ~Pawn() = default;
 
     virtual void initPlayer() = 0;
-
     virtual void render(sf::RenderTarget &target) = 0;
-
     virtual void update(float d) = 0;
-
     virtual void updateMovement(float d) = 0;
-
     virtual void updateAnimations(float d) = 0;
 
 };

@@ -9,8 +9,6 @@ Animation::Animation(const std::string &assetPath, int framesNumber, float scale
     }
     this->sprite = sf::Sprite(texture);
     sprite.setScale(scale, scale);
-
-
 }
 
 Animation::~Animation() = default;
@@ -22,8 +20,8 @@ void Animation::restartAnim() {
 sf::Sprite
 Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState) {
     if (*lastPawnState != newPawnState) {
-        std::cout << "Current State: " << *lastPawnState << std::endl;
-        std::cout << "New State: " << newPawnState << std::endl << std::endl;
+//        std::cout << "Current State: " << *lastPawnState << std::endl;
+//        std::cout << "New State: " << newPawnState << std::endl << std::endl;
         *lastPawnState = newPawnState;
         restartAnim();
     }
