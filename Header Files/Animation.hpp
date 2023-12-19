@@ -23,8 +23,11 @@ public:
     int lastPlayedFrameIndex = 0; //ostatnia klatka
     const std::string assetPath; //scieżka do assetu
 
+    Animation() = default;
     Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *currentPawnState);
     virtual ~Animation();
+
+    Animation& operator=(const Animation& other);
 
     sf::Sprite getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState);
     static void newDirectionAndScale(sf::Sprite &sprite, Direction direction, float scale);

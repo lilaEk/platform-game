@@ -11,6 +11,24 @@ Animation::Animation(const std::string &assetPath, int framesNumber, float scale
     sprite.setScale(scale, scale);
 }
 
+Animation &Animation::operator=(const Animation &other) {
+
+    const_cast<std::string &>(this->assetPath) = std::move(other.assetPath);
+    this->framesNumber = other.framesNumber;
+    this->scale = other.scale;
+
+    this->texture = sf::Texture(other.texture);
+    this->sprite = sf::Sprite(this->texture);
+    this->sprite.setScale(scale, scale);
+
+    this->elapsed = other.elapsed;
+    this->framesNumber = other.framesNumber;
+
+    this->lastPawnState = other.lastPawnState;
+
+    return *this;
+}
+
 Animation::~Animation() = default;
 
 void Animation::restartAnim() {
@@ -27,7 +45,7 @@ Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction,
     }
 
     this->elapsed += deltaTime;
-    if(elapsed>=frameDuration){
+    if (elapsed >= frameDuration) {
         lastPlayedFrameIndex++;
         if (lastPlayedFrameIndex >= framesNumber) {
             restartAnim();

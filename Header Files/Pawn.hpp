@@ -5,6 +5,7 @@
 #include "PawnState.hpp"
 #include "SFML/Graphics.hpp"
 #include "Direction.hpp"
+#include "PlayerChoice.hpp"
 
 
 class Pawn {
@@ -23,6 +24,7 @@ public:
     virtual ~Pawn() = default;
 
     virtual void initPlayer() = 0;
+    virtual void initAnimations(PlayerChoice playerChoice)=0;
     virtual void render(sf::RenderTarget &target) = 0;
     virtual void update(float d) = 0;
     virtual void updateMovement(float d) = 0;

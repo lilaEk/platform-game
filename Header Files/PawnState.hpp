@@ -5,6 +5,7 @@ enum class PawnState {
 //PLAYER
     idle,
     jump,
+    climb,
     die,
     roll,
     squat,

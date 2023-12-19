@@ -1,17 +1,50 @@
 #include "../Header Files/Game.hpp"
-#include "fmt/core.h"
-//#include "iostream"
 
 Player::Player() : Pawn() {
     this->initPlayer();
-    this->direction = Direction::right;
+    this->initAnimations(this->chosenPlayer);
 }
 
 Player::~Player() = default;
 
 void Player::initPlayer() {
+    this->chosenPlayer= PlayerChoice::Owlet_Monster;
+    this->direction = Direction::right;
+    this->lastPawnState=PawnState::idle;
     this->currentPawnState = PawnState::idle;
     this->sprite.setScale(scale, scale);
+}
+
+void Player::initAnimations(PlayerChoice playerChoice) {
+
+    std::string characterFolder;
+    switch (chosenPlayer) {
+        case PlayerChoice::Dude_Monster:
+            characterFolder = "Dude_Monster";
+            break;
+        case PlayerChoice::Owlet_Monster:
+            characterFolder = "Owlet_Monster";
+            break;
+        default:
+            characterFolder = "Pink_Monster";
+            break;
+    }
+
+    this->idle = Animation("../assets/player/" + characterFolder +"/Idle.png", 4, scale, &this->lastPawnState);
+    this->run = Animation("../assets/player/" + characterFolder +"/Run.png", 6, scale, &this->lastPawnState);
+    this->jump = Animation("../assets/player/" + characterFolder +"/Jump.png", 8, scale, &this->lastPawnState);
+    this->death = Animation("../assets/player/" + characterFolder +"/Death.png", 8, scale, &this->lastPawnState);
+    this->roll = Animation("../assets/player/" + characterFolder +"/Roll.png",6, scale, &this->lastPawnState);
+    this->squat = Animation("../assets/player/" + characterFolder +"/Squat.png",4, scale, &this->lastPawnState);
+    this->happy = Animation("../assets/player/" + characterFolder +"/Happy.png",6, scale, &this->lastPawnState);
+    this->push = Animation("../assets/player/" + characterFolder +"/Push.png", 6, scale, &this->lastPawnState);
+    this->climb = Animation("../assets/player/" + characterFolder +"/Climb.png", 6, scale, &this->lastPawnState);
+    this->lift = Animation("../assets/player/" + characterFolder +"/Lift.png", 6, scale, &this->lastPawnState);
+    this->hurt = Animation("../assets/player/" + characterFolder +"/Hurt.png", 4, scale, &this->lastPawnState);
+    this->directAttack = Animation("../assets/player/" + characterFolder +"/Attack.png", 4, scale, &this->lastPawnState);
+    this->directDoubleAttack = Animation("../assets/player/" + characterFolder +"/Attack_Double.png", 6, scale, &this->lastPawnState);
+    this->throwAttack = Animation("../assets/player/" + characterFolder +"/Throw.png", 4, scale, &this->lastPawnState);
+
 }
 
 void Player::render(sf::RenderTarget &target) {
