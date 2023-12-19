@@ -134,17 +134,26 @@ void Player::updateAnimations(float deltaTime) {
             this->sprite = death.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
                                                    PawnState::die);
             break;
-//        case roll:
-//            break;
-//        case squat:
-//            break;
-//        case happy:
-//            break;
-//        case ::PawnState::push:
-//            this->sprite = push.getCurrentAnimImg(this->width, this->height, this->direction, this->scale, PawnState::push);
-//            break;
-//        case lift:
-//            break;
+        case ::PawnState::roll:
+            this->sprite = roll.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
+                                                   PawnState::roll);
+            break;
+        case ::PawnState::squat:
+            this->sprite = squat.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
+                                                   PawnState::squat);
+            break;
+        case ::PawnState::happy:
+            this->sprite = happy.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
+                                                   PawnState::happy);
+            break;
+        case ::PawnState::push:
+            this->sprite = push.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
+                                                  PawnState::push);
+            break;
+        case ::PawnState::lift:
+            this->sprite = lift.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
+                                                  PawnState::lift);
+            break;
         case ::PawnState::hurt:
             this->sprite = hurt.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
                                                   PawnState::hurt);
