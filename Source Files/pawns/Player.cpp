@@ -8,10 +8,20 @@ Player::Player() : Pawn() {
 Player::~Player() = default;
 
 void Player::initPlayer() {
+    this->width = 32;
+    this->height = 32;
+
+    this-> pos_x = 0.0f + width;
+    this->pos_y = 450.f;
+
+    this->movement_speed = 350.f;
+    this->scale=2.5f;
+
     this->chosenPlayer= PlayerChoice::Pink_Monster;
     this->direction = Direction::right;
     this->lastPawnState=PawnState::idle;
     this->currentPawnState = PawnState::idle;
+    this->isJumping= false;
     this->sprite.setScale(scale, scale);
 }
 
@@ -49,7 +59,7 @@ void Player::initAnimations(PlayerChoice playerChoice) {
 
 void Player::render(sf::RenderTarget &target) {
     sprite.setOrigin(sprite.getLocalBounds().width / 2, 0);
-    this->sprite.setPosition(this->position_x, this->position_y);
+    this->sprite.setPosition(this->pos_x, this->pos_y);
     target.draw(this->sprite);
 }
 
@@ -64,10 +74,10 @@ void Player::updateMovement(float currentTime) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
 
-        this->position_x -= movement_speed * currentTime;
+        this->pos_x -= movement_speed * currentTime;
 
-        if (this->position_x < 0 + width) {
-            this->position_x = 0 + width;
+        if (this->pos_x < 0 + width) {
+            this->pos_x = 0 + width;
         };
         this->currentPawnState = PawnState::run;
         if (this->direction == Direction::right) {
@@ -77,10 +87,10 @@ void Player::updateMovement(float currentTime) {
         //right movement
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-        this->position_x += movement_speed * currentTime;
+        this->pos_x += movement_speed * currentTime;
 
-        if (this->position_x > 1200 - width) {
-            this->position_x = 1200 - width;
+        if (this->pos_x > 1200 - width) {
+            this->pos_x = 1200 - width;
         };
         this->currentPawnState = PawnState::run;
         if (this->direction == Direction::left) {
@@ -90,20 +100,20 @@ void Player::updateMovement(float currentTime) {
         //jump - todo
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        this->position_y -= 20.F;
-        if (this->position_y < 50.f) {
-            this->position_y = 50.f;
+        this->pos_y -= 20.F;
+        if (this->pos_y < 50.f) {
+            this->pos_y = 50.f;
         };
         this->currentPawnState = PawnState::jump;
     }
         //roll / squat - todo
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        this->position_y += 20.F;
-        if (this->position_y > 450.f) {
-            this->position_y = 450.f;
+        this->pos_y += 20.F;
+        if (this->pos_y > 450.f) {
+            this->pos_y = 450.f;
         };
-        this->currentPawnState = PawnState::roll;
+        this->currentPawnState = PawnState::squat;
     }
         //directDoubleAttack - k - todo
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)) {

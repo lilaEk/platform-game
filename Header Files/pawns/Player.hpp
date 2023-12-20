@@ -7,11 +7,7 @@
 class Player : public Pawn {
 
 private:
-    int width = 32;
-    int height = 32;
-
-    PlayerChoice chosenPlayer;
-    const float scale = 2.5f;
+    PlayerChoice chosenPlayer{};
 
     Animation idle;
     Animation run;
@@ -28,7 +24,7 @@ private:
     Animation directDoubleAttack;
     Animation throwAttack;
 
-    //physics - todo
+    //physics (w pawn) - todo
 //    sf::Vector2f vector2F;
 //    float acceleration;
 //    float deceleration;
@@ -37,12 +33,6 @@ private:
     void initAnimations(PlayerChoice playerChoice) override;
 
 public:
-    sf::Sprite sprite;
-
-    float position_x = 0.0f + width;
-    float position_y = 450.f;
-    float movement_speed = 350.f;
-
     Player();
     ~Player() override;
 

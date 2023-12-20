@@ -7,17 +7,17 @@
 #include "enums/PlayerChoice.hpp"
 
 
-class Pawn {
+class Pawn : public Entity{
 
 protected:
-    PawnState currentPawnState = PawnState::idle;
-    PawnState lastPawnState = PawnState::idle;
+    float scale{};
+    float movement_speed{};
 
-    sf::Texture textureSheet;
-    Direction direction;
+    PawnState currentPawnState{};
+    PawnState lastPawnState{};
 
-    bool isJumping = false;
-
+    Direction direction{};
+    bool isJumping{};
 
 public:
     virtual ~Pawn() = default;

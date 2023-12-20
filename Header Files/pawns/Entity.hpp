@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <vector>
+#include "SFML/Graphics.hpp"
+
 
 class Entity;
 
@@ -11,12 +13,15 @@ private:
     std::vector<Entity *> allEntities;
 
 public:
-    float pos_x = 0; //todo
-    float pos_y = 0;
+    int height{};
+    int width{};
 
-    // w pixelach
-    int height;
-    int width;
+    float pos_x{};
+    float pos_y{};
+
+    sf::Texture textureSheet{};
+    sf::Sprite sprite{};
+
 
     Entity();
 };
