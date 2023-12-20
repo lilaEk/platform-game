@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Entity.hpp"
-//#include "Animation.hpp"
 #include "enums/PawnState.hpp"
 #include "SFML/Graphics.hpp"
 #include "enums/Direction.hpp"

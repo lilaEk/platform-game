@@ -8,6 +8,8 @@ todo
 - sensowniejsza fizyka
 - poprawić includy z "" na <>
 - pawnstate.cpp do debuggingu - czyli do wywalenia na koniec
+- opanować lepiej biblioteki - pousuwać co nie trzeba
+
 
 kod:
 - dodać destruktory
