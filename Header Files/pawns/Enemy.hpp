@@ -5,4 +5,7 @@
 
 class Enemy : public Pawn {
 
+private:
+    std::vector<Enemy *> allEnemies;
+
 };

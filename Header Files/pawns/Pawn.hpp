@@ -2,10 +2,10 @@
 
 #include "Entity.hpp"
 //#include "Animation.hpp"
-#include "PawnState.hpp"
+#include "enums/PawnState.hpp"
 #include "SFML/Graphics.hpp"
-#include "../Direction.hpp"
-#include "PlayerChoice.hpp"
+#include "enums/Direction.hpp"
+#include "enums/PlayerChoice.hpp"
 
 
 class Pawn {

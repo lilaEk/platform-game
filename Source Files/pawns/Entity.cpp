@@ -1,4 +1,4 @@
-#include "../../Header Files/entities/Entity.hpp"
+#include "../../Header Files/pawns/Entity.hpp"
 
 Entity::Entity() {
 

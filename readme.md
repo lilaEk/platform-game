@@ -7,6 +7,7 @@ todo
 - zmiana – wyliczanie liczby klatek animacji zamiast w konstruktorze
 - sensowniejsza fizyka
 - poprawić includy z "" na <>
+- pawnstate.cpp do debuggingu - czyli do wywalenia na koniec
 
 kod:
 - dodać destruktory

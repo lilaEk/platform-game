@@ -3,8 +3,8 @@
 #include "iostream"
 #include "SFML/Graphics.hpp"
 
-#include "entities/PawnState.hpp"
-#include "Direction.hpp"
+#include "pawns/enums/PawnState.hpp"
+#include "pawns/enums/Direction.hpp"
 
 
 class Animation {

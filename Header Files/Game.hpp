@@ -2,7 +2,7 @@
 
 #include "../Header Files/Game.hpp"
 #include "../Header Files/stdafx.hpp"
-#include "entities/Player.hpp"
+#include "pawns/Player.hpp"
 
 
 using namespace sf;

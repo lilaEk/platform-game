@@ -4,6 +4,6 @@ enum class EnemyType {
     hedgehog,
     spider,
     bat,
-    humans,
+    human,
     forest_boss
 };

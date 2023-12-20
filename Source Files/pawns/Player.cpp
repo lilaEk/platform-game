@@ -1,4 +1,4 @@
-#include "../../Header Files/Game.hpp"
+#include "../../Header Files/pawns/Player.hpp"
 
 Player::Player() : Pawn() {
     this->initPlayer();

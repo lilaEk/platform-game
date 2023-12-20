@@ -7,7 +7,7 @@ class Entity;
 
 class Entity {
 
-private :
+private:
     std::vector<Entity *> allEntities;
 
 public:

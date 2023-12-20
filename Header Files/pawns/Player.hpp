@@ -2,7 +2,7 @@
 
 #include "Pawn.hpp"
 #include "../Animation.hpp"
-#include "PlayerChoice.hpp"
+#include "enums/PlayerChoice.hpp"
 
 class Player : public Pawn {
 
