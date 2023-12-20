@@ -3,7 +3,7 @@
 #include "iostream"
 #include "SFML/Graphics.hpp"
 
-#include "PawnState.hpp"
+#include "entities/PawnState.hpp"
 #include "Direction.hpp"
 
 

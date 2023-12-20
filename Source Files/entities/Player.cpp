@@ -1,4 +1,4 @@
-#include "../Header Files/Game.hpp"
+#include "../../Header Files/Game.hpp"
 
 Player::Player() : Pawn() {
     this->initPlayer();
@@ -8,7 +8,7 @@ Player::Player() : Pawn() {
 Player::~Player() = default;
 
 void Player::initPlayer() {
-    this->chosenPlayer= PlayerChoice::Owlet_Monster;
+    this->chosenPlayer= PlayerChoice::Pink_Monster;
     this->direction = Direction::right;
     this->lastPawnState=PawnState::idle;
     this->currentPawnState = PawnState::idle;

@@ -1,4 +1,4 @@
-#include "../Header Files/PawnState.hpp"
+#include "../../Header Files/entities/PawnState.hpp"
 
 std::ostream& operator<<(std::ostream& os, const PawnState& state) {
     switch (state) {

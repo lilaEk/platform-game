@@ -4,7 +4,7 @@
 //#include "Animation.hpp"
 #include "PawnState.hpp"
 #include "SFML/Graphics.hpp"
-#include "Direction.hpp"
+#include "../Direction.hpp"
 #include "PlayerChoice.hpp"
 
 
