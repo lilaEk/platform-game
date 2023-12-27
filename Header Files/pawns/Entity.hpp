@@ -22,6 +22,7 @@ public:
     sf::Texture textureSheet{};
     sf::Sprite sprite{};
 
+    float scale{};
 
     Entity();
 };

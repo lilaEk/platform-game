@@ -10,7 +10,6 @@
 class Pawn : public Entity{
 
 protected:
-    float scale{};
     float movement_speed{};
 
     PawnState currentPawnState{};

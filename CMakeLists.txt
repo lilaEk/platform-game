@@ -47,7 +47,10 @@ add_executable(my_game "Source Files/main.cpp"
         "Source Files/pawns/enemies/Hedgehog.cpp"
         "Header Files/pawns/enemies/Hedgehog.hpp"
         "Source Files/pawns/enemies/Forest_boss.cpp"
-        "Header Files/pawns/enemies/Forest_boss.hpp")
+        "Header Files/pawns/enemies/Forest_boss.hpp"
+        "Source Files/Cell.cpp"
+        "Header Files/Cell.hpp"
+        "Header Files/pawns/enums/CellType.hpp")
 
 target_link_libraries(my_game fmt)
 

@@ -15,6 +15,7 @@ private:
     Player* player;
 
     void initWindow();
+    static void drawBackgroundImage(RenderWindow &window); //todo - parallex background
     void initPlayer();
 
 public:
@@ -34,5 +35,10 @@ public:
     void renderPlayer();
 
     const RenderWindow& getWindow() const;
+
+    static const int height = 3*16*12;
+    static const int width = 3*16*20;
+
+
 };
 

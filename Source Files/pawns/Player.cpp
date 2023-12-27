@@ -1,4 +1,5 @@
 #include "../../Header Files/pawns/Player.hpp"
+#include "../../Header Files/Game.hpp"
 
 Player::Player() : Pawn() {
     this->initPlayer();
@@ -11,17 +12,17 @@ void Player::initPlayer() {
     this->width = 32;
     this->height = 32;
 
-    this-> pos_x = 0.0f + width;
+    this->pos_x = 0.0f + width;
     this->pos_y = 450.f;
 
     this->movement_speed = 350.f;
-    this->scale=2.5f;
+    this->scale = 3.f;
 
-    this->chosenPlayer= PlayerChoice::Pink_Monster;
+    this->chosenPlayer = PlayerChoice::Pink_Monster;
     this->direction = Direction::right;
-    this->lastPawnState=PawnState::idle;
+    this->lastPawnState = PawnState::idle;
     this->currentPawnState = PawnState::idle;
-    this->isJumping= false;
+    this->isJumping = false;
     this->sprite.setScale(scale, scale);
 }
 
@@ -40,20 +41,22 @@ void Player::initAnimations(PlayerChoice playerChoice) {
             break;
     }
 
-    this->idle = Animation("../assets/player/" + characterFolder +"/Idle.png", 4, scale, &this->lastPawnState);
-    this->run = Animation("../assets/player/" + characterFolder +"/Run.png", 6, scale, &this->lastPawnState);
-    this->jump = Animation("../assets/player/" + characterFolder +"/Jump.png", 8, scale, &this->lastPawnState);
-    this->death = Animation("../assets/player/" + characterFolder +"/Death.png", 8, scale, &this->lastPawnState);
-    this->roll = Animation("../assets/player/" + characterFolder +"/Roll.png",6, scale, &this->lastPawnState);
-    this->squat = Animation("../assets/player/" + characterFolder +"/Squat.png",4, scale, &this->lastPawnState);
-    this->happy = Animation("../assets/player/" + characterFolder +"/Happy.png",6, scale, &this->lastPawnState);
-    this->push = Animation("../assets/player/" + characterFolder +"/Push.png", 6, scale, &this->lastPawnState);
-    this->climb = Animation("../assets/player/" + characterFolder +"/Climb.png", 6, scale, &this->lastPawnState);
-    this->lift = Animation("../assets/player/" + characterFolder +"/Lift.png", 6, scale, &this->lastPawnState);
-    this->hurt = Animation("../assets/player/" + characterFolder +"/Hurt.png", 4, scale, &this->lastPawnState);
-    this->directAttack = Animation("../assets/player/" + characterFolder +"/Attack.png", 4, scale, &this->lastPawnState);
-    this->directDoubleAttack = Animation("../assets/player/" + characterFolder +"/Attack_Double.png", 6, scale, &this->lastPawnState);
-    this->throwAttack = Animation("../assets/player/" + characterFolder +"/Throw.png", 4, scale, &this->lastPawnState);
+    this->idle = Animation("../assets/player/" + characterFolder + "/Idle.png", 4, scale, &this->lastPawnState);
+    this->run = Animation("../assets/player/" + characterFolder + "/Run.png", 6, scale, &this->lastPawnState);
+    this->jump = Animation("../assets/player/" + characterFolder + "/Jump.png", 8, scale, &this->lastPawnState);
+    this->death = Animation("../assets/player/" + characterFolder + "/Death.png", 8, scale, &this->lastPawnState);
+    this->roll = Animation("../assets/player/" + characterFolder + "/Roll.png", 6, scale, &this->lastPawnState);
+    this->squat = Animation("../assets/player/" + characterFolder + "/Squat.png", 4, scale, &this->lastPawnState);
+    this->happy = Animation("../assets/player/" + characterFolder + "/Happy.png", 6, scale, &this->lastPawnState);
+    this->push = Animation("../assets/player/" + characterFolder + "/Push.png", 6, scale, &this->lastPawnState);
+    this->climb = Animation("../assets/player/" + characterFolder + "/Climb.png", 6, scale, &this->lastPawnState);
+    this->lift = Animation("../assets/player/" + characterFolder + "/Lift.png", 6, scale, &this->lastPawnState);
+    this->hurt = Animation("../assets/player/" + characterFolder + "/Hurt.png", 4, scale, &this->lastPawnState);
+    this->directAttack = Animation("../assets/player/" + characterFolder + "/Attack.png", 4, scale,
+                                   &this->lastPawnState);
+    this->directDoubleAttack = Animation("../assets/player/" + characterFolder + "/Attack_Double.png", 6, scale,
+                                         &this->lastPawnState);
+    this->throwAttack = Animation("../assets/player/" + characterFolder + "/Throw.png", 4, scale, &this->lastPawnState);
 
 }
 
@@ -70,7 +73,7 @@ void Player::update(float currentTime) {
 
 void Player::updateMovement(float currentTime) {
     this->lastPawnState = this->currentPawnState;
-    //left movement
+        //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
 
@@ -89,8 +92,8 @@ void Player::updateMovement(float currentTime) {
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
         this->pos_x += movement_speed * currentTime;
 
-        if (this->pos_x > 1200 - width) {
-            this->pos_x = 1200 - width;
+        if (this->pos_x > Game::width - width) {
+            this->pos_x = Game::width - width;
         };
         this->currentPawnState = PawnState::run;
         if (this->direction == Direction::left) {
@@ -100,9 +103,9 @@ void Player::updateMovement(float currentTime) {
         //jump - todo
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        this->pos_y -= 20.F;
-        if (this->pos_y < 50.f) {
-            this->pos_y = 50.f;
+        this->pos_y -= 10.F;
+        if (this->pos_y < 30.f) {
+            this->pos_y = 30.f;
         };
         this->currentPawnState = PawnState::jump;
     }
@@ -111,7 +114,7 @@ void Player::updateMovement(float currentTime) {
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->pos_y += 20.F;
         if (this->pos_y > 450.f) {
-            this->pos_y = 450.f;
+            this->pos_y =450.f;
         };
         this->currentPawnState = PawnState::squat;
     }
@@ -146,7 +149,7 @@ void Player::updateAnimations(float deltaTime) {
             break;
         case ::PawnState::roll:
             this->sprite = roll.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,
-                                                   PawnState::roll);
+                                                  PawnState::roll);
             break;
         case ::PawnState::squat:
             this->sprite = squat.getCurrentAnimImg(deltaTime, this->width, this->height, this->direction, this->scale,

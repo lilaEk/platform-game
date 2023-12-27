@@ -23,4 +23,4 @@ enum class PawnState {
     throwAttack
 };
 
-extern std::ostream& operator<<(std::ostream& os, const PawnState& state);
+//extern std::ostream& operator<<(std::ostream& os, const PawnState& state);
