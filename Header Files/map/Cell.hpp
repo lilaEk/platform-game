@@ -17,4 +17,5 @@ public:
     void render(sf::RenderTarget &target) override;
 
 private:
+    CellType cellType;
 };
