@@ -50,8 +50,8 @@ void Game::pollEvents() {
     }
 }
 
-void updateMap(float deltaTime){
-
+void Game::updateMap(float deltaTime){
+    this->mapManager->update(deltaTime);
 }
 
 void Game::updatePlayer(float deltaTime) {
@@ -60,11 +60,16 @@ void Game::updatePlayer(float deltaTime) {
 
 void Game::update(float deltaTime) {
     this->pollEvents();
+    this->updateMap(deltaTime);
     this->updatePlayer(deltaTime);
 }
 
 void Game::renderPlayer() {
     this->player->render(this->window);
+}
+
+void Game::renderMap(){
+    this->mapManager->render(this->window);
 }
 
 void Game::render() {
@@ -76,6 +81,7 @@ void Game::render() {
 
     //draw game
     this->drawBackgroundImage(this->window);
+    this->renderMap();
     this->renderPlayer();
 
     this->window.display();
