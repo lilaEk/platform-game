@@ -50,7 +50,6 @@ void Map::renderMap(sf::RenderWindow &target) {
                 }
                 cell.render(target);
             }
-            cell.render(target);
         }
     }
 
