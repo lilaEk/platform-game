@@ -1,10 +1,10 @@
 #include "../../Header Files/map/MapManager.hpp"
 
-MapManager::MapManager(): currentMap(new Map()) {
+MapManager::MapManager() : currentMap(new Map()) {
 }
 
 MapManager::~MapManager() {
-    this->currentMap=new Map;
+    delete currentMap;
 }
 
 /*
