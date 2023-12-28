@@ -18,7 +18,7 @@ Cell::Cell(CellType type) : Entity() {
     }
 }
 
-void Cell::render(sf::RenderTarget &target) {
+void Cell::render(sf::RenderTarget &target)  {
     target.draw(this->sprite);
 }
 

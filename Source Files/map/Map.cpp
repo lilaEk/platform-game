@@ -25,4 +25,10 @@ void Map::updateMap(float deltaTime) {
 }
 
 void Map::renderMap(sf::RenderWindow &target) {
+
+    for (auto &column : mapData) {
+        for (Cell &cell : column) {
+            cell.render(target);
+        }
+}
 }
