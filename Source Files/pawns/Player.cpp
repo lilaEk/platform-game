@@ -18,7 +18,7 @@ void Player::initPlayer() {
     this->movement_speed = 350.f;
     this->scale = 3.f;
 
-    this->chosenPlayer = PlayerChoice::Pink_Monster;
+    this->chosenPlayer = PlayerChoice::Dude_Monster;
     this->direction = Direction::right;
     this->lastPawnState = PawnState::idle;
     this->currentPawnState = PawnState::idle;

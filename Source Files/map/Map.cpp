@@ -23,8 +23,9 @@ void Map::initMap() {
 
             column[j] = cell;
 
-            if (i==11){
-            std::cout << "("<<cell.pos_x << ","<<cell.pos_y<<")"<<std::endl;}
+            if (i == 11) {
+                std::cout << "(" << cell.pos_x << "," << cell.pos_y << ")" << std::endl;
+            }
         }
         mapData.push_back(column);
     }
@@ -38,7 +39,29 @@ void Map::renderMap(sf::RenderWindow &target) {
     for (auto &column: mapData) {
         for (Cell &cell: column) {
             cell.sprite.setPosition(cell.pos_x, cell.pos_y);
+            if (cell.cellType==CellType::platform){
+                cell.scale=1.f;
+                cell.sprite.setScale(cell.scale, cell.scale);
+                cell.sprite.setPosition(cell.pos_x,cell.pos_y);
+                if (!cell.texture.loadFromFile("../assets/elements/brick.png")) {
+                    std::cerr << "ERROR: Could not load platform texture from file\n";
+                } else {
+                    cell.sprite.setTexture(cell.texture);
+                }
+                cell.render(target);
+            }
             cell.render(target);
         }
     }
+
+//    Cell cell = Cell(CellType::platform);
+//    cell.scale=1.f;
+//    cell.sprite.setScale(cell.scale, cell.scale);
+//    cell.sprite.setPosition(200,300);
+//    if (!cell.texture.loadFromFile("../assets/elements/brick.png")) {
+//        std::cerr << "ERROR: Could not load platform texture from file\n";
+//    } else {
+//        cell.sprite.setTexture(cell.texture);
+//    }
+//    cell.render(target);
 }
