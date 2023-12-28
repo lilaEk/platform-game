@@ -9,19 +9,23 @@ void Game::initWindow() {
 //    this->window.create(sf::VideoMode::getFullscreenModes()[0],"my game",sf::Style::Fullscreen);
 }
 
+void Game::initMap() {
+this->mapManager = new MapManager();
+}
+
 void Game::initPlayer() {
     this->player = new Player();
 }
 
-
-//constructor / destructor
 Game::Game() {
     this->initWindow();
+    this->initMap();
     this->initPlayer();
 }
 
 Game::~Game() {
     delete this->player;
+    delete this->mapManager;
 }
 
 //accessors
@@ -46,19 +50,22 @@ void Game::pollEvents() {
     }
 }
 
-void Game::update(float deltaTime) {
-    this->pollEvents();
-    this->updatePlayer(deltaTime);
+void updateMap(float deltaTime){
+
 }
 
 void Game::updatePlayer(float deltaTime) {
     this->player->update(deltaTime);
 }
 
+void Game::update(float deltaTime) {
+    this->pollEvents();
+    this->updatePlayer(deltaTime);
+}
+
 void Game::renderPlayer() {
     this->player->render(this->window);
 }
-
 
 void Game::render() {
     //clear old frame
@@ -81,7 +88,7 @@ const RenderWindow &Game::getWindow() const {
 
 void Game::drawBackgroundImage(RenderWindow &window) {
 
-    sf::Texture bg1, bg2, bg3, bg5, bg8;
+    sf::Texture bg1, bg2, bg3, bg5, bg8, bg10;
 
     if (!bg1.loadFromFile("../assets/background/1.png") ||
         !bg2.loadFromFile("../assets/background/2.png") ||
@@ -89,7 +96,6 @@ void Game::drawBackgroundImage(RenderWindow &window) {
         !bg5.loadFromFile("../assets/background/5.png") ||
         !bg8.loadFromFile("../assets/background/8.png")
 //        !bg10.loadFromFile("../assets/background/10.png")
-
             ) {
         std::cout << "ERROR: Could not load texture from file\n";
     }
@@ -99,14 +105,14 @@ void Game::drawBackgroundImage(RenderWindow &window) {
     sf::Sprite background3(bg3);
     sf::Sprite background5(bg5);
     sf::Sprite background8(bg8);
-
+//    sf::Sprite background10(bg10);
 
     float ratio1 = static_cast<float>(bg1.getSize().x) / bg1.getSize().y;
     float ratio2 = static_cast<float>(bg2.getSize().x) / bg2.getSize().y;
     float ratio3 = static_cast<float>(bg3.getSize().x) / bg3.getSize().y;
     float ratio5 = static_cast<float>(bg5.getSize().x) / bg5.getSize().y;
     float ratio8 = static_cast<float>(bg8.getSize().x) / bg8.getSize().y;
-
+//    float ratio10 = static_cast<float>(bg10.getSize().x) / bg10.getSize().y;
 
     float minRatio = std::min({ratio1, ratio2, ratio3, ratio5, ratio8});
 
@@ -115,13 +121,15 @@ void Game::drawBackgroundImage(RenderWindow &window) {
     background3.setScale(minRatio, minRatio);
     background5.setScale(minRatio, minRatio);
     background8.setScale(minRatio, minRatio);
+//    background10.setScale(minRatio, minRatio);
 
+//    background10.setPosition(0,70);
 
     window.draw(background1);
     window.draw(background2);
     window.draw(background3);
     window.draw(background5);
     window.draw(background8);
-
+//    window.draw(background10);
 
 }

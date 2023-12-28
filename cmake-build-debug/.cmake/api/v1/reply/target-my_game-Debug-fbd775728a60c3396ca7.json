@@ -34,13 +34,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 55,
+				"line" : 58,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 57,
+				"line" : 60,
 				"parent" : 0
 			}
 		]
@@ -89,13 +89,14 @@
 				6,
 				8,
 				13,
-				15,
-				18,
-				20,
-				22,
-				24,
-				26,
-				28
+				17,
+				19,
+				21,
+				23,
+				25,
+				27,
+				30,
+				32
 			]
 		}
 	],
@@ -177,13 +178,14 @@
 				6,
 				8,
 				13,
-				15,
-				18,
-				20,
-				22,
-				24,
-				26,
-				28
+				17,
+				19,
+				21,
+				23,
+				25,
+				27,
+				30,
+				32
 			]
 		},
 		{
@@ -199,15 +201,17 @@
 				11,
 				12,
 				14,
+				15,
 				16,
-				17,
-				19,
-				21,
-				23,
-				25,
-				27,
+				18,
+				20,
+				22,
+				24,
+				26,
+				28,
 				29,
-				30
+				31,
+				33
 			]
 		}
 	],
@@ -296,12 +300,6 @@
 		},
 		{
 			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "Source Files/pawns/Enemy.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
 			"path" : "Header Files/pawns/Enemy.hpp",
 			"sourceGroupIndex" : 1
 		},
@@ -368,17 +366,39 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Source Files/Cell.cpp",
+			"path" : "Source Files/map/Cell.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "Header Files/Cell.hpp",
+			"path" : "Header Files/map/Cell.hpp",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"path" : "Header Files/pawns/enums/CellType.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Source Files/map/MapManager.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Header Files/map/MapManager.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Source Files/map/Map.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Header Files/map/Map.hpp",
 			"sourceGroupIndex" : 1
 		}
 	],

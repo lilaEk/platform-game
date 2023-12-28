@@ -35,7 +35,6 @@ add_executable(my_game "Source Files/main.cpp"
         "Header Files/pawns/enums/Direction.hpp"
         "Source Files/pawns/PawnState.cpp"
         "Header Files/pawns/enums/PlayerChoice.hpp"
-        "Source Files/pawns/Enemy.cpp"
         "Header Files/pawns/Enemy.hpp"
         "Header Files/pawns/enums/EnemyType.hpp"
         "Source Files/pawns/enemies/Spider.cpp"
@@ -48,9 +47,13 @@ add_executable(my_game "Source Files/main.cpp"
         "Header Files/pawns/enemies/Hedgehog.hpp"
         "Source Files/pawns/enemies/Forest_boss.cpp"
         "Header Files/pawns/enemies/Forest_boss.hpp"
-        "Source Files/Cell.cpp"
-        "Header Files/Cell.hpp"
-        "Header Files/pawns/enums/CellType.hpp")
+        "Source Files/map/Cell.cpp"
+        "Header Files/map/Cell.hpp"
+        "Header Files/pawns/enums/CellType.hpp"
+        "Source Files/map/MapManager.cpp"
+        "Header Files/map/MapManager.hpp"
+        "Source Files/map/Map.cpp"
+        "Header Files/map/Map.hpp")
 
 target_link_libraries(my_game fmt)
 

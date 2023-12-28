@@ -19,10 +19,13 @@ public:
     float pos_x{};
     float pos_y{};
 
-    sf::Texture textureSheet{};
+    sf::Texture texture{};
     sf::Sprite sprite{};
 
     float scale{};
 
     Entity();
+
+    virtual void render(sf::RenderTarget &target) = 0;
+
 };
