@@ -12,7 +12,7 @@ void Player::initPlayer() {
     this->width = 32;
     this->height = 32;
 
-    this->pos_x = 0.0f + width;
+    this->pos_x = (3*16*20)/2;
     this->pos_y = 450.f;
 
     this->movement_speed = 350.f;

@@ -5,8 +5,7 @@ void Game::initWindow() {
     this->vm.height = Game::height;
     this->vm.width = Game::width;
 
-    this->window.create(this->vm, "my game", Style::Titlebar | Style::Close);
-//    this->window.create(sf::VideoMode::getFullscreenModes()[0],"my game",sf::Style::Fullscreen);
+    this->window.create(this->vm, "platform game by rozalia", Style::Titlebar | Style::Close);
 }
 
 void Game::initMap() {
