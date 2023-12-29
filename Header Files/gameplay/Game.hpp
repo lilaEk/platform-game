@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Header Files/Game.hpp"
-#include "../Header Files/stdafx.hpp"
+#include "Game.hpp"
+#include "../stdafx.hpp"
 #include "pawns/Player.hpp"
 #include "map/MapManager.hpp"
 

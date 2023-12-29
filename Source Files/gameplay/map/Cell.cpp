@@ -1,4 +1,4 @@
-#include "../../Header Files/map/Cell.hpp"
+#include "../../../Header Files/gameplay/map/Cell.hpp"
 
 Cell::Cell(CellType type) : Entity() {
     this->width=cellSize;

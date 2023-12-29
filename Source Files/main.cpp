@@ -1,4 +1,4 @@
-#include "../Header Files/Game.hpp"
+#include "../Header Files/gameplay/Game.hpp"
 
 auto main() -> int {
     //init game engine
