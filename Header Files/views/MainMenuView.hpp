@@ -21,7 +21,9 @@ public:
     void renderMap();
     void renderButtons();
     void renderHeadline();
-    void renderSideBlock();
+    void updateMenuButtons();
+
+    void resetNotUsingButtons();
 
 private:
     MapManager &mapManager;
@@ -36,6 +38,8 @@ private:
     sf::Color buttonChosenColor = sf::Color(255,102,196); //pink
 
     ButtonType selectedButton = ButtonType::none;
+    ButtonType lastButton = ButtonType::none;
+
     sf::Font font;
     std::string headlineText = "platform game by rozalia";
     sf::Text headline;
