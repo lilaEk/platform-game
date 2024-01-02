@@ -1,5 +1,5 @@
 #include "../../../Header Files/gameplay/pawns/Player.hpp"
-#include "../../../Header Files/gameplay/Game.hpp"
+#include "../../../Header Files/Game.hpp"
 
 Player::Player() : Pawn() {
     this->initPlayer();
@@ -12,7 +12,7 @@ void Player::initPlayer() {
     this->width = 32;
     this->height = 32;
 
-    this->pos_x = (3*16*20)/2;
+    this->pos_x = (3 * 16 * 20) / 2;
     this->pos_y = 450.f;
 
     this->movement_speed = 350.f;
@@ -66,14 +66,17 @@ void Player::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
 }
 
-void Player::update(float currentTime) {
-    this->updateMovement(currentTime);
+void Player::update(float currentTime, bool moveable) {
+    if (moveable) {
+        this->updateMovement(currentTime);
+    }
     this->updateAnimations(currentTime);
 }
 
 void Player::updateMovement(float currentTime) {
     this->lastPawnState = this->currentPawnState;
-        //left movement
+
+    //left movement
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
 
@@ -114,7 +117,7 @@ void Player::updateMovement(float currentTime) {
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->pos_y += 20.F;
         if (this->pos_y > 450.f) {
-            this->pos_y =450.f;
+            this->pos_y = 450.f;
         };
         this->currentPawnState = PawnState::squat;
     }

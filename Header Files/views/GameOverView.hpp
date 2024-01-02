@@ -7,10 +7,13 @@ class GameOverView {
 public:
     GameOverView(MapManager &mapManager, Player &player, sf::RenderWindow &window);
 
-    void init(); // Inicjalizuje widok game over
-    void handleInput(); // Obsługuje wejście
-    void update(float deltaTime); // Aktualizuje logikę
-    void render(); // Renderuje obiekty
+    void handleInput();
+
+    void update(float d);
+    void updatePlayer(float d);
+    void render();
+    void renderPlayer();
+    void renderMap();
 
 private:
     MapManager& mapManager;

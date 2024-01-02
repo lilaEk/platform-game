@@ -7,9 +7,6 @@ GameplayView::GameplayView(MapManager &mapManager, Player &player, sf::RenderWin
 
 }
 
-void GameplayView::init() {
-
-}
 
 void GameplayView::handleInput() {
 

@@ -10,10 +10,6 @@ GameOverView::GameOverView(MapManager &mapManager, Player &player, sf::RenderWin
 
 }
 
-void GameOverView::init() {
-
-}
-
 void GameOverView::handleInput() {
 
 }

@@ -6,27 +6,19 @@ MainMenuView::MainMenuView(MapManager &mapManager, Player &player, sf::RenderWin
 
 }
 
-void MainMenuView::init() {
-
-}
-
 void MainMenuView::handleInput() {
 
 }
 
 void MainMenuView::update(float deltaTime) {
-    updateMap(deltaTime);
     updatePlayer(deltaTime);
 
 }
 
 void MainMenuView::updatePlayer(float d) {
-    this->player.update(d);
+    this->player.update(d, false);
 }
 
-void MainMenuView::updateMap(float d) {
-
-}
 
 void MainMenuView::render() {
     this->renderMap();

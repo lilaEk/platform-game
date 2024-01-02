@@ -14,8 +14,9 @@ public:
 
     void update(float deltaTime);
     void render(sf::RenderWindow &target);
+    Map *currentMap;
 
 private:
 //    std::unordered_map<std::string, Map> maps;
-    Map *currentMap;
+//    Map *currentMap;
 };

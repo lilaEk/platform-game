@@ -14,9 +14,8 @@ public:
     void updateMap(float deltaTime);
     void renderMap(sf::RenderWindow &target);
 
-    std::vector<std::array<Cell, 12>> mapData; //array 12
+    std::vector<std::array<Cell, 12>> mapData;
 
-private:
     void initMap();
 
 };

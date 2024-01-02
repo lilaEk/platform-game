@@ -7,9 +7,6 @@ NextLevelView::NextLevelView(MapManager &mapManager, Player &player, sf::RenderW
 
 }
 
-void NextLevelView::init() {
-
-}
 
 void NextLevelView::handleInput() {
 
