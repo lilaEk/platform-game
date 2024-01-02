@@ -34,13 +34,13 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 60,
+				"line" : 69,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 62,
+				"line" : 71,
 				"parent" : 0
 			}
 		]
@@ -97,7 +97,11 @@
 				27,
 				30,
 				32,
-				34
+				34,
+				36,
+				38,
+				40,
+				42
 			]
 		}
 	],
@@ -187,7 +191,11 @@
 				27,
 				30,
 				32,
-				34
+				34,
+				36,
+				38,
+				40,
+				42
 			]
 		},
 		{
@@ -214,7 +222,12 @@
 				29,
 				31,
 				33,
-				35
+				35,
+				37,
+				39,
+				41,
+				43,
+				44
 			]
 		}
 	],
@@ -407,12 +420,61 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "Source Files/menu/MainMenu.cpp",
+			"path" : "Source Files/views/MainMenuView.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "Header Files/menu/MainMenu.hpp",
+			"path" : "Header Files/views/MainMenuView.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Source Files/views/App.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Header Files/views/App.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Source Files/views/NextLevelView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Header Files/views/NextLevelView.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Source Files/views/GameOverView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Header Files/views/GameOverView.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "Source Files/views/GameplayView.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Header Files/views/GameplayView.hpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "Header Files/views/ViewType.hpp",
 			"sourceGroupIndex" : 1
 		}
 	],

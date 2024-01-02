@@ -54,8 +54,17 @@ add_executable(my_game "Source Files/main.cpp"
         "Header Files/gameplay/map/MapManager.hpp"
         "Source Files/gameplay/map/Map.cpp"
         "Header Files/gameplay/map/Map.hpp"
-        "Source Files/menu/MainMenu.cpp"
-        "Header Files/menu/MainMenu.hpp")
+        "Source Files/views/MainMenuView.cpp"
+        "Header Files/views/MainMenuView.hpp"
+        "Source Files/views/App.cpp"
+        "Header Files/views/App.hpp"
+        "Source Files/views/NextLevelView.cpp"
+        "Header Files/views/NextLevelView.hpp"
+        "Source Files/views/GameOverView.cpp"
+        "Header Files/views/GameOverView.hpp"
+        "Source Files/views/GameplayView.cpp"
+        "Header Files/views/GameplayView.hpp"
+        "Header Files/views/ViewType.hpp")
 
 target_link_libraries(my_game fmt)
 

@@ -1,3 +1,4 @@
+/*
 #include "../../Header Files/gameplay/Game.hpp"
 
 //inits
@@ -138,3 +139,4 @@ void Game::drawBackgroundImage(RenderWindow &window) {
 //    window.draw(background10);
 
 }
+*/
