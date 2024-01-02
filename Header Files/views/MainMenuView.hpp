@@ -15,24 +15,30 @@ public:
 
     void update(float d);
     void updatePlayer(float d);
+
     void render();
     void renderPlayer();
     void renderMap();
     void renderButtons();
-
-    ButtonType MenuPressed(){
-        return MenuSelected;
-    }
+    void renderHeadline();
+    void renderSideBlock();
 
 private:
-    MapManager& mapManager;
-    Player& player;
-    sf::RenderWindow& window;
+    MapManager &mapManager;
+    Player &player;
+    sf::RenderWindow &window;
 
     void initButtons(sf::Font font);
 
-    ButtonType MenuSelected;
+    sf::Color rulesColor = sf::Color(115, 165, 126); //green
+    sf::Color loadGameColor = sf::Color(214,181,167); //red
+    sf::Color rankingColor = sf::Color(193,162,255); //violet
+    sf::Color buttonChosenColor = sf::Color(255,102,196); //pink
+
+    ButtonType selectedButton = ButtonType::none;
     sf::Font font;
+    std::string headlineText = "platform game by rozalia";
+    sf::Text headline;
     std::vector<Button> buttons;
 };
 

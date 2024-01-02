@@ -2,6 +2,7 @@
 #include "../../Header Files/views/Button.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 
+
 Button::Button(std::string text, int buttonPosX, int buttonPosY, float buttonWidth, float buttonHeight,
                sf::Color color, sf::RenderWindow &window, sf::Font font)
         : buttonPosX(buttonPosX), buttonPosY(buttonPosY), buttonWidth(buttonWidth),
@@ -21,9 +22,26 @@ Button::Button(std::string text, int buttonPosX, int buttonPosY,
     this->text.setString(text);
 }
 
-Button::~Button() {
+//Button& Button::operator=(const Button& other) {
+//    if (this != &other) {
+//        this->buttonPosX = other.buttonPosX;
+//        this->buttonPosY = other.buttonPosY;
+//        this->buttonWidth = other.buttonWidth;
+//        this->buttonHeight = other.buttonHeight;
+//        this->color = other.color;
+////        this->window = other.window;
+//        this->font = other.font;
+//
+//        this->text.setString(other.text.getString());
+//        this->text.setPosition(other.text.getPosition());
+//        this->text.setFillColor(other.text.getFillColor());
+//        this->text.setCharacterSize(other.text.getCharacterSize());
+//        this->text.setFont(*other.text.getFont());
+//    }
+//    return *this;
+//}
 
-}
+Button::~Button() { }
 
 void Button::render(sf::RenderWindow& window) {
 
@@ -40,3 +58,8 @@ void Button::render(sf::RenderWindow& window) {
 
     window.draw(text);
 }
+
+void Button::changeColor(sf::Color newColor) {
+    this->color=newColor;
+}
+

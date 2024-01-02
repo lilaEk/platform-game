@@ -8,13 +8,13 @@
 class Button {
 public:
 
+    Button();
     Button(std::string text, int posX, int posY, sf::Color color, sf::RenderWindow &window, sf::Font font);
     Button(std::string text, int posX, int posY, float buttonWidth, float buttonHeight, sf::Color color, sf::RenderWindow &window, sf::Font font);
 
     ~Button();
 
     sf::Color color;
-    sf::Color buttonChosenColor = sf::Color(255,102,196);
     float buttonWidth;
     float buttonHeight;
     float buttonPosX;
@@ -25,6 +25,11 @@ public:
 
     void render(sf::RenderWindow& window);
 
+    void changeColor(sf::Color newColor);
+
+//    Button& operator=(const Button& other);
+
 private:
     sf::RenderWindow& window;
+
 };

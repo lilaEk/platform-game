@@ -5,5 +5,5 @@ enum class ButtonType{
     load_game,
     high_scores,
     rules,
-    start_game
+    none
 };
