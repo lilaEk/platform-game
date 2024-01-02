@@ -41,14 +41,6 @@ void Game::pollEvents() {
     }
 }
 
-//void App::updateMap(float deltaTime){
-//    this->mapManager->update(deltaTime);
-//}
-
-//void App::updatePlayer(float deltaTime) {
-//    this->player->update(deltaTime);
-//}
-
 void Game::update_and_render(float deltaTime) {
     this->pollEvents();
 

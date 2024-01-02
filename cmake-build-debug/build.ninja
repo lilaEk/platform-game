@@ -193,6 +193,14 @@ build CMakeFiles/my_game.dir/Source_Files/views/GameplayView.cpp.obj: CXX_COMPIL
   OBJECT_DIR = CMakeFiles\my_game.dir
   OBJECT_FILE_DIR = CMakeFiles\my_game.dir\Source_Files\views
 
+build CMakeFiles/my_game.dir/Source_Files/views/Button.cpp.obj: CXX_COMPILER__my_game_unscanned_Debug C$:/Users/Rozalia/Desktop/pjc/my_game/Source$ Files/views/Button.cpp || cmake_object_order_depends_target_my_game
+  DEFINES = -DFMT_SHARED
+  DEP_FILE = CMakeFiles\my_game.dir\Source_Files\views\Button.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -IC:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include -IC:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/sfml-src/include
+  OBJECT_DIR = CMakeFiles\my_game.dir
+  OBJECT_FILE_DIR = CMakeFiles\my_game.dir\Source_Files\views
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target my_game
@@ -201,7 +209,7 @@ build CMakeFiles/my_game.dir/Source_Files/views/GameplayView.cpp.obj: CXX_COMPIL
 #############################################
 # Link the executable my_game.exe
 
-build my_game.exe: CXX_EXECUTABLE_LINKER__my_game_Debug CMakeFiles/my_game.dir/Source_Files/main.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/Player.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/Animation.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/Entity.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/PawnState.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Spider.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Bat.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Human.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Hedgehog.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Forest_boss.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/map/Cell.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/map/MapManager.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/map/Map.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/MainMenuView.cpp.obj CMakeFiles/my_game.dir/Source_Files/Game.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/NextLevelView.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/GameOverView.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/GameplayView.cpp.obj | _deps/fmt-build/libfmtd.dll.a _deps/sfml-build/lib/libsfml-graphics-d.a _deps/sfml-build/lib/libsfml-window-d.a _deps/sfml-build/lib/libsfml-system-d.a || _deps/fmt-build/bin/libfmtd.dll _deps/sfml-build/lib/sfml-graphics-d-2.dll _deps/sfml-build/lib/sfml-system-d-2.dll _deps/sfml-build/lib/sfml-window-d-2.dll
+build my_game.exe: CXX_EXECUTABLE_LINKER__my_game_Debug CMakeFiles/my_game.dir/Source_Files/main.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/Player.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/Animation.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/Entity.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/PawnState.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Spider.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Bat.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Human.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Hedgehog.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/pawns/enemies/Forest_boss.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/map/Cell.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/map/MapManager.cpp.obj CMakeFiles/my_game.dir/Source_Files/gameplay/map/Map.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/MainMenuView.cpp.obj CMakeFiles/my_game.dir/Source_Files/Game.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/NextLevelView.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/GameOverView.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/GameplayView.cpp.obj CMakeFiles/my_game.dir/Source_Files/views/Button.cpp.obj | _deps/fmt-build/libfmtd.dll.a _deps/sfml-build/lib/libsfml-graphics-d.a _deps/sfml-build/lib/libsfml-window-d.a _deps/sfml-build/lib/libsfml-system-d.a || _deps/fmt-build/bin/libfmtd.dll _deps/sfml-build/lib/sfml-graphics-d-2.dll _deps/sfml-build/lib/sfml-system-d-2.dll _deps/sfml-build/lib/sfml-window-d-2.dll
   FLAGS = -g
   LINK_LIBRARIES = _deps/fmt-build/libfmtd.dll.a  _deps/sfml-build/lib/libsfml-graphics-d.a  _deps/sfml-build/lib/libsfml-window-d.a  _deps/sfml-build/lib/libsfml-system-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\my_game.dir

@@ -63,6 +63,9 @@ add_executable(my_game "Source Files/main.cpp"
         "Source Files/views/GameplayView.cpp"
         "Header Files/views/GameplayView.hpp"
         "Header Files/views/ViewType.hpp"
+        "Header Files/views/ButtonType.hpp"
+        "Source Files/views/Button.cpp"
+        "Header Files/views/Button.hpp"
 )
 
 target_link_libraries(my_game fmt)
