@@ -37,6 +37,11 @@ void Game::pollEvents() {
                 if (e.key.code == Keyboard::Escape)
                     this->window.close();
                 break;
+            case sf::Event::MouseButtonPressed:
+                if (e.mouseButton.button == sf::Mouse::Left) {
+                    handleMouseClick(e.mouseButton.x, e.mouseButton.y);
+                }
+                break;
         }
     }
 }
@@ -157,4 +162,14 @@ void Game::drawBackgroundImage(RenderWindow &window) {
     window.draw(background3);
     window.draw(background5);
     window.draw(background8);
+}
+
+void Game::handleMouseClick(int mouseX, int mouseY) {
+    switch (currentView) { //todo do uzupełnienia
+        case ViewType::main_menu:
+            mainMenuView.handleButtonClick(mouseX, mouseY);
+            break;
+        default:
+            break;
+    }
 }

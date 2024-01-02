@@ -12,6 +12,7 @@ public:
     MainMenuView(MapManager &mapManager, Player &player, sf::RenderWindow &window);
 
     void handleInput();
+    void handleButtonClick(int mouseX, int mouseY);
 
     void update(float d);
     void updatePlayer(float d);

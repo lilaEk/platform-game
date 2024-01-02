@@ -17,13 +17,13 @@ void MainMenuView::handleInput() {
 }
 
 void MainMenuView::initButtons(sf::Font font) {
-    Button newGame = Button("new game", 470, 110, sf::Color(221, 180, 34), this->window, this->font);
-    Button loadGame = Button("load game", 700, 110, sf::Color(194, 78, 29), this->window, this->font);
-    Button highScores = Button("high scores", 470, 200, sf::Color(140, 82, 255), this->window, this->font);
-    Button rules = Button("rules", 700, 200, sf::Color(115, 165, 126), this->window, this->font);
+    Button newGame = Button("new game", 470, 110, sf::Color(221, 180, 34), this->window, this->font, ButtonType::new_game);
+    Button loadGame = Button("load game", 700, 110, sf::Color(194, 78, 29), this->window, this->font, ButtonType::load_game);
+    Button highScores = Button("high scores", 470, 200, sf::Color(140, 82, 255), this->window, this->font, ButtonType::high_scores);
+    Button rules = Button("rules", 700, 200, sf::Color(115, 165, 126), this->window, this->font, ButtonType::rules);
     Button yourCharacter = Button("choose your\ncharacter", Game::width / 2 - 100, Game::height / 2 + 40,
-                                  200, 120, sf::Color(213, 232, 236), this->window, this->font);
-    Button start = Button("start", 700, 420, sf::Color(151, 164, 166), this->window, this->font);
+                                  200, 120, sf::Color(213, 232, 236), this->window, this->font, ButtonType::choose_your_character);
+    Button start = Button("start", 700, 420, sf::Color(151, 164, 166), this->window, this->font, ButtonType::start);
 
     buttons.push_back(newGame);
     buttons.push_back(loadGame);
@@ -121,6 +121,9 @@ void MainMenuView::updateMenuButtons() {
             window.draw(rulesSideBlock);
             break;
         }
+        case ButtonType::choose_your_character: {}
+        case ButtonType::start: {}
+
         default:
             break;
     }
@@ -133,4 +136,13 @@ void MainMenuView::resetNotUsingButtons() {
     buttons[3].changeColor(sf::Color(115, 165, 126));
     buttons[4].changeColor(sf::Color(213, 232, 236));
     buttons[5].changeColor(sf::Color(151, 164, 166));
+}
+
+void MainMenuView::handleButtonClick(int mouseX, int mouseY) {
+    for (Button &button: buttons) {
+        if (button.isClicked(mouseX, mouseY)) {
+            this->selectedButton=button.getButtonType();
+            break;
+        }
+    }
 }

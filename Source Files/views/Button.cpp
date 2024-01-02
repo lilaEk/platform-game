@@ -4,17 +4,17 @@
 
 
 Button::Button(std::string text, int buttonPosX, int buttonPosY, float buttonWidth, float buttonHeight,
-               sf::Color color, sf::RenderWindow &window, sf::Font font)
+               sf::Color color, sf::RenderWindow &window, sf::Font font, ButtonType type)
         : buttonPosX(buttonPosX), buttonPosY(buttonPosY), buttonWidth(buttonWidth),
-          buttonHeight(buttonHeight), color(color), window(window), font(font) {
+          buttonHeight(buttonHeight), color(color), window(window), font(font), buttonType(type) {
 
     this->text.setString(text);
 }
 
 Button::Button(std::string text, int buttonPosX, int buttonPosY,
-               sf::Color color, sf::RenderWindow &window, sf::Font font)
+               sf::Color color, sf::RenderWindow &window, sf::Font font, ButtonType type)
         : buttonPosX(buttonPosX), buttonPosY(buttonPosY), buttonWidth(buttonWidth),
-          buttonHeight(buttonHeight), color(color), window(window), font(font) {
+          buttonHeight(buttonHeight), color(color), window(window), font(font), buttonType(type){
 
     this->buttonWidth = 200;
     this->buttonHeight = 60;
@@ -61,5 +61,14 @@ void Button::render(sf::RenderWindow& window) {
 
 void Button::changeColor(sf::Color newColor) {
     this->color=newColor;
+}
+
+bool Button::isClicked(int mouseX, int mouseY) const {
+    return (mouseX >= buttonPosX && mouseX <= buttonPosX + buttonWidth &&
+            mouseY >= buttonPosY && mouseY <= buttonPosY + buttonHeight);
+}
+
+ButtonType Button::getButtonType() {
+    return this->buttonType;
 }
 

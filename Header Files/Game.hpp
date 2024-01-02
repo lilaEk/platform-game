@@ -22,9 +22,9 @@ public:
     RenderWindow window;
     sf::Clock clock;
 
-    bool running() const;    //accessors
-
+    bool running() const;
     void pollEvents();
+    void handleMouseClick(int mouseX, int mouseY);
     void update_and_render(float d);
 
     const RenderWindow& getWindow() const;
