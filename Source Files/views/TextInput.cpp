@@ -1,5 +1,5 @@
 #include <iostream>
-#include "TextInput.hpp"
+#include "../../Header Files/views/TextInput.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 
 
@@ -46,10 +46,6 @@ void TextInput::draw() {
     window.draw(inputText);
 }
 
-void TextInput::setOnEnterCallback(std::function<void(const std::string &)> callback) {
-    onEnterCallback = std::move(callback);
-}
-
 std::string TextInput::getText() {
     return this->inputString;
 }
@@ -60,11 +56,9 @@ void TextInput::handleEvent(sf::Event &event) {
         if (event.text.unicode >= 32 && event.text.unicode < 128) {
             inputString += static_cast<char>(event.text.unicode);
             updateText();
-            std::cout << inputString<<std::endl;
         } else if (event.text.unicode == 8 && !inputString.empty()) {
             inputString.pop_back();
             updateText();
-            std::cout << inputString<<std::endl;
         }
     }
 }

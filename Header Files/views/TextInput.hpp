@@ -18,8 +18,6 @@ public:
 
     void draw();
 
-    void setOnEnterCallback(std::function<void(const std::string&)> callback);
-
     std::string getText();
 
     void handleEvent( sf::Event &event);
@@ -34,5 +32,4 @@ private:
     bool cursorVisible;
     sf::Clock cursorTimer;
     sf::Font &font;
-    std::function<void(const std::string&)> onEnterCallback;
 };

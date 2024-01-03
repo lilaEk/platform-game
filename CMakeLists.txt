@@ -66,7 +66,7 @@ add_executable(my_game "Source Files/main.cpp"
         "Header Files/views/ButtonType.hpp"
         "Source Files/views/Button.cpp"
         "Header Files/views/Button.hpp"
-        "Header Files/views/TextInput.cpp"
+        "Source Files/views/TextInput.cpp"
         "Header Files/views/TextInput.hpp"
 )
 
