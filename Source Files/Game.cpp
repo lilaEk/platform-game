@@ -5,7 +5,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                window(sf::VideoMode(Game::width, Game::height), "platform game by rozalia",
                       sf::Style::Titlebar | sf::Style::Close),
                mainMenuView(*this->mapManager, this->player, this->window),
-               gameplayView(*this->mapManager, *this->player, this->window),
+               gameplayView(this->mapManager, this->player, this->window),
                nextLevelView(*this->mapManager, *this->player, this->window),
                gameOverView(*this->mapManager, *this->player, this->window) {
 
@@ -68,6 +68,7 @@ void Game::update_and_render(float deltaTime) {
             if (lastView != currentView) {
                 this->mapManager->currentMap->initMap();
                 this->player->currentPawnState = PawnState::idle;
+                lastView=ViewType::main_menu;
             }
 
             mainMenuView.handleInput();
@@ -83,6 +84,7 @@ void Game::update_and_render(float deltaTime) {
 
             if (lastView != currentView) {
                 this->player->currentPawnState = PawnState::happy;
+                lastView=ViewType::next_level;
             }
 
             nextLevelView.handleInput();
@@ -97,6 +99,7 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::gameplay:
 
             if (lastView != currentView) {
+                lastView=ViewType::gameplay;
             }
 
             gameplayView.handleInput();

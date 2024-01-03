@@ -1,12 +1,11 @@
 #pragma once
 
 #include "../gameplay/map/MapManager.hpp"
-
 #include "../gameplay/pawns/Player.hpp"
 
 class Gameplay {
 public:
-    Gameplay(MapManager &mapManager, Player &player, sf::RenderWindow &window);
+    Gameplay(MapManager *mapManager, Player *player, sf::RenderWindow &window);
 
     void handleInput();
 
@@ -18,8 +17,8 @@ public:
     void renderMap();
 
 private:
-    MapManager& mapManager;
-    Player& player;
+    MapManager* mapManager;
+    Player* player;
     sf::RenderWindow& window;
 
 };
