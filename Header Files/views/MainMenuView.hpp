@@ -13,7 +13,7 @@ class MainMenuView {
 public:
     using ButtonCallback = std::function<void()>;
 
-    MainMenuView(MapManager &mapManager, Player &player, sf::RenderWindow &window);
+    MainMenuView(MapManager &mapManager, Player *player, sf::RenderWindow &window);
 
     void handleInput();
     void handleButtonClick(int mouseX, int mouseY);
@@ -37,7 +37,7 @@ public:
 
 private:
     MapManager &mapManager;
-    Player &player;
+    Player *player;
     sf::RenderWindow &window;
 
     ButtonCallback startButtonCallback;
@@ -45,6 +45,10 @@ private:
     void initButtons(sf::Font font);
 
     void setRulesSideBlock(sf::Color rulesColor, sf::RenderWindow& window, sf::Font font);
+    void setRankingSideBlock(sf::Color rankingColor, sf::RenderWindow& window);
+    void setLoadGameSideBlock(sf::Color loadGameColor, sf::RenderWindow& window);
+
+
 
     sf::Color rulesColor = sf::Color(115, 165, 126); //green
     sf::Color loadGameColor = sf::Color(214,181,167); //red

@@ -1,7 +1,7 @@
 #include "../../Header Files/views/MainMenuView.hpp"
 #include "../../Header Files/Game.hpp"
 
-MainMenuView::MainMenuView(MapManager &mapManager, Player &player, sf::RenderWindow &window)
+MainMenuView::MainMenuView(MapManager &mapManager, Player *player, sf::RenderWindow &window)
         : mapManager(mapManager), player(player), window(window), playerNick(window, font) {
 
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
@@ -53,7 +53,7 @@ void MainMenuView::update(float deltaTime) {
 }
 
 void MainMenuView::updatePlayer(float d) {
-    this->player.update(d, false);
+    this->player->update(d, false);
 }
 
 void MainMenuView::render() {
@@ -76,7 +76,7 @@ void MainMenuView::renderHeadline() {
 }
 
 void MainMenuView::renderPlayer() {
-    this->player.render(this->window);
+    this->player->render(this->window);
 }
 
 void MainMenuView::renderMap() {
@@ -93,7 +93,8 @@ void MainMenuView::renderButtons() {
 }
 
 void MainMenuView::renderTextInput() {
-    if (selectedButton == ButtonType::new_game) {
+    if (selectedButton == ButtonType::new_game ||
+        (lastButton == ButtonType::new_game && selectedButton == ButtonType::start)) {
         playerNick.draw();
     }
 }
@@ -106,6 +107,7 @@ void MainMenuView::updateMenuButtons() {
                 lastButton = selectedButton;
             }
             textButtons[0].changeColor(buttonChosenColor);
+
             playerNick.updateIsFocused(true);
 
             if (playerNick.getText().empty()) {
@@ -115,7 +117,6 @@ void MainMenuView::updateMenuButtons() {
                 isStartClickable = true;
                 textButtons[5].changeColor(buttonChosenColor);
             }
-
             break;
         }
         case ButtonType::load_game: {
@@ -125,11 +126,7 @@ void MainMenuView::updateMenuButtons() {
             }
             textButtons[1].changeColor(buttonChosenColor);
 
-            sf::RectangleShape loadGameSideBlock(sf::Vector2f(250, 370));
-            loadGameSideBlock.setPosition(40, 110);
-            loadGameSideBlock.setFillColor(loadGameColor);
-            window.draw(loadGameSideBlock);
-
+            setLoadGameSideBlock(this->loadGameColor, this->window);
             break;
         }
         case ButtonType::high_scores: {
@@ -139,10 +136,7 @@ void MainMenuView::updateMenuButtons() {
             }
             textButtons[2].changeColor(buttonChosenColor);
 
-            sf::RectangleShape highScoresSideBlock(sf::Vector2f(250, 370));
-            highScoresSideBlock.setPosition(40, 110);
-            highScoresSideBlock.setFillColor(rankingColor);
-            window.draw(highScoresSideBlock);
+            setRankingSideBlock(this->rankingColor, this->window);
             break;
         }
         case ButtonType::rules: {
@@ -153,7 +147,6 @@ void MainMenuView::updateMenuButtons() {
             textButtons[3].changeColor(buttonChosenColor);
 
             setRulesSideBlock(this->rulesColor, this->window, this->font);
-
             break;
         }
         case ButtonType::choose_your_character: {
@@ -162,19 +155,31 @@ void MainMenuView::updateMenuButtons() {
                 lastButton = selectedButton;
             }
 
-//            delete player;
+            delete player;
             this->playerIndex++;
-            if (playerIndex == 3) { playerIndex == 0; }
-            this->player = Player(playersTypeArray[playerIndex]);
+            if (playerIndex == 3) { playerIndex = 0; }
+            this->player = new Player(playersTypeArray[playerIndex]);
+
+            selectedButton = ButtonType::none;
         }
         case ButtonType::start: {
+
             if (isStartClickable == true) {
-                if (lastButton != selectedButton) {
-                    resetNotUsingButtons();
-                    lastButton = selectedButton;
-                }
+            playerNick.updateIsFocused(true);
+
+            handleStartButtonPress();
                 this->selectedButton = ButtonType::none;
-                handleStartButtonPress();
+            }
+
+            if (lastButton == ButtonType::new_game) {
+                resetNotUsingButtons();
+                textButtons[0].changeColor(buttonChosenColor);
+            } else if (lastButton == ButtonType::load_game) {
+                setLoadGameSideBlock(this->loadGameColor, this->window);
+            } else if (lastButton == ButtonType::rules) {
+                setRulesSideBlock(this->rulesColor, this->window, this->font);
+            } else if (lastButton == ButtonType::high_scores) {
+                setRankingSideBlock(this->rankingColor, this->window);
             }
             break;
         }
@@ -238,6 +243,27 @@ void MainMenuView::setRulesSideBlock(sf::Color rulesColor, RenderWindow &window,
     window.draw(rules);
 }
 
+void MainMenuView::handleTextEntered(sf::Event &event) {
+    if (selectedButton == ButtonType::new_game) {
+        playerNick.handleEvent(event);
+    }
+}
+
+void MainMenuView::setRankingSideBlock(sf::Color rankingColor, RenderWindow &window) {
+    sf::RectangleShape highScoresSideBlock(sf::Vector2f(250, 370));
+    highScoresSideBlock.setPosition(40, 110);
+    highScoresSideBlock.setFillColor(rankingColor);
+    window.draw(highScoresSideBlock);
+}
+
+void MainMenuView::setLoadGameSideBlock(sf::Color rulesColor, RenderWindow &window) {
+    sf::RectangleShape loadGameSideBlock(sf::Vector2f(250, 370));
+    loadGameSideBlock.setPosition(40, 110);
+    loadGameSideBlock.setFillColor(loadGameColor);
+    window.draw(loadGameSideBlock);
+}
+
+
 void MainMenuView::setStartButtonCallback(ButtonCallback callback) {
     startButtonCallback = std::move(callback);
 }
@@ -245,11 +271,5 @@ void MainMenuView::setStartButtonCallback(ButtonCallback callback) {
 void MainMenuView::handleStartButtonPress() {
     if (startButtonCallback) {
         startButtonCallback();
-    }
-}
-
-void MainMenuView::handleTextEntered(sf::Event &event) {
-    if (selectedButton == ButtonType::new_game) {
-        playerNick.handleEvent(event);
     }
 }
