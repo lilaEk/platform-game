@@ -17,5 +17,4 @@ void GameplayView::update(float deltaTime) {
 }
 
 void GameplayView::render() {
-
 }

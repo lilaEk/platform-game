@@ -98,7 +98,6 @@ void MainMenuView::renderTextInput() {
     }
 }
 
-
 void MainMenuView::updateMenuButtons() {
     switch (this->selectedButton) {
         case ButtonType::new_game: {
@@ -107,6 +106,7 @@ void MainMenuView::updateMenuButtons() {
                 lastButton = selectedButton;
             }
             textButtons[0].changeColor(buttonChosenColor);
+            playerNick.updateIsFocused(true);
 
             if (playerNick.getText().empty()) {
                 isStartClickable = false;
@@ -182,6 +182,7 @@ void MainMenuView::resetNotUsingButtons() {
     textButtons[5].changeColor(sf::Color(151, 164, 166));
 
     isStartClickable = false;
+    this->playerNick.updateIsFocused(false);
 }
 
 void MainMenuView::handleButtonClick(int mouseX, int mouseY) {

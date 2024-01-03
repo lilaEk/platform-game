@@ -12,6 +12,9 @@ public:
     TextInput(sf::RenderWindow &window, sf::Font &font);
 
     void update();
+    void updateText();
+
+    void updateIsFocused(bool focused);
 
     void draw();
 
