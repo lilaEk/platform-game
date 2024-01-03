@@ -43,7 +43,7 @@ void Button::renderTextButtons(sf::RenderWindow &window) {
 
     window.draw(buttonShape);
 
-    text.setPosition(buttonPosX + 10, buttonPosY + 7);
+    text.setPosition(buttonPosX + 20, buttonPosY + 10);
     text.setFillColor(sf::Color(0, 0, 0));
     text.setCharacterSize(30);
     text.setFont(font);
