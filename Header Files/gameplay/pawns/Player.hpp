@@ -30,10 +30,10 @@ private:
 //    float deceleration;
 
     void initPlayer() override;
-    void initAnimations(PlayerChoice playerChoice) override;
+    void initAnimations() override;
 
 public:
-    Player();
+    Player(PlayerChoice playerChoice);
     ~Player() override;
 
     void render(sf::RenderTarget &target) override;

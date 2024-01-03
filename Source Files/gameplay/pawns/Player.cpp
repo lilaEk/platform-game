@@ -1,9 +1,10 @@
 #include "../../../Header Files/gameplay/pawns/Player.hpp"
 #include "../../../Header Files/Game.hpp"
 
-Player::Player() : Pawn() {
+Player::Player(PlayerChoice playerChoice) : Pawn() {
+    this->chosenPlayer=playerChoice;
     this->initPlayer();
-    this->initAnimations(this->chosenPlayer);
+    this->initAnimations();
 }
 
 Player::~Player() = default;
@@ -18,7 +19,6 @@ void Player::initPlayer() {
     this->movement_speed = 350.f;
     this->scale = 3.f;
 
-    this->chosenPlayer = PlayerChoice::Dude_Monster;
     this->direction = Direction::right;
     this->lastPawnState = PawnState::idle;
     this->currentPawnState = PawnState::idle;
@@ -26,10 +26,10 @@ void Player::initPlayer() {
     this->sprite.setScale(scale, scale);
 }
 
-void Player::initAnimations(PlayerChoice playerChoice) {
+void Player::initAnimations() {
 
     std::string characterFolder;
-    switch (chosenPlayer) {
+    switch (this->chosenPlayer) {
         case PlayerChoice::Dude_Monster:
             characterFolder = "Dude_Monster";
             break;

@@ -62,5 +62,8 @@ private:
 
     bool isStartClickable = false;
     TextInput playerNick;
+
+    std::array<PlayerChoice,3> playersTypeArray{PlayerChoice::Dude_Monster, PlayerChoice::Owlet_Monster, PlayerChoice::Pink_Monster};
+    int playerIndex=0;
 };
 

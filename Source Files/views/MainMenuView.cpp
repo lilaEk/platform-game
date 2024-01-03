@@ -2,7 +2,7 @@
 #include "../../Header Files/Game.hpp"
 
 MainMenuView::MainMenuView(MapManager &mapManager, Player &player, sf::RenderWindow &window)
-        : mapManager(mapManager), player(player), window(window), playerNick(window,font) {
+        : mapManager(mapManager), player(player), window(window), playerNick(window, font) {
 
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
         std::cout << "ERROR: Could not load font from file\n";
@@ -11,7 +11,7 @@ MainMenuView::MainMenuView(MapManager &mapManager, Player &player, sf::RenderWin
     initButtons(this->font);
     selectedButton = ButtonType::none;
 
-    isStartClickable= false;
+    isStartClickable = false;
 }
 
 void MainMenuView::handleInput() {
@@ -157,19 +157,31 @@ void MainMenuView::updateMenuButtons() {
             break;
         }
         case ButtonType::choose_your_character: {
+            if (lastButton != selectedButton) {
+                resetNotUsingButtons();
+                lastButton = selectedButton;
+            }
+
+//            delete player;
+            this->playerIndex++;
+            if (playerIndex == 3) { playerIndex == 0; }
+            this->player = Player(playersTypeArray[playerIndex]);
         }
         case ButtonType::start: {
             if (isStartClickable == true) {
-                resetNotUsingButtons();
+                if (lastButton != selectedButton) {
+                    resetNotUsingButtons();
+                    lastButton = selectedButton;
+                }
                 this->selectedButton = ButtonType::none;
                 handleStartButtonPress();
             }
             break;
         }
 
-    default:
-        break;
-}
+        default:
+            break;
+    }
 
 }
 
@@ -236,7 +248,7 @@ void MainMenuView::handleStartButtonPress() {
     }
 }
 
-void MainMenuView::handleTextEntered( sf::Event& event) {
+void MainMenuView::handleTextEntered(sf::Event &event) {
     if (selectedButton == ButtonType::new_game) {
         playerNick.handleEvent(event);
     }

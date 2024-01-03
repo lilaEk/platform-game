@@ -1,6 +1,6 @@
 #include "../Header Files/Game.hpp"
 
-Game::Game() : player(new Player),
+Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                mapManager(new MapManager),
                window(sf::VideoMode(Game::width, Game::height), "platform game by rozalia",
                       sf::Style::Titlebar | sf::Style::Close),
