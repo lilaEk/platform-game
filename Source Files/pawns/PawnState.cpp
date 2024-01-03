@@ -1,4 +1,4 @@
-#include "../../../Header Files/gameplay/pawns/enums/PawnState.hpp"
+#include "../../Header Files/pawns/enums/PawnState.hpp"
 
 //std::ostream& operator<<(std::ostream& os, const PawnState& state) {
 //    switch (state) {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../gameplay/map/MapManager.hpp"
-#include "../gameplay/pawns/Player.hpp"
+#include "../pawns/Player.hpp"
+#include "../map/MapManager.hpp"
 
 class NextLevel {
 public:

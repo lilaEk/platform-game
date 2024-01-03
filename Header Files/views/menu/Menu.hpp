@@ -1,19 +1,20 @@
 #pragma once
 
 #include <functional>
-#include "../stdafx.hpp"
-#include "../gameplay/map/MapManager.hpp"
-#include "../gameplay/pawns/Player.hpp"
+#include "../../stdafx.hpp"
+#include "../../map/MapManager.hpp"
+#include "../../pawns/Player.hpp"
 #include "ButtonType.hpp"
 #include "Button.hpp"
 #include "TextInput.hpp"
+#include "../../pawns/enums/PlayerChoice.hpp"
 
-class MainMenu {
+class Menu {
 
 public:
     using ButtonCallback = std::function<void()>;
 
-    MainMenu(MapManager &mapManager, Player *player, sf::RenderWindow &window);
+    Menu(MapManager &mapManager, Player *player, sf::RenderWindow &window);
 
     void handleInput();
     void handleButtonClick(int mouseX, int mouseY);

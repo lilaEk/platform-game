@@ -1,10 +1,10 @@
 #pragma once
 
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "gameplay/map/MapManager.hpp"
-#include "gameplay/pawns/Player.hpp"
+#include "map/MapManager.hpp"
+#include "pawns/Player.hpp"
 #include "views/ViewType.hpp"
-#include "views/MainMenu.hpp"
+#include "views/menu/Menu.hpp"
 #include "views/NextLevel.hpp"
 #include "views/Gameplay.hpp"
 #include "views/GameOver.hpp"
@@ -41,7 +41,7 @@ private:
     Player* player;
     MapManager* mapManager;
 
-    MainMenu mainMenuView;
+    Menu mainMenuView;
     NextLevel nextLevelView;
     Gameplay gameplayView;
     GameOver gameOverView;

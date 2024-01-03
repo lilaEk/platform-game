@@ -1,5 +1,5 @@
-#include "../../../Header Files/gameplay/pawns/Player.hpp"
-#include "../../../Header Files/Game.hpp"
+#include "../../Header Files/pawns/Player.hpp"
+#include "../../Header Files/Game.hpp"
 
 Player::Player(PlayerChoice playerChoice) : Pawn() {
     this->chosenPlayer=playerChoice;

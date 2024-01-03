@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../../Header Files/gameplay/map/Map.hpp"
+#include "../../Header Files/map/Map.hpp"
 
 Map::Map() {
     initMap();

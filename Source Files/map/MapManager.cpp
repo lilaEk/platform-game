@@ -1,4 +1,4 @@
-#include "../../../Header Files/gameplay/map/MapManager.hpp"
+#include "../../Header Files/map/MapManager.hpp"
 
 MapManager::MapManager() : currentMap(new Map()) {
 }

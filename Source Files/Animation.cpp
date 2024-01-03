@@ -1,4 +1,4 @@
-#include "../../Header Files/gameplay/Animation.hpp"
+#include "../Header Files/Animation.hpp"
 
 
 Animation::Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *lastPawnState) :
