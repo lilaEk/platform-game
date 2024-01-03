@@ -15,6 +15,8 @@ Game::Game() : player(new Player),
 
     this->currentView = ViewType::main_menu;
     this->lastView = ViewType::main_menu;
+
+    mainMenuView.setStartButtonCallback([this] { handleStartButtonPress(); });
 }
 
 Game::~Game() {
@@ -172,4 +174,8 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
         default:
             break;
     }
+}
+
+void Game::handleStartButtonPress() {
+    this->currentView=ViewType::gameplay;
 }

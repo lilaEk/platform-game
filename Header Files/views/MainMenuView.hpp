@@ -1,5 +1,6 @@
 #pragma once
 
+#include <functional>
 #include "../stdafx.hpp"
 #include "../gameplay/map/MapManager.hpp"
 #include "../gameplay/pawns/Player.hpp"
@@ -9,6 +10,11 @@
 class MainMenuView {
 
 public:
+    using ButtonCallback = std::function<void()>;
+
+    sf::String playerNick;
+    sf::Text playerText;
+
     MainMenuView(MapManager &mapManager, Player &player, sf::RenderWindow &window);
 
     void handleInput();
@@ -26,10 +32,15 @@ public:
 
     void resetNotUsingButtons();
 
+    void setStartButtonCallback(ButtonCallback callback);
+    void handleStartButtonPress();
+
 private:
     MapManager &mapManager;
     Player &player;
     sf::RenderWindow &window;
+
+    ButtonCallback startButtonCallback;
 
     void initButtons(sf::Font font);
 
@@ -48,6 +59,8 @@ private:
     sf::Text headline;
     std::vector<Button> picButtons;
     std::vector<Button> textButtons;
+
+    bool isStartClickable = false;
 
 };
 

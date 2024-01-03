@@ -17,12 +17,16 @@ void MainMenuView::handleInput() {
 }
 
 void MainMenuView::initButtons(sf::Font font) {
-    Button newGame = Button("new game", 470, 110, sf::Color(221, 180, 34), this->window, this->font, ButtonType::new_game);
-    Button loadGame = Button("load game", 700, 110, sf::Color(194, 78, 29), this->window, this->font, ButtonType::load_game);
-    Button highScores = Button("high scores", 470, 200, sf::Color(140, 82, 255), this->window, this->font, ButtonType::high_scores);
+    Button newGame = Button("new game", 470, 110, sf::Color(221, 180, 34), this->window, this->font,
+                            ButtonType::new_game);
+    Button loadGame = Button("load game", 700, 110, sf::Color(194, 78, 29), this->window, this->font,
+                             ButtonType::load_game);
+    Button highScores = Button("high scores", 470, 200, sf::Color(140, 82, 255), this->window, this->font,
+                               ButtonType::high_scores);
     Button rules = Button("rules", 700, 200, sf::Color(115, 165, 126), this->window, this->font, ButtonType::rules);
     Button yourCharacter = Button("choose your\ncharacter", Game::width / 2 - 100, Game::height / 2 + 40,
-                                  200, 120, sf::Color(213, 232, 236), this->window, this->font, ButtonType::choose_your_character);
+                                  200, 120, sf::Color(213, 232, 236), this->window, this->font,
+                                  ButtonType::choose_your_character);
     Button start = Button("start", 700, 420, sf::Color(151, 164, 166), this->window, this->font, ButtonType::start);
 
     textButtons.push_back(newGame);
@@ -36,7 +40,8 @@ void MainMenuView::initButtons(sf::Font font) {
     if (!buttonTexture.loadFromFile("../assets/menu_elements/arrow.png")) {
         std::cout << "ERROR: Could not load texture from file\n";
     }
-    Button arrow = Button(buttonTexture, Game::width / 2+110, Game::height / 2 + 40, this->window, ButtonType::choose_your_character);
+    Button arrow = Button(buttonTexture, Game::width / 2 + 110, Game::height / 2 + 40, this->window,
+                          ButtonType::choose_your_character);
     picButtons.push_back(arrow);
 }
 
@@ -87,32 +92,35 @@ void MainMenuView::renderButtons() {
 void MainMenuView::updateMenuButtons() {
     switch (this->selectedButton) {
         case ButtonType::new_game: {
-            if (lastButton!=selectedButton) {
+            if (lastButton != selectedButton) {
                 resetNotUsingButtons();
-                lastButton=selectedButton;
+                lastButton = selectedButton;
             }
             textButtons[0].changeColor(buttonChosenColor);
             textButtons[5].changeColor(buttonChosenColor);
             break;
         }
         case ButtonType::load_game: {
-            if (lastButton!=selectedButton) {
+            if (lastButton != selectedButton) {
                 resetNotUsingButtons();
-                lastButton=selectedButton;
+                lastButton = selectedButton;
             }
             textButtons[1].changeColor(buttonChosenColor);
+
             sf::RectangleShape loadGameSideBlock(sf::Vector2f(250, 370));
             loadGameSideBlock.setPosition(40, 110);
             loadGameSideBlock.setFillColor(loadGameColor);
             window.draw(loadGameSideBlock);
+
             break;
         }
         case ButtonType::high_scores: {
-            if (lastButton!=selectedButton) {
+            if (lastButton != selectedButton) {
                 resetNotUsingButtons();
-                lastButton=selectedButton;
+                lastButton = selectedButton;
             }
             textButtons[2].changeColor(buttonChosenColor);
+
             sf::RectangleShape highScoresSideBlock(sf::Vector2f(250, 370));
             highScoresSideBlock.setPosition(40, 110);
             highScoresSideBlock.setFillColor(rankingColor);
@@ -120,9 +128,9 @@ void MainMenuView::updateMenuButtons() {
             break;
         }
         case ButtonType::rules: {
-            if (lastButton!=selectedButton) {
+            if (lastButton != selectedButton) {
                 resetNotUsingButtons();
-                lastButton=selectedButton;
+                lastButton = selectedButton;
             }
             textButtons[3].changeColor(buttonChosenColor);
 
@@ -130,12 +138,21 @@ void MainMenuView::updateMenuButtons() {
 
             break;
         }
-        case ButtonType::choose_your_character: {}
-        case ButtonType::start: {}
-
-        default:
+        case ButtonType::choose_your_character: {
+        }
+        case ButtonType::start: {
+            if (isStartClickable == true) {
+                resetNotUsingButtons();
+                this->selectedButton = ButtonType::none;
+                handleStartButtonPress();
+            }
             break;
-    }
+        }
+
+    default:
+        break;
+}
+
 }
 
 void MainMenuView::resetNotUsingButtons() {
@@ -145,22 +162,24 @@ void MainMenuView::resetNotUsingButtons() {
     textButtons[3].changeColor(sf::Color(115, 165, 126));
     textButtons[4].changeColor(sf::Color(213, 232, 236));
     textButtons[5].changeColor(sf::Color(151, 164, 166));
+
+    isStartClickable = false;
 }
 
 void MainMenuView::handleButtonClick(int mouseX, int mouseY) {
     if (picButtons[0].isClicked(mouseX, mouseY)) {
-        this->selectedButton=picButtons[0].getButtonType();
+        this->selectedButton = picButtons[0].getButtonType();
         return;
     }
     for (Button &button: textButtons) {
         if (button.isClicked(mouseX, mouseY)) {
-            this->selectedButton=button.getButtonType();
+            this->selectedButton = button.getButtonType();
             break;
         }
     }
 }
 
-void MainMenuView::setRulesSideBlock(sf::Color rulesColor, RenderWindow& window, Font font){
+void MainMenuView::setRulesSideBlock(sf::Color rulesColor, RenderWindow &window, Font font) {
     sf::RectangleShape rulesSideBlock(sf::Vector2f(250, 370));
     rulesSideBlock.setPosition(40, 110);
     rulesSideBlock.setFillColor(rulesColor);
@@ -186,4 +205,14 @@ void MainMenuView::setRulesSideBlock(sf::Color rulesColor, RenderWindow& window,
     rules.setCharacterSize(20);
     rules.setFont(font);
     window.draw(rules);
+}
+
+void MainMenuView::setStartButtonCallback(ButtonCallback callback) {
+    startButtonCallback = std::move(callback);
+}
+
+void MainMenuView::handleStartButtonPress() {
+    if (startButtonCallback) {
+        startButtonCallback();
+    }
 }
