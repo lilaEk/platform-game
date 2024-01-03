@@ -3,7 +3,7 @@
 Game::Game() : player(new Player),
                mapManager(new MapManager),
                window(sf::VideoMode(Game::width, Game::height), "platform game by rozalia",
-                   sf::Style::Titlebar | sf::Style::Close),
+                      sf::Style::Titlebar | sf::Style::Close),
                mainMenuView(*this->mapManager, *this->player, this->window),
                gameplayView(*this->mapManager, *this->player, this->window),
                nextLevelView(*this->mapManager, *this->player, this->window),
@@ -40,8 +40,14 @@ void Game::pollEvents() {
                     this->window.close();
                 break;
             case sf::Event::MouseButtonPressed:
-                if (e.mouseButton.button == sf::Mouse::Left) {
-                    handleMouseClick(e.mouseButton.x, e.mouseButton.y);
+                if (currentView == ViewType::main_menu) {
+                    if (e.mouseButton.button == sf::Mouse::Left) {
+                        handleMouseClick(e.mouseButton.x, e.mouseButton.y);
+                    }
+                }
+            case sf::Event::TextEntered:
+                if (currentView == ViewType::main_menu) {
+                    mainMenuView.handleTextEntered(e);
                 }
                 break;
         }
@@ -59,7 +65,7 @@ void Game::update_and_render(float deltaTime) {
     switch (this->currentView) {
         case ViewType::main_menu:
 
-            if (lastView!=currentView){
+            if (lastView != currentView) {
                 this->mapManager->currentMap->initMap();
                 this->player->currentPawnState = PawnState::idle;
             }
@@ -75,7 +81,7 @@ void Game::update_and_render(float deltaTime) {
 
         case ViewType::next_level:
 
-            if (lastView!=currentView){
+            if (lastView != currentView) {
                 this->player->currentPawnState = PawnState::happy;
             }
 
@@ -90,7 +96,7 @@ void Game::update_and_render(float deltaTime) {
 
         case ViewType::gameplay:
 
-            if (lastView!=currentView){
+            if (lastView != currentView) {
             }
 
             gameplayView.handleInput();
@@ -104,7 +110,7 @@ void Game::update_and_render(float deltaTime) {
 
         case ViewType::game_over:
 
-            if (lastView!=currentView){
+            if (lastView != currentView) {
                 this->player->currentPawnState = PawnState::die; //ale tylko raz!
             }
 
@@ -177,5 +183,5 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
 }
 
 void Game::handleStartButtonPress() {
-    this->currentView=ViewType::gameplay;
+    this->currentView = ViewType::gameplay;
 }

@@ -2,7 +2,7 @@
 #include "../../Header Files/Game.hpp"
 
 MainMenuView::MainMenuView(MapManager &mapManager, Player &player, sf::RenderWindow &window)
-        : mapManager(mapManager), player(player), window(window) {
+        : mapManager(mapManager), player(player), window(window), playerNick(window,font) {
 
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
         std::cout << "ERROR: Could not load font from file\n";
@@ -10,6 +10,8 @@ MainMenuView::MainMenuView(MapManager &mapManager, Player &player, sf::RenderWin
 
     initButtons(this->font);
     selectedButton = ButtonType::none;
+
+    isStartClickable= false;
 }
 
 void MainMenuView::handleInput() {
@@ -59,6 +61,7 @@ void MainMenuView::render() {
     this->renderPlayer();
     this->renderButtons();
     this->renderHeadline();
+    this->renderTextInput();
 }
 
 void MainMenuView::renderHeadline() {
@@ -89,6 +92,13 @@ void MainMenuView::renderButtons() {
     }
 }
 
+void MainMenuView::renderTextInput() {
+    if (selectedButton == ButtonType::new_game) {
+        playerNick.draw();
+    }
+}
+
+
 void MainMenuView::updateMenuButtons() {
     switch (this->selectedButton) {
         case ButtonType::new_game: {
@@ -97,7 +107,15 @@ void MainMenuView::updateMenuButtons() {
                 lastButton = selectedButton;
             }
             textButtons[0].changeColor(buttonChosenColor);
-            textButtons[5].changeColor(buttonChosenColor);
+
+            if (playerNick.getText().empty()) {
+                isStartClickable = false;
+                textButtons[5].changeColor(sf::Color(151, 164, 166));
+            } else {
+                isStartClickable = true;
+                textButtons[5].changeColor(buttonChosenColor);
+            }
+
             break;
         }
         case ButtonType::load_game: {
@@ -214,5 +232,11 @@ void MainMenuView::setStartButtonCallback(ButtonCallback callback) {
 void MainMenuView::handleStartButtonPress() {
     if (startButtonCallback) {
         startButtonCallback();
+    }
+}
+
+void MainMenuView::handleTextEntered( sf::Event& event) {
+    if (selectedButton == ButtonType::new_game) {
+        playerNick.handleEvent(event);
     }
 }

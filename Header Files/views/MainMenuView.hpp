@@ -6,14 +6,12 @@
 #include "../gameplay/pawns/Player.hpp"
 #include "ButtonType.hpp"
 #include "Button.hpp"
+#include "TextInput.hpp"
 
 class MainMenuView {
 
 public:
     using ButtonCallback = std::function<void()>;
-
-    sf::String playerNick;
-    sf::Text playerText;
 
     MainMenuView(MapManager &mapManager, Player &player, sf::RenderWindow &window);
 
@@ -29,11 +27,13 @@ public:
     void renderMap();
     void renderButtons();
     void renderHeadline();
+    void renderTextInput();
 
     void resetNotUsingButtons();
 
     void setStartButtonCallback(ButtonCallback callback);
     void handleStartButtonPress();
+    void handleTextEntered( sf::Event &event);
 
 private:
     MapManager &mapManager;
@@ -61,6 +61,6 @@ private:
     std::vector<Button> textButtons;
 
     bool isStartClickable = false;
-
+    TextInput playerNick;
 };
 
