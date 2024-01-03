@@ -1,20 +1,20 @@
-#include "../../Header Files/views/GameplayView.hpp"
+#include "../../Header Files/views/Gameplay.hpp"
 
 
-GameplayView::GameplayView(MapManager &mapManager, Player &player, sf::RenderWindow &window)
+Gameplay::Gameplay(MapManager &mapManager, Player &player, sf::RenderWindow &window)
         : mapManager(mapManager), player(player), window(window)
 {
 
 }
 
 
-void GameplayView::handleInput() {
+void Gameplay::handleInput() {
 
 }
 
-void GameplayView::update(float deltaTime) {
+void Gameplay::update(float deltaTime) {
 
 }
 
-void GameplayView::render() {
+void Gameplay::render() {
 }

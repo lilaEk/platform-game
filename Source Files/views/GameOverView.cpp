@@ -2,22 +2,22 @@
 // Created by Rozalia on 29.12.2023.
 //
 
-#include "../../Header Files/views/GameOverView.hpp"
+#include "../../Header Files/views/GameOver.hpp"
 
-GameOverView::GameOverView(MapManager &mapManager, Player &player, sf::RenderWindow &window)
+GameOver::GameOver(MapManager &mapManager, Player &player, sf::RenderWindow &window)
         : mapManager(mapManager), player(player), window(window)
 {
 
 }
 
-void GameOverView::handleInput() {
+void GameOver::handleInput() {
 
 }
 
-void GameOverView::update(float deltaTime) {
+void GameOver::update(float deltaTime) {
 
 }
 
-void GameOverView::render() {
+void GameOver::render() {
 
 }

@@ -4,10 +4,10 @@
 #include "gameplay/map/MapManager.hpp"
 #include "gameplay/pawns/Player.hpp"
 #include "views/ViewType.hpp"
-#include "views/MainMenuView.hpp"
-#include "views/NextLevelView.hpp"
-#include "views/GameplayView.hpp"
-#include "views/GameOverView.hpp"
+#include "views/MainMenu.hpp"
+#include "views/NextLevel.hpp"
+#include "views/Gameplay.hpp"
+#include "views/GameOver.hpp"
 
 using namespace sf;
 
@@ -41,10 +41,10 @@ private:
     Player* player;
     MapManager* mapManager;
 
-    MainMenuView mainMenuView;
-    NextLevelView nextLevelView;
-    GameplayView gameplayView;
-    GameOverView gameOverView;
+    MainMenu mainMenuView;
+    NextLevel nextLevelView;
+    Gameplay gameplayView;
+    GameOver gameOverView;
 
     static void drawBackgroundImage(sf::RenderWindow &window); //todo - parallex background
 };

@@ -1,7 +1,7 @@
-#include "../../Header Files/views/MainMenuView.hpp"
+#include "../../Header Files/views/MainMenu.hpp"
 #include "../../Header Files/Game.hpp"
 
-MainMenuView::MainMenuView(MapManager &mapManager, Player *player, sf::RenderWindow &window)
+MainMenu::MainMenu(MapManager &mapManager, Player *player, sf::RenderWindow &window)
         : mapManager(mapManager), player(player), window(window), playerNick(window, font) {
 
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
@@ -14,11 +14,11 @@ MainMenuView::MainMenuView(MapManager &mapManager, Player *player, sf::RenderWin
     isStartClickable = false;
 }
 
-void MainMenuView::handleInput() {
+void MainMenu::handleInput() {
 
 }
 
-void MainMenuView::initButtons(sf::Font font) {
+void MainMenu::initButtons(sf::Font font) {
     Button newGame = Button("new game", 470, 110, upButtonsColor, this->window, this->font,
                             ButtonType::new_game);
     Button loadGame = Button("load game", 700, 110, upButtonsColor, this->window, this->font,
@@ -47,16 +47,16 @@ void MainMenuView::initButtons(sf::Font font) {
     picButtons.push_back(arrow);
 }
 
-void MainMenuView::update(float deltaTime) {
+void MainMenu::update(float deltaTime) {
     this->updatePlayer(deltaTime);
     this->updateMenuButtons();
 }
 
-void MainMenuView::updatePlayer(float d) {
+void MainMenu::updatePlayer(float d) {
     this->player->update(d, false);
 }
 
-void MainMenuView::render() {
+void MainMenu::render() {
     this->renderMap();
     this->renderPlayer();
     this->renderButtons();
@@ -64,7 +64,7 @@ void MainMenuView::render() {
     this->renderTextInput();
 }
 
-void MainMenuView::renderHeadline() {
+void MainMenu::renderHeadline() {
 
     this->headline.setString(this->headlineText);
     this->headline.setPosition(40, 30);
@@ -75,15 +75,15 @@ void MainMenuView::renderHeadline() {
     window.draw(this->headline);
 }
 
-void MainMenuView::renderPlayer() {
+void MainMenu::renderPlayer() {
     this->player->render(this->window);
 }
 
-void MainMenuView::renderMap() {
+void MainMenu::renderMap() {
     this->mapManager.render(this->window);
 }
 
-void MainMenuView::renderButtons() {
+void MainMenu::renderButtons() {
     for (Button b: textButtons) {
         b.renderTextButtons(this->window);
     }
@@ -92,14 +92,14 @@ void MainMenuView::renderButtons() {
     }
 }
 
-void MainMenuView::renderTextInput() {
+void MainMenu::renderTextInput() {
     if (selectedButton == ButtonType::new_game ||
         (lastButton == ButtonType::new_game && selectedButton == ButtonType::start)) {
         playerNick.draw();
     }
 }
 
-void MainMenuView::updateMenuButtons() {
+void MainMenu::updateMenuButtons() {
     switch (this->selectedButton) {
         case ButtonType::new_game: {
             if (lastButton != selectedButton) {
@@ -190,7 +190,7 @@ void MainMenuView::updateMenuButtons() {
 
 }
 
-void MainMenuView::resetNotUsingButtons() {
+void MainMenu::resetNotUsingButtons() {
     textButtons[0].changeColor(upButtonsColor);
     textButtons[1].changeColor(upButtonsColor);
     textButtons[2].changeColor(downButtonsColor);
@@ -200,7 +200,7 @@ void MainMenuView::resetNotUsingButtons() {
     this->playerNick.updateIsFocused(false);
 }
 
-void MainMenuView::handleButtonClick(int mouseX, int mouseY) {
+void MainMenu::handleButtonClick(int mouseX, int mouseY) {
     if (picButtons[0].isClicked(mouseX, mouseY)) {
         this->selectedButton = picButtons[0].getButtonType();
         return;
@@ -213,7 +213,7 @@ void MainMenuView::handleButtonClick(int mouseX, int mouseY) {
     }
 }
 
-void MainMenuView::setRulesSideBlock(RenderWindow &window, Font font) {
+void MainMenu::setRulesSideBlock(RenderWindow &window, Font font) {
     sf::RectangleShape rulesSideBlock(sf::Vector2f(250, 370));
     rulesSideBlock.setPosition(40, 110);
     rulesSideBlock.setFillColor(sideBlockColor);
@@ -241,31 +241,31 @@ void MainMenuView::setRulesSideBlock(RenderWindow &window, Font font) {
     window.draw(rules);
 }
 
-void MainMenuView::setRankingSideBlock( RenderWindow &window) {
+void MainMenu::setRankingSideBlock(RenderWindow &window) {
     sf::RectangleShape highScoresSideBlock(sf::Vector2f(250, 370));
     highScoresSideBlock.setPosition(40, 110);
     highScoresSideBlock.setFillColor(sideBlockColor);
     window.draw(highScoresSideBlock);
 }
 
-void MainMenuView::setLoadGameSideBlock(RenderWindow &window) {
+void MainMenu::setLoadGameSideBlock(RenderWindow &window) {
     sf::RectangleShape loadGameSideBlock(sf::Vector2f(250, 370));
     loadGameSideBlock.setPosition(40, 110);
     loadGameSideBlock.setFillColor(sideBlockColor);
     window.draw(loadGameSideBlock);
 }
 
-void MainMenuView::handleTextEntered(sf::Event &event) {
+void MainMenu::handleTextEntered(sf::Event &event) {
     if (selectedButton == ButtonType::new_game) {
         playerNick.handleEvent(event);
     }
 }
 
-void MainMenuView::setStartButtonCallback(ButtonCallback callback) {
+void MainMenu::setStartButtonCallback(ButtonCallback callback) {
     startButtonCallback = std::move(callback);
 }
 
-void MainMenuView::handleStartButtonPress() {
+void MainMenu::handleStartButtonPress() {
     if (startButtonCallback) {
         startButtonCallback();
     }

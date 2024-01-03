@@ -1,21 +1,21 @@
-#include "../../Header Files/views/NextLevelView.hpp"
+#include "../../Header Files/views/NextLevel.hpp"
 
 
-NextLevelView::NextLevelView(MapManager &mapManager, Player &player, sf::RenderWindow &window)
+NextLevel::NextLevel(MapManager &mapManager, Player &player, sf::RenderWindow &window)
         : mapManager(mapManager), player(player), window(window)
 {
 
 }
 
 
-void NextLevelView::handleInput() {
+void NextLevel::handleInput() {
 
 }
 
-void NextLevelView::update(float deltaTime) {
+void NextLevel::update(float deltaTime) {
 
 }
 
-void NextLevelView::render() {
+void NextLevel::render() {
 
 }

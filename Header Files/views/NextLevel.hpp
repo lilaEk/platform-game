@@ -3,9 +3,9 @@
 #include "../gameplay/map/MapManager.hpp"
 #include "../gameplay/pawns/Player.hpp"
 
-class NextLevelView {
+class NextLevel {
 public:
-    NextLevelView(MapManager &mapManager, Player &player, sf::RenderWindow &window);
+    NextLevel(MapManager &mapManager, Player &player, sf::RenderWindow &window);
 
     void handleInput();
 

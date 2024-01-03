@@ -8,12 +8,12 @@
 #include "Button.hpp"
 #include "TextInput.hpp"
 
-class MainMenuView {
+class MainMenu {
 
 public:
     using ButtonCallback = std::function<void()>;
 
-    MainMenuView(MapManager &mapManager, Player *player, sf::RenderWindow &window);
+    MainMenu(MapManager &mapManager, Player *player, sf::RenderWindow &window);
 
     void handleInput();
     void handleButtonClick(int mouseX, int mouseY);
