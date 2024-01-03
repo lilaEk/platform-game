@@ -14,7 +14,7 @@ Button::Button(std::string text, int buttonPosX, int buttonPosY, float buttonWid
 Button::Button(std::string text, int buttonPosX, int buttonPosY,
                sf::Color color, sf::RenderWindow &window, sf::Font font, ButtonType type)
         : buttonPosX(buttonPosX), buttonPosY(buttonPosY), buttonWidth(buttonWidth),
-          buttonHeight(buttonHeight), color(color), window(window), font(font), buttonType(type){
+          buttonHeight(buttonHeight), color(color), window(window), font(font), buttonType(type) {
 
     this->buttonWidth = 200;
     this->buttonHeight = 60;
@@ -22,28 +22,20 @@ Button::Button(std::string text, int buttonPosX, int buttonPosY,
     this->text.setString(text);
 }
 
-//Button& Button::operator=(const Button& other) {
-//    if (this != &other) {
-//        this->buttonPosX = other.buttonPosX;
-//        this->buttonPosY = other.buttonPosY;
-//        this->buttonWidth = other.buttonWidth;
-//        this->buttonHeight = other.buttonHeight;
-//        this->color = other.color;
-////        this->window = other.window;
-//        this->font = other.font;
-//
-//        this->text.setString(other.text.getString());
-//        this->text.setPosition(other.text.getPosition());
-//        this->text.setFillColor(other.text.getFillColor());
-//        this->text.setCharacterSize(other.text.getCharacterSize());
-//        this->text.setFont(*other.text.getFont());
-//    }
-//    return *this;
-//}
+Button::Button(const sf::Texture &texture, int posX, int posY, sf::RenderWindow &window, ButtonType type)
+        : texture(texture), buttonPosX(posX), buttonPosY(posY), window(window), buttonType(type){
+    sprite.setTexture(texture);
+    sprite.setPosition(posX, posY);
 
-Button::~Button() { }
+    hitbox = sf::IntRect(static_cast<int>(posX), static_cast<int>(posY),
+                         static_cast<int>(sprite.getGlobalBounds().width),
+                         static_cast<int>(sprite.getGlobalBounds().height));
 
-void Button::render(sf::RenderWindow& window) {
+}
+
+Button::~Button() {}
+
+void Button::renderTextButtons(sf::RenderWindow &window) {
 
     sf::RectangleShape buttonShape(sf::Vector2f(this->buttonWidth, this->buttonHeight));
     buttonShape.setPosition(buttonPosX, buttonPosY);
@@ -52,20 +44,31 @@ void Button::render(sf::RenderWindow& window) {
     window.draw(buttonShape);
 
     text.setPosition(buttonPosX + 10, buttonPosY + 7);
-    text.setFillColor(sf::Color(0,0,0));
+    text.setFillColor(sf::Color(0, 0, 0));
     text.setCharacterSize(30);
     text.setFont(font);
 
     window.draw(text);
 }
 
+void Button::renderPicButtons(sf::RenderWindow &window) {
+
+    this->sprite.setTexture(this->texture);
+    this->sprite.setPosition(this->buttonPosX, this->buttonPosY);
+
+    window.draw(this->sprite);
+}
+
 void Button::changeColor(sf::Color newColor) {
-    this->color=newColor;
+    this->color = newColor;
 }
 
 bool Button::isClicked(int mouseX, int mouseY) const {
-    return (mouseX >= buttonPosX && mouseX <= buttonPosX + buttonWidth &&
-            mouseY >= buttonPosY && mouseY <= buttonPosY + buttonHeight);
+    if (mouseX >= buttonPosX && mouseX <= buttonPosX + buttonWidth &&
+            mouseY >= buttonPosY && mouseY <= buttonPosY + buttonHeight){
+        return true;
+    }
+    return hitbox.contains(mouseX, mouseY);
 }
 
 ButtonType Button::getButtonType() {

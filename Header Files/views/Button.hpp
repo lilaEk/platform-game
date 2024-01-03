@@ -5,12 +5,14 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Graphics/Text.hpp"
 #include "ButtonType.hpp"
+#include "SFML/Graphics/Sprite.hpp"
 
 class Button {
 public:
 
     Button(std::string text, int posX, int posY, sf::Color color, sf::RenderWindow &window, sf::Font font, ButtonType type);
     Button(std::string text, int posX, int posY, float buttonWidth, float buttonHeight, sf::Color color, sf::RenderWindow &window, sf::Font font, ButtonType type);
+    Button(const sf::Texture& texture, int posX, int posY, sf::RenderWindow &window, ButtonType type);
 
     ~Button();
 
@@ -25,7 +27,8 @@ public:
     sf::Text text;
     sf::Font font;
 
-    void render(sf::RenderWindow& window);
+    void renderTextButtons(sf::RenderWindow& window);
+    void renderPicButtons(sf::RenderWindow& window);
 
     void changeColor(sf::Color newColor);
 
@@ -33,7 +36,9 @@ public:
 
     ButtonType getButtonType();
 
-//    Button& operator=(const Button& other);
+    sf::Sprite sprite;
+    sf::Texture texture;
+    sf::IntRect hitbox;
 
 private:
     sf::RenderWindow& window;

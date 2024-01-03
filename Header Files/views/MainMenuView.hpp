@@ -16,13 +16,13 @@ public:
 
     void update(float d);
     void updatePlayer(float d);
+    void updateMenuButtons();
 
     void render();
     void renderPlayer();
     void renderMap();
     void renderButtons();
     void renderHeadline();
-    void updateMenuButtons();
 
     void resetNotUsingButtons();
 
@@ -32,6 +32,8 @@ private:
     sf::RenderWindow &window;
 
     void initButtons(sf::Font font);
+
+    void setRulesSideBlock(sf::Color rulesColor, sf::RenderWindow& window, sf::Font font);
 
     sf::Color rulesColor = sf::Color(115, 165, 126); //green
     sf::Color loadGameColor = sf::Color(214,181,167); //red
@@ -44,6 +46,8 @@ private:
     sf::Font font;
     std::string headlineText = "platform game by rozalia";
     sf::Text headline;
-    std::vector<Button> buttons;
+    std::vector<Button> picButtons;
+    std::vector<Button> textButtons;
+
 };
 
