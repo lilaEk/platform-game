@@ -44,15 +44,17 @@ private:
 
     void initButtons(sf::Font font);
 
-    void setRulesSideBlock(sf::Color rulesColor, sf::RenderWindow& window, sf::Font font);
-    void setRankingSideBlock(sf::Color rankingColor, sf::RenderWindow& window);
-    void setLoadGameSideBlock(sf::Color loadGameColor, sf::RenderWindow& window);
+    void setRulesSideBlock(sf::RenderWindow& window, sf::Font font);
+    void setRankingSideBlock(sf::RenderWindow& window);
+    void setLoadGameSideBlock(sf::RenderWindow& window);
 
 
+    sf::Color sideBlockColor = sf::Color(115, 165, 126); //green
 
-    sf::Color rulesColor = sf::Color(115, 165, 126); //green
-    sf::Color loadGameColor = sf::Color(214,181,167); //red
-    sf::Color rankingColor = sf::Color(193,162,255); //violet
+    sf::Color upButtonsColor = sf::Color(194, 78, 29); //orange
+    sf::Color downButtonsColor = sf::Color(221, 180, 34); //yellow
+
+
     sf::Color buttonChosenColor = sf::Color(255,102,196); //pink
 
     ButtonType selectedButton = ButtonType::none;
