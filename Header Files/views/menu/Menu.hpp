@@ -49,7 +49,6 @@ private:
     void setRankingSideBlock(sf::RenderWindow& window);
     void setLoadGameSideBlock(sf::RenderWindow& window);
 
-
     sf::Color sideBlockColor = sf::Color(115, 165, 126); //green
 
     sf::Color upButtonsColor = sf::Color(194, 78, 29); //orange

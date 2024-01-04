@@ -23,9 +23,9 @@ void Map::initMap() {
 
             column[j] = cell;
 
-            if (i == 11) {
-                std::cout << "(" << cell.pos_x << "," << cell.pos_y << ")" << std::endl;
-            }
+//            if (i == 11) {
+//                std::cout << "(" << cell.pos_x << "," << cell.pos_y << ")" << std::endl;
+//            }
         }
         mapData.push_back(column);
     }
@@ -52,15 +52,12 @@ void Map::renderMap(sf::RenderWindow &target) {
             }
         }
     }
+}
 
-//    Cell cell = Cell(CellType::platform);
-//    cell.scale=1.f;
-//    cell.sprite.setScale(cell.scale, cell.scale);
-//    cell.sprite.setPosition(200,300);
-//    if (!cell.texture.loadFromFile("../assets/elements/brick.png")) {
-//        std::cerr << "ERROR: Could not load platform texture from file\n";
-//    } else {
-//        cell.sprite.setTexture(cell.texture);
-//    }
-//    cell.render(target);
+void Map::scrollMap(float currentTime) {
+    for (auto &column : mapData) {
+        for (Cell &cell : column) {
+            cell.pos_x -= 350.f*currentTime;
+        }
+    }
 }

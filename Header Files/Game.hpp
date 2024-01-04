@@ -31,6 +31,8 @@ public:
 
     void handleStartButtonPress();
 
+//    void scrollMap(float movement);
+
     static const int height = 3*16*12;
     static const int width = 3*16*20;
 

@@ -30,7 +30,6 @@ Button::Button(const sf::Texture &texture, int posX, int posY, sf::RenderWindow 
     hitbox = sf::IntRect(static_cast<int>(posX), static_cast<int>(posY),
                          static_cast<int>(sprite.getGlobalBounds().width),
                          static_cast<int>(sprite.getGlobalBounds().height));
-
 }
 
 Button::~Button() {}

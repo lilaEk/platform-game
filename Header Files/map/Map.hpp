@@ -18,4 +18,6 @@ public:
 
     void initMap();
 
+    void scrollMap(float currentTime);
+
 };

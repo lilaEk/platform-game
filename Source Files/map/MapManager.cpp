@@ -48,3 +48,9 @@ void MapManager::render(sf::RenderWindow &target) {
         currentMap->renderMap(target);
     }
 }
+
+void MapManager::scrollMap(float currentTime) {
+    if (currentMap) {
+        currentMap->scrollMap(currentTime);
+    }
+}

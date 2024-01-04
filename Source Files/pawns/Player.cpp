@@ -80,11 +80,11 @@ void Player::updateMovement(float currentTime) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
         or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
 
-//        this->pos_x -= movement_speed * currentTime;
-//
-//        if (this->pos_x < 0 + width) {
-//            this->pos_x = 0 + width;
-//        };
+        this->pos_x -= movement_speed * currentTime;
+
+        if (this->pos_x < 0 + width) {
+            this->pos_x = 0 + width;
+        };
         this->currentPawnState = PawnState::run;
         if (this->direction == Direction::right) {
             this->direction = Direction::left;
@@ -94,11 +94,16 @@ void Player::updateMovement(float currentTime) {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
 
-//        this->pos_x += movement_speed * currentTime;
-//
-//        if (this->pos_x > Game::width - width) {
-//            this->pos_x = Game::width - width;
-//        };
+        if (this->pos_x<(3*16*20)/2) {
+            this->pos_x += movement_speed * currentTime;
+
+            if (this->pos_x > Game::width - width) {
+                this->pos_x = Game::width - width;
+            };
+        } else {
+//            Game::scrollMap(movement_speed * currentTime);
+        }
+
         this->currentPawnState = PawnState::run;
         if (this->direction == Direction::left) {
             this->direction = Direction::right;

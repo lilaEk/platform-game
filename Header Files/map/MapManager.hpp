@@ -14,6 +14,9 @@ public:
 
     void update(float deltaTime);
     void render(sf::RenderWindow &target);
+
+    void scrollMap(float currentTime);
+
     Map *currentMap;
 
 private:

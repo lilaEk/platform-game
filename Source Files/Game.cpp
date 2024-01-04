@@ -104,6 +104,7 @@ void Game::update_and_render(float deltaTime) {
 
             gameplayView.handleInput();
             gameplayView.update(deltaTime);
+//            this->scrollMap(deltaTime);
             gameplayView.render();
 
             if (1 == 0) {
@@ -188,3 +189,8 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
 void Game::handleStartButtonPress() {
     this->currentView = ViewType::gameplay;
 }
+
+//void Game::scrollMap(float currentTime) {
+//    if (currentView==ViewType::gameplay) {
+//        mapManager->scrollMap(currentTime);    }
+//}
