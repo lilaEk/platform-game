@@ -36,6 +36,7 @@ void Map::updateMap(float deltaTime) {
     }
 
     while (mapData.size() < Map::MaxVisibleColumns) {
+        std::cout << "20 NOWYCH KOLUMN" << std::endl;
         addNextColumn(20);
     }
 }
