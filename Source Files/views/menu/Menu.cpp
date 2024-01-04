@@ -26,10 +26,10 @@ void Menu::initButtons(sf::Font font) {
     Button highScores = Button("high scores", 470, 200, downButtonsColor, this->window, this->font,
                                ButtonType::high_scores);
     Button rules = Button("rules", 700, 200, downButtonsColor, this->window, this->font, ButtonType::rules);
-    Button yourCharacter = Button("choose your\ncharacter", Game::width / 2 - 100, Game::height / 2 + 40,
+    Button yourCharacter = Button("choose your\ncharacter", Game::width / 2 - 100, Game::height / 2 + 60,
                                   200, 120, sf::Color(213, 232, 236), this->window, this->font,
                                   ButtonType::choose_your_character);
-    Button start = Button("start", 700, 420, sf::Color(151, 164, 166), this->window, this->font, ButtonType::start);
+    Button start = Button("start", 700, 500, sf::Color(151, 164, 166), this->window, this->font, ButtonType::start);
 
     textButtons.push_back(newGame);
     textButtons.push_back(loadGame);
@@ -42,7 +42,7 @@ void Menu::initButtons(sf::Font font) {
     if (!buttonTexture.loadFromFile("../assets/menu_elements/arrow.png")) {
         std::cout << "ERROR: Could not load texture from file\n";
     }
-    Button arrow = Button(buttonTexture, Game::width / 2 + 110, Game::height / 2 + 40, this->window,
+    Button arrow = Button(buttonTexture, Game::width / 2 + 110, Game::height / 2 + 60, this->window,
                           ButtonType::choose_your_character);
     picButtons.push_back(arrow);
 }

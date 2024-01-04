@@ -37,6 +37,18 @@ void Cell::render(sf::RenderTarget &target)  {
             this->sprite.setTexture(this->texture);
         }
     }
+    if (this->cellType == CellType::randomReward) {
+        this->scale = 1.f;
+        this->sprite.setScale(this->scale, this->scale);
+        this->sprite.setPosition(this->pos_x, this->pos_y);
+
+        if (!this->texture.loadFromFile("../assets/elements/questionMarkBlock.png")) {
+            std::cerr << "ERROR: Could not load platform texture from file\n";
+        } else {
+            this->sprite.setTexture(this->texture);
+        }
+    }
+
     target.draw(this->sprite);
 }
 

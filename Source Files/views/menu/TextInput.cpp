@@ -9,7 +9,7 @@ TextInput::TextInput(sf::RenderWindow &window, sf::Font &font)
     inputText.setFont(font);
     inputText.setCharacterSize(20);
     inputText.setFillColor(sf::Color::Black);
-    inputText.setPosition(710, 365);
+    inputText.setPosition(710, 435);
     isFocused = false;
     inputText.setString("your nickname");
 
@@ -38,7 +38,7 @@ void TextInput::updateIsFocused(bool currentFocused){
 
 void TextInput::draw() {
     sf::RectangleShape inputBackground(sf::Vector2f(200, 60));
-    inputBackground.setPosition(700, 350);
+    inputBackground.setPosition(700, 420);
     inputBackground.setFillColor(sf::Color::White);
 
     window.draw(inputBackground);

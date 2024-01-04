@@ -11,11 +11,11 @@ Map::~Map() {
 void Map::initMap() {
 
     for (int i = 0; i < 40; i++) {
-        std::array<Cell, 12> column;
+        std::array<Cell, 13> column;
 
-        for (int j = 0; j < 12; j++) {
+        for (int j = 0; j < 13; j++) {
             Cell cell;
-            if (j == 12 - 1) {
+            if (j == 13 - 1) {
                 cell = Cell(CellType::platform);
             } else {
                 cell = Cell(CellType::empty);
@@ -68,10 +68,10 @@ void Map::scrollMap(float currentTime) {
 
 void Map::addNextColumn(int count) {
     for (int i = 0; i < count; i++) {
-        std::array<Cell, 12> newColumn;
-        for (int j = 0; j < 12; j++) {
+        std::array<Cell, 13> newColumn;
+        for (int j = 0; j < 13; j++) {
             Cell cell;
-            if (j == 12 - 1) {
+            if (j == 13 - 1) {
                 cell = Cell(CellType::platform);
             } else {
                 cell = Cell(CellType::empty);
@@ -80,11 +80,8 @@ void Map::addNextColumn(int count) {
             cell.pos_y = j * Cell::cellSize;
             newColumn[j] = cell;
         }
-
         mapData.push_back(newColumn);
-//        std::cout << "dodano kolumne " << this->index++ << std::endl;
     }
-
 }
 
 void Map::addNextRandomStructure() {
@@ -92,7 +89,7 @@ void Map::addNextRandomStructure() {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     int randomValue = rand() % 8 + 1;
 
-    switch (randomValue) { //tutaj generuje sstruktury
+    switch (randomValue) {
         case 1:
             std::cout << "Otrzymano wartość 1" << std::endl;
             break;
