@@ -30,22 +30,13 @@ void Map::initMap() {
 }
 
 void Map::updateMap(float deltaTime) {
-//    if (mapData.size() <= 40) {
-//        addNextColumn(20);
-//    }
-
-//    if (!mapData.empty() && mapData.front().front().pos_x + Cell::cellSize <= 0.f) {
-//        mapData.erase(mapData.begin());
-//        addNextColumn(1);
-//    }
 
     if (!mapData.empty() && mapData.front().front().pos_x + Cell::cellSize <= 0.f) {
         mapData.erase(mapData.begin());
-        addNextColumn(1);
     }
 
     while (mapData.size() < Map::MaxVisibleColumns) {
-        addNextColumn(1);
+        addNextColumn(20);
     }
 }
 
@@ -77,26 +68,13 @@ void Map::renderMap(sf::RenderWindow &target) {
 }
 
 void Map::scrollMap(float currentTime) {
-//    bool isErased = false;
-//
-//    for (auto &column : mapData) {
-//        bool isColumnErased = true;
-//
-//        for (Cell &cell : column) {
-//            cell.pos_x -= 350.f * currentTime;
-//
-//            if (cell.pos_x + cell.cellSize >= 0.f) {
-//                isColumnErased = false;
-//            }
-//        }
-//        if (isColumnErased) {
-//            isErased = true;
-//            break;
-//        }
-//    }
-//    if (isErased) {
-//        mapData.erase(mapData.begin());
-//    }
+
+    int firstColumn = static_cast<int>(-mapData.front().front().pos_x / Cell::cellSize);
+    if (firstColumn > scrolledColumns) {
+        mapData.erase(mapData.begin(), mapData.begin() + (firstColumn - scrolledColumns));
+        scrolledColumns = firstColumn;
+    }
+
     for (auto &column : mapData) {
         for (Cell &cell : column) {
             cell.pos_x -= 350.f * currentTime;
@@ -114,15 +92,15 @@ void Map::addNextColumn(int count) {
             } else {
                 cell = Cell(CellType::empty);
             }
-            cell.pos_x = i * Cell::cellSize;
+            cell.pos_x = (mapData.size() - 1) * Cell::cellSize;
             cell.pos_y = j * Cell::cellSize;
             newColumn[j] = cell;
         }
 
         mapData.push_back(newColumn);
         std::cout << "dodano kolumne " << this->index++ << std::endl;
-
     }
+
 }
 
 void Map::addNextRandomStructure() {
