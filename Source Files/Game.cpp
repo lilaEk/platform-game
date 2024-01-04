@@ -154,19 +154,14 @@ void Game::drawBackgroundImage(RenderWindow &window) {
     sf::Sprite background5(bg5);
     sf::Sprite background8(bg8);
 
-    float ratio1 = static_cast<float>(bg1.getSize().x) / bg1.getSize().y;
-    float ratio2 = static_cast<float>(bg2.getSize().x) / bg2.getSize().y;
-    float ratio3 = static_cast<float>(bg3.getSize().x) / bg3.getSize().y;
-    float ratio5 = static_cast<float>(bg5.getSize().x) / bg5.getSize().y;
-    float ratio8 = static_cast<float>(bg8.getSize().x) / bg8.getSize().y;
+    float scaleX = static_cast<float>(window.getSize().x) / bg1.getSize().x;
+    float scaleY = static_cast<float>(window.getSize().y) / bg1.getSize().y;
 
-    float minRatio = std::min({ratio1, ratio2, ratio3, ratio5, ratio8});
-
-    background1.setScale(minRatio, minRatio);
-    background2.setScale(minRatio, minRatio);
-    background3.setScale(minRatio, minRatio);
-    background5.setScale(minRatio, minRatio);
-    background8.setScale(minRatio, minRatio);
+    background1.setScale(scaleX, scaleY);
+    background2.setScale(scaleX, scaleY);
+    background3.setScale(scaleX, scaleY);
+    background5.setScale(scaleX, scaleY);
+    background8.setScale(scaleX, scaleY);
 
     window.draw(background1);
     window.draw(background2);
@@ -188,8 +183,3 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
 void Game::handleStartButtonPress() {
     this->currentView = ViewType::gameplay;
 }
-
-//void Game::scrollMap(float currentTime) {
-//    if (currentView==ViewType::gameplay) {
-//        mapManager->scrollMap(currentTime);    }
-//}

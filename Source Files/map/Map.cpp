@@ -106,7 +106,7 @@ void Map::addNextRandomStructure() {
                 std::array<Cell, 13> newColumn;
                 for (int j = 0; j < 13; j++) {
                     if ((i == 8 && j == 12) || (i == 9 && j == 12) || (i == 10 && j == 12) || (i == 11 && j == 12) || (i == 12 && j == 12)) {
-                        cell = Cell(CellType::empty);
+                        cell = Cell(CellType::fire);
                     } else
                         if ((i == 9 && j == 5) || (i == 10 && j == 5) || (i == 11 && j == 5)
 

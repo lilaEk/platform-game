@@ -16,7 +16,6 @@ public:
     void renderMap(sf::RenderWindow &target);
 
     void addNextRandomStructure();
-    void addNextColumn(int count);
 
     void scrollMap(float currentTime);
 

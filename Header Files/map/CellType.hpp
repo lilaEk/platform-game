@@ -4,5 +4,6 @@ enum class CellType{
     empty,
     platform,
     obstacle,
-    randomReward
+    randomReward,
+    fire
 };
