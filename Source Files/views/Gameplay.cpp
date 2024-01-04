@@ -86,8 +86,8 @@ void Gameplay::updateMovement(float currentTime) {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->player->pos_y += 20.F;
-        if (this->player->pos_y > 450.f) {
-            this->player->pos_y = 450.f;
+        if (this->player->pos_y > 500.f) {
+            this->player->pos_y = 500.f;
         };
         this->player->currentPawnState = PawnState::squat;
     }
