@@ -40,5 +40,7 @@ public:
     void update(float d, bool moveable) override;
     void updateAnimations(float d) override;
 
-    sf::FloatRect getBoundingBox(Player player);
+    sf::FloatRect getBoundingBox();
+
+    void setPosition(float d, float d1);
 };
