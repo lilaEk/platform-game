@@ -39,7 +39,7 @@ MapManager::~MapManager() {
 
 void MapManager::update(float deltaTime) {
     if (currentMap) {
-        currentMap->updateMap(deltaTime);
+        currentMap->updateMap();
     }
 }
 

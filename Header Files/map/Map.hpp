@@ -12,7 +12,7 @@ public:
     ~Map();
 
     void initMap();
-    void updateMap(float deltaTime);
+    void updateMap();
     void renderMap(sf::RenderWindow &target);
 
     void addNextRandomStructure();

@@ -29,9 +29,10 @@ void Map::initMap() {
     }
 }
 
-void Map::updateMap(float deltaTime) {
+void Map::updateMap() {
 
     if (!mapData.empty() && mapData.front().front().pos_x + Cell::cellSize <= 0.f) {
+        std::cout << "usunieto kolumne" << std::endl;
         mapData.erase(mapData.begin());
     }
 
@@ -43,12 +44,8 @@ void Map::updateMap(float deltaTime) {
 
 void Map::renderMap(sf::RenderWindow &target) {
 
-    int visibleColumns = std::min(Map::MaxVisibleColumns, static_cast<int>(mapData.size()));
-
-    for (int i = 0; i < visibleColumns; i++) {
-        auto &column = mapData[i];
-
-        for (Cell &cell: column) {
+    for (auto &column : mapData) {
+        for (Cell &cell : column) {
             cell.render(target);
         }
     }
@@ -85,7 +82,7 @@ void Map::addNextColumn(int count) {
         }
 
         mapData.push_back(newColumn);
-        std::cout << "dodano kolumne " << this->index++ << std::endl;
+//        std::cout << "dodano kolumne " << this->index++ << std::endl;
     }
 
 }
