@@ -38,6 +38,7 @@ public:
 
     void render(sf::RenderTarget &target) override;
     void update(float d, bool moveable) override;
-//    void updateMovement(float d) override;
     void updateAnimations(float d) override;
+
+    sf::FloatRect getBoundingBox(Player player);
 };

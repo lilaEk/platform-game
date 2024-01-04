@@ -7,6 +7,8 @@ Cell::Cell(CellType type) : Entity() {
     this->cellType = type;
 }
 
+Cell::Cell() { }
+
 void Cell::render(sf::RenderTarget &target) {
     if (this->cellType == CellType::empty) {
         return;
@@ -39,6 +41,6 @@ void Cell::render(sf::RenderTarget &target) {
     target.draw(this->sprite);
 }
 
-
-Cell::Cell() {
+sf::FloatRect Cell::getBoundingBox(Cell cell) {
+    return sf::FloatRect(cell.pos_x, cell.pos_y, Cell::cellSize, Cell::cellSize);
 }

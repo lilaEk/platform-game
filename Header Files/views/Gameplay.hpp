@@ -17,6 +17,8 @@ public:
     void renderPlayer();
     void renderMap();
 
+    bool checkCollision(Player &player,  Cell &cell);
+
 private:
     MapManager* mapManager;
     Player* player;

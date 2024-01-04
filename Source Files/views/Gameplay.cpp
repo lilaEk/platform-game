@@ -86,8 +86,8 @@ void Gameplay::updateMovement(float currentTime) {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
              or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         this->player->pos_y += 20.F;
-        if (this->player->pos_y > 500.f) {
-            this->player->pos_y = 500.f;
+        if (this->player->pos_y > 48*10) {
+            this->player->pos_y = 48*10;
         };
         this->player->currentPawnState = PawnState::squat;
     }
@@ -104,3 +104,6 @@ void Gameplay::updateMovement(float currentTime) {
         this->player->currentPawnState = PawnState::idle;
     }
 }
+
+bool Gameplay::checkCollision(Player &player,  Cell &cell) {
+    return player.getBoundingBox(player).intersects(cell.getBoundingBox(cell));}

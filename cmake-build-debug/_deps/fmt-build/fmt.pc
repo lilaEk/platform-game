@@ -5,7 +5,7 @@ includedir=${prefix}/include
 
 Name: fmt
 Description: A modern formatting library
-Version: 10.2.0
+Version: 10.2.2
 Libs: -L${libdir} -lfmtd
 Cflags: -I${includedir}
 
