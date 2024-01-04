@@ -49,21 +49,7 @@ void Map::renderMap(sf::RenderWindow &target) {
         auto &column = mapData[i];
 
         for (Cell &cell: column) {
-            cell.sprite.setPosition(cell.pos_x, cell.pos_y);
-
-            if (cell.cellType == CellType::platform) {
-                cell.scale = 1.f;
-                cell.sprite.setScale(cell.scale, cell.scale);
-                cell.sprite.setPosition(cell.pos_x, cell.pos_y);
-
-                if (!cell.texture.loadFromFile("../assets/elements/brick.png")) {
-                    std::cerr << "ERROR: Could not load platform texture from file\n";
-                } else {
-                    cell.sprite.setTexture(cell.texture);
-                }
-
-                cell.render(target);
-            }
+            cell.render(target);
         }
     }
 }
@@ -76,8 +62,8 @@ void Map::scrollMap(float currentTime) {
         scrolledColumns = firstColumn;
     }
 
-    for (auto &column : mapData) {
-        for (Cell &cell : column) {
+    for (auto &column: mapData) {
+        for (Cell &cell: column) {
             cell.pos_x -= 350.f * currentTime;
         }
     }

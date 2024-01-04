@@ -104,7 +104,6 @@ void Game::update_and_render(float deltaTime) {
 
             gameplayView.handleInput();
             gameplayView.update(deltaTime);
-//            this->scrollMap(deltaTime);
             gameplayView.render();
 
             if (1 == 0) {
