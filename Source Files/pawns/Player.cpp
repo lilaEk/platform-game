@@ -67,79 +67,79 @@ void Player::render(sf::RenderTarget &target) {
 }
 
 void Player::update(float currentTime, bool moveable) {
-    if (moveable) {
-        this->updateMovement(currentTime);
-    }
+//    if (moveable) {
+//        this->updateMovement(currentTime);
+//    }
     this->updateAnimations(currentTime);
 }
 
-void Player::updateMovement(float currentTime) {
-    this->lastPawnState = this->currentPawnState;
-
-    //left movement
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
-        or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-
-        this->pos_x -= movement_speed * currentTime;
-
-        if (this->pos_x < 0 + width) {
-            this->pos_x = 0 + width;
-        };
-        this->currentPawnState = PawnState::run;
-        if (this->direction == Direction::right) {
-            this->direction = Direction::left;
-        }
-    }
-        //right movement
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
-             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-
-        if (this->pos_x<(3*16*20)/2) {
-            this->pos_x += movement_speed * currentTime;
-
-            if (this->pos_x > Game::width - width) {
-                this->pos_x = Game::width - width;
-            };
-        } else {
-//            Game::scrollMap(movement_speed * currentTime);
-        }
-
-        this->currentPawnState = PawnState::run;
-        if (this->direction == Direction::left) {
-            this->direction = Direction::right;
-        }
-    }
-        //jump - todo
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
-             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        this->pos_y -= 10.F;
-        if (this->pos_y < 30.f) {
-            this->pos_y = 30.f;
-        };
-        this->currentPawnState = PawnState::jump;
-    }
-        //roll / squat - todo
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
-             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        this->pos_y += 20.F;
-        if (this->pos_y > 450.f) {
-            this->pos_y = 450.f;
-        };
-        this->currentPawnState = PawnState::squat;
-    }
-        //directDoubleAttack - k - todo
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)) {
-        this->currentPawnState = PawnState::directDoubleAttack;
-    }
-        //throwAtack - l - todo
-    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)) {
-        this->currentPawnState = PawnState::throwAttack;
-    }
-        //brak ruchu
-    else {
-        this->currentPawnState = PawnState::idle;
-    }
-}
+//void Player::updateMovement(float currentTime) {
+//    this->lastPawnState = this->currentPawnState;
+//
+//    //left movement
+//    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)
+//        or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+//
+//        this->pos_x -= movement_speed * currentTime;
+//
+//        if (this->pos_x < 0 + width) {
+//            this->pos_x = 0 + width;
+//        };
+//        this->currentPawnState = PawnState::run;
+//        if (this->direction == Direction::right) {
+//            this->direction = Direction::left;
+//        }
+//    }
+//        //right movement
+//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)
+//             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+//
+//        if (this->pos_x<(3*16*20)/2) {
+//            this->pos_x += movement_speed * currentTime;
+//
+//            if (this->pos_x > Game::width - width) {
+//                this->pos_x = Game::width - width;
+//            };
+//        } else {
+////            Game::scrollMap(movement_speed * currentTime);
+//        }
+//
+//        this->currentPawnState = PawnState::run;
+//        if (this->direction == Direction::left) {
+//            this->direction = Direction::right;
+//        }
+//    }
+//        //jump - todo
+//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)
+//             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+//        this->pos_y -= 10.F;
+//        if (this->pos_y < 30.f) {
+//            this->pos_y = 30.f;
+//        };
+//        this->currentPawnState = PawnState::jump;
+//    }
+//        //roll / squat - todo
+//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)
+//             or sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+//        this->pos_y += 20.F;
+//        if (this->pos_y > 450.f) {
+//            this->pos_y = 450.f;
+//        };
+//        this->currentPawnState = PawnState::squat;
+//    }
+//        //directDoubleAttack - k - todo
+//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)) {
+//        this->currentPawnState = PawnState::directDoubleAttack;
+//    }
+//        //throwAtack - l - todo
+//    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)) {
+//        this->currentPawnState = PawnState::throwAttack;
+//    }
+//        //brak ruchu
+//    else {
+//        this->currentPawnState = PawnState::idle;
+//    }
+//}
 
 void Player::updateAnimations(float deltaTime) {
 

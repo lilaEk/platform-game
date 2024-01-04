@@ -4,7 +4,7 @@
 #include <vector>
 #include <array>
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "../pawns/enums/CellType.hpp"
+#include "CellType.hpp"
 #include "../pawns/Entity.hpp"
 
 class Cell : public Entity {

@@ -10,6 +10,8 @@
 class Pawn : public Entity{
 
 protected:
+
+public:
     float movement_speed{};
 
     PawnState lastPawnState{};
@@ -17,7 +19,6 @@ protected:
     Direction direction{};
     bool isJumping{};
 
-public:
     PawnState currentPawnState{};
 
     virtual ~Pawn() = default;
@@ -26,7 +27,7 @@ public:
     virtual void initAnimations()=0;
 //    virtual void render(sf::RenderTarget &target) = 0;
     virtual void update(float d, bool moveable) = 0;
-    virtual void updateMovement(float d) = 0;
+//    virtual void updateMovement(float d) = 0;
     virtual void updateAnimations(float d) = 0;
 
 };

@@ -11,6 +11,7 @@ public:
 
     void update(float d);
     void updatePlayer(float d);
+    void updateMovement(float d);
     void updateMap(float d);
     void render();
     void renderPlayer();
