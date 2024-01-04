@@ -25,5 +25,4 @@ public:
     const int MaxVisibleColumns = 21;
     int scrolledColumns=0;
 
-    int index=1;
 };
