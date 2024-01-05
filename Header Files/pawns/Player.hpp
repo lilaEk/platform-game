@@ -24,11 +24,6 @@ private:
     Animation directDoubleAttack;
     Animation throwAttack;
 
-    //physics (w pawn) - todo
-//    sf::Vector2f vector2F;
-//    float acceleration;
-//    float deceleration;
-
     void initPlayer() override;
     void initAnimations() override;
 
@@ -41,6 +36,4 @@ public:
     void updateAnimations(float d) override;
 
     sf::FloatRect getBoundingBox();
-
-    void setPosition(float d, float d1);
 };

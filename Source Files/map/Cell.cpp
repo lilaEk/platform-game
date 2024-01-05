@@ -42,5 +42,5 @@ void Cell::render(sf::RenderTarget &target) {
 }
 
 sf::FloatRect Cell::getBoundingBox() {
-    return sf::FloatRect(this->pos_x, this->pos_y, Cell::cellSize, Cell::cellSize);
+    return sf::FloatRect(this->pos_x, this->pos_y, Cell::cellSize * this->scale, Cell::cellSize * this->scale);
 }

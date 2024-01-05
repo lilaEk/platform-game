@@ -133,9 +133,5 @@ void Player::updateAnimations(float deltaTime) {
 }
 
 sf::FloatRect Player::getBoundingBox() {
-    return sf::FloatRect(this->pos_x, this->pos_y, this->width, this->height);
-}
-
-void Player::setPosition(float x, float y) {
-    sprite.setPosition(x, y);
+    return sf::FloatRect(this->pos_x, this->pos_y, this->width*this->scale, this->height*this->scale);
 }

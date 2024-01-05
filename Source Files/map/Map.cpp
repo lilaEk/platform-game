@@ -10,7 +10,7 @@ Map::~Map() {
 
 void Map::initMap() {
 
-    for (int i = 0; i < 40; i++) {
+    for (int i = 0; i < 25; i++) {
         std::array<Cell, 13> column;
 
         for (int j = 0; j < 13; j++) {
@@ -32,12 +32,12 @@ void Map::initMap() {
 void Map::updateMap() {
 
     if (!mapData.empty() && mapData.front().front().pos_x + Cell::cellSize <= 0.f) {
-        std::cout << "usunieto kolumne" << std::endl;
+//        std::cout << "usunieto kolumne" << std::endl;
         mapData.erase(mapData.begin());
     }
 
     while (mapData.size() < Map::MaxVisibleColumns) {
-        std::cout << "25 NOWYCH KOLUMN" << std::endl;
+//        std::cout << "25 NOWYCH KOLUMN" << std::endl;
         addNextRandomStructure();
     }
 }
