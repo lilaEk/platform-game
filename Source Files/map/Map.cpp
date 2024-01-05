@@ -11,11 +11,11 @@ Map::~Map() {
 void Map::initMap() {
 
     for (int i = 0; i < 25; i++) {
-        std::array<Cell, 13> column;
+        std::array<Cell, 14> column;
 
-        for (int j = 0; j < 13; j++) {
+        for (int j = 0; j < 14; j++) {
             Cell cell;
-            if (j == 13 - 1) {
+            if (j == 12 || j==13) {
                 cell = Cell(CellType::platform);
             } else {
                 cell = Cell(CellType::empty);
@@ -61,7 +61,7 @@ void Map::scrollMap(float currentTime) {
 
     for (auto &column: mapData) {
         for (Cell &cell: column) {
-            cell.pos_x -= 350.f * currentTime;
+            cell.pos_x -= 400.f * currentTime;
         }
     }
 }
@@ -76,8 +76,8 @@ void Map::addNextRandomStructure() {
     switch (randomValue) {
         case 1:
             for (int i = 0; i < structureColumns; i++) {
-                std::array<Cell, 13> newColumn;
-                for (int j = 0; j < 13; j++) {
+                std::array<Cell, 14> newColumn;
+                for (int j = 0; j < 14; j++) {
 
                     if ((i == 4 && j == 4) || (i == 11 && j == 4) || (i == 12 && j == 4)) {
                         cell = Cell(CellType::randomReward);
@@ -87,7 +87,7 @@ void Map::addNextRandomStructure() {
                                (i == 17 && j == 8) ||
                                (i == 18 && j == 8)) {
                         cell = Cell(CellType::platform);
-                    } else if (j == 13 - 1) {
+                    } else if (j == 12 || j==13) {
                         cell = Cell(CellType::platform);
                     } else {
                         cell = Cell(CellType::empty);
@@ -103,8 +103,8 @@ void Map::addNextRandomStructure() {
 
         case 2:
             for (int i = 0; i < structureColumns; i++) {
-                std::array<Cell, 13> newColumn;
-                for (int j = 0; j < 13; j++) {
+                std::array<Cell, 14> newColumn;
+                for (int j = 0; j < 14; j++) {
                     if ((i == 8 && j == 12) || (i == 9 && j == 12) || (i == 10 && j == 12) || (i == 11 && j == 12) || (i == 12 && j == 12)) {
                         cell = Cell(CellType::fire);
                     } else
@@ -123,7 +123,7 @@ void Map::addNextRandomStructure() {
                                || (i == 13 && j == 8) || (i == 14 && j == 8)){
                         cell = Cell(CellType::platform);
 
-                        } else if (j == 12) {
+                        } else if (j == 12 || j==13) {
                         cell = Cell(CellType::platform);
                     } else {
                         cell = Cell(CellType::empty);

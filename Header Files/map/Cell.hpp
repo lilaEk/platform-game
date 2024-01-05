@@ -16,6 +16,8 @@ public:
 
     void render(sf::RenderTarget &target) override;
 
+    void changeCellType(CellType cellType);
+
     sf::FloatRect getBoundingBox();
 
     CellType cellType;

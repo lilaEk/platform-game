@@ -33,8 +33,8 @@ public:
 
 //    void scrollMap(float movement);
 
-    static const int height = 3*16*13;
-    static const int width = 3*16*20;
+    static const int height = 624; //48*13
+    static const int width = 960; //48*20
 
 private:
 

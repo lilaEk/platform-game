@@ -16,6 +16,7 @@ void Cell::render(sf::RenderTarget &target) {
 
     this->scale = 1.f;
     this->sprite.setScale(this->scale, this->scale);
+    this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
     this->sprite.setPosition(this->pos_x, this->pos_y);
 
     if (this->cellType == CellType::platform) {
@@ -36,6 +37,12 @@ void Cell::render(sf::RenderTarget &target) {
         } else {
             this->sprite.setTexture(this->texture);
         }
+    } else if (this->cellType == CellType::debbug) {
+        if (!this->texture.loadFromFile("../assets/blocks/debbug.png")) {
+            std::cerr << "ERROR: Could not load platform texture from file\n";
+        } else {
+            this->sprite.setTexture(this->texture);
+        }
     }
 
     target.draw(this->sprite);
@@ -43,4 +50,8 @@ void Cell::render(sf::RenderTarget &target) {
 
 sf::FloatRect Cell::getBoundingBox() {
     return sf::FloatRect(this->pos_x, this->pos_y, Cell::cellSize * this->scale, Cell::cellSize * this->scale);
+}
+
+void Cell::changeCellType(CellType cellType){
+    this->cellType = cellType;
 }

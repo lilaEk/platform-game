@@ -19,7 +19,7 @@ public:
 
     void scrollMap(float currentTime);
 
-    std::vector<std::array<Cell, 13>> mapData;
+    std::vector<std::array<Cell, 14>> mapData;
 
     const int MaxVisibleColumns = 21;
     int scrolledColumns=0;

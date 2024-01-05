@@ -53,7 +53,6 @@ void Gameplay::updateMovement(float currentTime) {
         }
         this->player->currentPawnState = PawnState::run;
 
-//        if (checkCollision(-this->player->movement_speed * currentTime, 0, false)) {
         if (checkCollisionWithCells(this->player->pos_x - this->player->movement_speed * currentTime,
                                     this->player->pos_y)) {
             return;
@@ -62,6 +61,8 @@ void Gameplay::updateMovement(float currentTime) {
         } else {
             this->player->pos_x -= this->player->movement_speed * currentTime;
         }
+        std::cout << "player: ("<<player->pos_x<<","<<player->pos_y<<")"<<std::endl;
+
     }
         // Prawo
     else if (moveRight) {
@@ -79,6 +80,8 @@ void Gameplay::updateMovement(float currentTime) {
         } else {
             mapManager->scrollMap(currentTime);
         }
+        std::cout << "player: ("<<player->pos_x<<","<<player->pos_y<<")"<<std::endl;
+
     }
 
         //jump
@@ -89,10 +92,12 @@ void Gameplay::updateMovement(float currentTime) {
         if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y - 10.f)) {
             return;
         }
-        this->player->pos_y -= 10.F;
+        this->player->pos_y -= this->player->movement_speed*2 * currentTime;
         if (this->player->pos_y < 30.f) {
             this->player->pos_y = 30.f;
         };
+        std::cout << "player: ("<<player->pos_x<<","<<player->pos_y<<")"<<std::endl;
+
 
         //squat
     } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ||
@@ -103,10 +108,11 @@ void Gameplay::updateMovement(float currentTime) {
         if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + 20.f)) {
             return;
         }
-        this->player->pos_y += 20.F;
-        if (this->player->pos_y > 48 * 10) {
-            this->player->pos_y = 48 * 10;
+        this->player->pos_y += this->player->movement_speed*2 * currentTime;
+        if (this->player->pos_y > Game::height-48*2.5) {
+//kill player
         };
+        std::cout << "player: ("<<player->pos_x<<","<<player->pos_y<<")"<<std::endl;
 
 
         //attack
@@ -127,87 +133,29 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
     for (auto &column: mapManager->currentMap->mapData) {
         for (auto &cell: column) {
 
-            if (cell.cellType == CellType::platform || cell.cellType == CellType::randomReward) {
-                // Sprawdzamy kolizję w osi X
+            if (cell.cellType == CellType::platform || cell.cellType == CellType::randomReward|| cell.cellType == CellType::debbug) {
+
                 bool collisionX = x + player->width > cell.pos_x
                                   && cell.pos_x + cell.width > x;
 
-                // Sprawdzamy kolizję w osi Y
                 bool collisionY = y + player->height > cell.pos_y &&
                                   cell.pos_y + cell.height > y;
 
                 if (collisionX && collisionY) {
+                    cell.changeCellType(CellType::debbug);
+
                     std::cout << "Kolizja z komorka: (" << cell.pos_x << "," << cell.pos_y
-                              << "). Pozycja gracza: (" << player->pos_x << "," << player->pos_y << ")" << std::endl;
+                              <<")("<<cell.pos_x+cell.width<<","<<cell.pos_y+cell.height<< ").\n"
+                              <<"Pozycja gracza: (" << player->pos_x << "," << player->pos_y << ")"
+                            <<")("<<player->pos_x+player->width<<","<<player->pos_y+player->height<< ").\n"
+                            << std::endl;
+
+                    std::cout << "player: ("<<player->pos_x<<","<<player->pos_y<<")"<<std::endl;
+
                     return true;
                 }
             }
         }
     }
     return false;
-
 }
-
-
-//bool Gameplay::checkCollision(float targetX, float targetY, bool rightCollision) {
-//
-//    this->player->pos_x += targetX;
-//    this->player->pos_y += targetY;
-//    sf::FloatRect playerBounds = player->getBoundingBox();
-//    for (auto &column: mapManager->currentMap->mapData) {
-//        for (auto &cell: column) {
-//            sf::FloatRect cellBounds = cell.getBoundingBox();
-//
-//            if (playerBounds.intersects(cellBounds)) {
-//
-//                if (cell.cellType == CellType::platform || cell.cellType == CellType::randomReward) {
-////                    this->player->pos_x -= targetX;
-////                    this->player->pos_y -= targetY;
-//
-//                    if (rightCollision) {
-//                        if (player->pos_x + player->width >= cell.pos_x) {
-//                            std::cout << "kolizja z komorka: (" << cell.pos_x << "," << cell.pos_y
-//                                      << "). Pozycja gracza: ("
-//                                      << player->pos_x << "," << player->pos_y << ")" << std::endl;
-//                            this->player->pos_x -= targetX;
-//                            this->player->pos_y -= targetY;
-//                            return true;
-//                        }
-//                    } else {
-//                        if (player->pos_x <= cell.pos_x + cell.width) {
-////                        if (player->pos_x - cell.pos_x + cell.width < 32) {
-//
-//
-//                            std::cout << "kolizja z komorka: (" << cell.pos_x << "," << cell.pos_y
-//                                      << "). Pozycja gracza: ("
-//                                      << player->pos_x << "," << player->pos_y << ")" << std::endl;
-//                            this->player->pos_x -= targetX;
-//                            this->player->pos_y -= targetY;
-//                            return true;
-//                        }
-//
-//                    }
-//                    this->player->pos_x -= targetX;
-//                    this->player->pos_y -= targetY;
-//                    return false;
-//
-//                } else if (cell.cellType == CellType::empty) {
-//                    this->player->pos_x -= targetX;
-//                    this->player->pos_y -= targetY;
-//                    return false;
-//
-//                } else if (cell.cellType == CellType::fire) {
-//                    this->player->pos_x -= targetX;
-//                    this->player->pos_y -= targetY;
-//                    // Zabij gracza
-//                    return true;
-//                }
-//            }
-//        }
-//    }
-//    this->player->pos_x -= targetX;
-//    this->player->pos_y -= targetY;
-//
-//    return false;
-//}
-
