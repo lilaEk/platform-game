@@ -29,7 +29,7 @@ void Menu::initButtons(sf::Font font) {
     Button yourCharacter = Button("choose your\ncharacter", Game::width / 2 - 100, Game::height / 2 + 20,
                                   200, 120, sf::Color(213, 232, 236), this->window, this->font,
                                   ButtonType::choose_your_character);
-    Button start = Button("start", 700, 500, sf::Color(151, 164, 166), this->window, this->font, ButtonType::start);
+    Button start = Button("start", 700, 450, sf::Color(151, 164, 166), this->window, this->font, ButtonType::start);
 
     textButtons.push_back(newGame);
     textButtons.push_back(loadGame);

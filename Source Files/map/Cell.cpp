@@ -31,6 +31,12 @@ void Cell::render(sf::RenderTarget &target) {
         } else {
             this->sprite.setTexture(this->texture);
         }
+    } else if (this->cellType == CellType::emptyRandomReward) {
+        if (!this->texture.loadFromFile("../assets/blocks/questionMarkEmpty.png")) {
+            std::cerr << "ERROR: Could not load platform texture from file\n";
+        } else {
+            this->sprite.setTexture(this->texture);
+        }
     } else if (this->cellType == CellType::fire) {
         if (!this->texture.loadFromFile("../assets/blocks/fire.png")) {
             std::cerr << "ERROR: Could not load platform texture from file\n";

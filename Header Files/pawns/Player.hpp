@@ -35,5 +35,6 @@ public:
     void update(float d, bool moveable) override;
     void updateAnimations(float d) override;
 
-    sf::FloatRect getBoundingBox();
+    float jumpHeight=0;
+
 };

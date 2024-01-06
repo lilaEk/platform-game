@@ -16,13 +16,14 @@ void Player::initPlayer() {
     this->pos_x = (3 * 16 * 20) / 2;
     this->pos_y = Game::height-48*2.5;
 
-    this->movement_speed = 400.f;
+    this->movementSpeed = 500.f;
     this->scale = 3.f;
 
     this->direction = Direction::right;
     this->lastPawnState = PawnState::idle;
     this->currentPawnState = PawnState::idle;
     this->isJumping = false;
+    this->isFalling = true;
     this->sprite.setScale(scale, scale);
 }
 
@@ -130,8 +131,4 @@ void Player::updateAnimations(float deltaTime) {
                                                   PawnState::idle);
             break;
     }
-}
-
-sf::FloatRect Player::getBoundingBox() {
-    return sf::FloatRect(this->pos_x, this->pos_y, this->width*this->scale, this->height*this->scale);
 }

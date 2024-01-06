@@ -12,12 +12,13 @@ class Pawn : public Entity{
 protected:
 
 public:
-    float movement_speed{};
+    float movementSpeed{};
 
     PawnState lastPawnState{};
 
     Direction direction{};
     bool isJumping{};
+    bool isFalling{};
 
     PawnState currentPawnState{};
 
