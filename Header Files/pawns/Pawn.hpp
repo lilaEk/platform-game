@@ -17,6 +17,7 @@ public:
     PawnState lastPawnState{};
 
     Direction direction{};
+
     bool isJumping{};
     bool isFalling{};
 

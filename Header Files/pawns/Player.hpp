@@ -36,5 +36,6 @@ public:
     void updateAnimations(float d) override;
 
     float jumpHeight=0;
+    float jumpDistance = 0.0f;
 
 };
