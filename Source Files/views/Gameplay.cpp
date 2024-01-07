@@ -136,8 +136,8 @@ void Gameplay::updateJumping(float d) {
             return;
         }
 
-        if (this->player->pos_y < 30.f) {
-            this->player->pos_y = 30.f;
+        if (this->player->pos_y < 60.f) {
+            this->player->pos_y = 60.f;
             this->player->isJumping = false;
             this->player->isFalling = true;
             this->player->jumpHeight = 0.0f;
@@ -156,7 +156,7 @@ void Gameplay::updateJumping(float d) {
         this->player->pos_y -= player->jumpHeight;
         player->jumpDistance += player->jumpHeight;
 
-        if (this->player->jumpDistance >= 48.f*3) {
+        if (this->player->jumpDistance >= 48.f*4) {
             this->player->jumpHeight = 0.0f;
             this->player->jumpDistance = 0.0f;
             this->player->currentPawnState = PawnState::idle;
@@ -200,12 +200,12 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                     }
 
 //                    cell.changeCellType(CellType::debbug);
-                    std::cout << "Kolizja z komorka: (" << cell.pos_x << "," << cell.pos_y
-                              << ")(" << cell.pos_x + cell.width << "," << cell.pos_y + cell.height << ").\n"
-                              << "Pozycja gracza: (" << player->pos_x << "," << player->pos_y << ")"
-                              << ")(" << player->pos_x + player->width << "," << player->pos_y + player->height
-                              << ").\n"
-                              << std::endl;
+//                    std::cout << "Kolizja z komorka: (" << cell.pos_x << "," << cell.pos_y
+//                              << ")(" << cell.pos_x + cell.width << "," << cell.pos_y + cell.height << ").\n"
+//                              << "Pozycja gracza: (" << player->pos_x << "," << player->pos_y << ")"
+//                              << ")(" << player->pos_x + player->width << "," << player->pos_y + player->height
+//                              << ").\n"
+//                              << std::endl;
 
 //                    std::cout << "player: ("<<player->pos_x<<","<<player->pos_y<<")"<<std::endl;
 

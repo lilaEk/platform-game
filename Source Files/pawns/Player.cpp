@@ -14,9 +14,9 @@ void Player::initPlayer() {
     this->height = 32;
 
     this->pos_x = (3 * 16 * 20) / 2;
-    this->pos_y = Game::height-48*2.5;
+    this->pos_y = Game::height-48*2.5+24;
 
-    this->movementSpeed = 500.f;
+    this->movementSpeed = 600.f;
     this->scale = 3.f;
 
     this->direction = Direction::right;
@@ -63,7 +63,7 @@ void Player::initAnimations() {
 
 void Player::render(sf::RenderTarget &target) {
     sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-    this->sprite.setPosition(this->pos_x, this->pos_y);
+    this->sprite.setPosition(this->pos_x, this->pos_y-24);
     target.draw(this->sprite);
 }
 
