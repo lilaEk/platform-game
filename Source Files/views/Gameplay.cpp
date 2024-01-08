@@ -103,6 +103,14 @@ void Gameplay::updateMovement(float d) {
             if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + 24.f)) {
             return;
         }
+        this->player->currentPawnState = PawnState::squat;
+
+        float newPlayerHeight = player->height / 2.0f;
+
+        if (!checkCollisionWithCells(this->player->pos_x, this->player->pos_y+24.f - newPlayerHeight)) {
+            this->player->currentPawnState = PawnState::idle;
+            this->player->pos_y += 24.f;
+        }
     }
 
     //attack

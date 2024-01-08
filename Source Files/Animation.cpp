@@ -38,14 +38,18 @@ void Animation::restartAnim() {
 sf::Sprite
 Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState) {
     if (*lastPawnState != newPawnState) {
-//        std::cout << "Current State: " << *lastPawnState << std::endl;
-//        std::cout << "New State: " << newPawnState << std::endl << std::endl;
         *lastPawnState = newPawnState;
         restartAnim();
     }
 
     this->elapsed += deltaTime;
     if (elapsed >= frameDuration) {
+
+        if (newPawnState == PawnState::squat && lastPlayedFrameIndex==3){
+            elapsed = 0;
+            newDirectionAndScale(this->sprite, direction, scale);
+            return getSprite(w, h);;
+        }
         lastPlayedFrameIndex++;
         if (lastPlayedFrameIndex >= framesNumber) {
             restartAnim();
