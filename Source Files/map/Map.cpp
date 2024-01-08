@@ -37,7 +37,28 @@ void Map::initMap() {
             {0,0,0,0,0,0,0,0,0,0,0,0,1,1}
     };
 
-    setMapStructure(structure);
+    Cell cell;
+
+    for (int i = 0; i < 25; i++) {
+        std::array<Cell, 14> column;
+
+        for (int j = 0; j < 14; j++) {
+
+            if (structure[i][j]==1) {
+                cell = Cell(CellType::platform);
+            } else if (structure[i][j]==2) {
+                cell = Cell(CellType::randomReward);
+            } else {
+                cell = Cell(CellType::empty);
+            }
+
+            cell.pos_x = i * Cell::cellSize;
+            cell.pos_y = j * Cell::cellSize;
+
+            column[j] = cell;
+        }
+        mapData.push_back(column);
+    }
 }
 
 void Map::updateMap() {
@@ -80,74 +101,79 @@ void Map::scrollMap(float currentTime) {
 void Map::addNextRandomStructure() {
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int randomValue = rand() % 2 + 1;
+    int randomValue = rand() % 1 + 1;
 
     std::vector<std::array<int, 14>> structure;
     Cell cell;
 
     switch (randomValue) {
-        case 1:
-            for (int i = 0; i < structureColumns; i++) {
-                std::array<Cell, 14> newColumn;
-                for (int j = 0; j < 14; j++) {
+        case 1: {
+            std::vector<std::array<int, 14>> structure = {
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1}
+            };
+            setMapStructure(structure);
 
-                    if ((i == 4 && j == 4) || (i == 11 && j == 4) || (i == 12 && j == 4)) {
-                        cell = Cell(CellType::randomReward);
-                    } else if ((i == 9 && j == 4) || (i == 10 && j == 4) || (i == 13 && j == 4) || (i == 14 && j == 4)
-                               || (i == 4 && j == 8) || (i == 5 && j == 8) || (i == 6 && j == 8) || (i == 7 && j == 8)
-                               || (i == 11 && j == 8) || (i == 12 && j == 8) || (i == 16 && j == 8) ||
-                               (i == 17 && j == 8) ||
-                               (i == 18 && j == 8)) {
-                        cell = Cell(CellType::platform);
-                    } else if (j == 12 || j==13) {
-                        cell = Cell(CellType::platform);
-                    } else {
-                        cell = Cell(CellType::empty);
-                    }
-                    cell.pos_x = (mapData.size() - 1) * Cell::cellSize;
-                    cell.pos_y = j * Cell::cellSize;
-                    newColumn[j] = cell;
-
-                }
-                mapData.push_back(newColumn);
-            }
             break;
-
-        case 2:
-            for (int i = 0; i < structureColumns; i++) {
-                std::array<Cell, 14> newColumn;
-                for (int j = 0; j < 14; j++) {
-                    if ((i == 8 && j == 12) || (i == 9 && j == 12) || (i == 10 && j == 12) || (i == 11 && j == 12) || (i == 12 && j == 12)) {
-                        cell = Cell(CellType::fire);
-                    } else
-                        if ((i == 9 && j == 5) || (i == 10 && j == 5) || (i == 11 && j == 5)
-
-                               || (i == 3 && j == 11) || (i == 4 && j == 11) || (i == 5 && j == 11) || (i == 6 && j == 11)|| (i == 7 && j == 11)
-                               || (i == 13 && j == 11) || (i == 14 && j == 11) || (i == 15 && j == 11) || (i == 16 && j == 11)|| (i == 17 && j == 11)
-
-                               || (i == 4 && j == 10) || (i == 5 && j == 10) || (i == 6 && j == 10) || (i == 7 && j == 10)
-                               || (i == 13 && j == 10) || (i == 14 && j == 10) || (i == 15 && j == 10) || (i == 16 && j == 10)
-
-                               || (i == 5 && j == 9) || (i == 6 && j == 9) || (i == 7 && j == 9)
-                               || (i == 13 && j == 9) || (i == 14 && j == 9) || (i == 15 && j == 9)
-
-                               || (i == 6 && j == 8) || (i == 7 && j == 8)
-                               || (i == 13 && j == 8) || (i == 14 && j == 8)){
-                        cell = Cell(CellType::platform);
-
-                        } else if (j == 12 || j==13) {
-                        cell = Cell(CellType::platform);
-                    } else {
-                        cell = Cell(CellType::empty);
-                    }
-                    cell.pos_x = (mapData.size() - 1) * Cell::cellSize;
-                    cell.pos_y = j * Cell::cellSize;
-                    newColumn[j] = cell;
-
-                }
-                mapData.push_back(newColumn);
-            }
-            break;
+        }
+//        case 2:
+//            for (int i = 0; i < structureColumns; i++) {
+//                std::array<Cell, 14> newColumn;
+//                for (int j = 0; j < 14; j++) {
+//                    if ((i == 8 && j == 12) || (i == 9 && j == 12) || (i == 10 && j == 12) || (i == 11 && j == 12) || (i == 12 && j == 12)) {
+//                        cell = Cell(CellType::fire);
+//                    } else
+//                        if ((i == 9 && j == 5) || (i == 10 && j == 5) || (i == 11 && j == 5)
+//
+//                               || (i == 3 && j == 11) || (i == 4 && j == 11) || (i == 5 && j == 11) || (i == 6 && j == 11)|| (i == 7 && j == 11)
+//                               || (i == 13 && j == 11) || (i == 14 && j == 11) || (i == 15 && j == 11) || (i == 16 && j == 11)|| (i == 17 && j == 11)
+//
+//                               || (i == 4 && j == 10) || (i == 5 && j == 10) || (i == 6 && j == 10) || (i == 7 && j == 10)
+//                               || (i == 13 && j == 10) || (i == 14 && j == 10) || (i == 15 && j == 10) || (i == 16 && j == 10)
+//
+//                               || (i == 5 && j == 9) || (i == 6 && j == 9) || (i == 7 && j == 9)
+//                               || (i == 13 && j == 9) || (i == 14 && j == 9) || (i == 15 && j == 9)
+//
+//                               || (i == 6 && j == 8) || (i == 7 && j == 8)
+//                               || (i == 13 && j == 8) || (i == 14 && j == 8)){
+//                        cell = Cell(CellType::platform);
+//
+//                        } else if (j == 12 || j==13) {
+//                        cell = Cell(CellType::platform);
+//                    } else {
+//                        cell = Cell(CellType::empty);
+//                    }
+//                    cell.pos_x = (mapData.size() - 1) * Cell::cellSize;
+//                    cell.pos_y = j * Cell::cellSize;
+//                    newColumn[j] = cell;
+//
+//                }
+//                mapData.push_back(newColumn);
+//            }
+//            break;
 //        case 3:
 //            structure = {
 //                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
@@ -187,17 +213,26 @@ void Map::addNextRandomStructure() {
 }
 
 void Map::setMapStructure(std::vector<std::array<int, 14>>structure) {
+
+    Cell cell;
+
     for (int i = 0; i < 25; i++) {
         std::array<Cell, 14> column;
+
         for (int j = 0; j < 14; j++) {
-            Cell cell;
 
             if (structure[i][j]==1) {
                 cell = Cell(CellType::platform);
+            } else if (structure[i][j]==2) {
+                cell = Cell(CellType::randomReward);
             } else {
                 cell = Cell(CellType::empty);
             }
-            cell.pos_x = i * Cell::cellSize;
+
+//            cell.pos_x = i * Cell::cellSize;
+//            cell.pos_y = j * Cell::cellSize;
+
+            cell.pos_x = (mapData.size() - 1) * Cell::cellSize;
             cell.pos_y = j * Cell::cellSize;
 
             column[j] = cell;
