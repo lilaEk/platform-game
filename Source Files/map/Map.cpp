@@ -9,24 +9,35 @@ Map::~Map() {
 }
 
 void Map::initMap() {
+    std::vector<std::array<int, 14>>structure = {
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,1,1}
+    };
 
-    for (int i = 0; i < 25; i++) {
-        std::array<Cell, 14> column;
-
-        for (int j = 0; j < 14; j++) {
-            Cell cell;
-            if (j == 12 || j==13) {
-                cell = Cell(CellType::platform);
-            } else {
-                cell = Cell(CellType::empty);
-            }
-            cell.pos_x = i * Cell::cellSize;
-            cell.pos_y = j * Cell::cellSize;
-
-            column[j] = cell;
-        }
-        mapData.push_back(column);
-    }
+    setMapStructure(structure);
 }
 
 void Map::updateMap() {
@@ -71,6 +82,7 @@ void Map::addNextRandomStructure() {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     int randomValue = rand() % 2 + 1;
 
+    std::vector<std::array<int, 14>> structure;
     Cell cell;
 
     switch (randomValue) {
@@ -137,7 +149,21 @@ void Map::addNextRandomStructure() {
             }
             break;
 //        case 3:
-//            std::cout << "Otrzymano wartość 3" << std::endl;
+//            structure = {
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+//                    {0,0,0,0,0,0,0,0,0,0,0,0,0,1}
+//            };
 //            break;
 //        case 4:
 //            std::cout << "Otrzymano wartość 4" << std::endl;
@@ -157,5 +183,25 @@ void Map::addNextRandomStructure() {
         default:
             std::cerr << "Nieprawidłowa wartość" << std::endl;
             break;
+    }
+}
+
+void Map::setMapStructure(std::vector<std::array<int, 14>>structure) {
+    for (int i = 0; i < 25; i++) {
+        std::array<Cell, 14> column;
+        for (int j = 0; j < 14; j++) {
+            Cell cell;
+
+            if (structure[i][j]==1) {
+                cell = Cell(CellType::platform);
+            } else {
+                cell = Cell(CellType::empty);
+            }
+            cell.pos_x = i * Cell::cellSize;
+            cell.pos_y = j * Cell::cellSize;
+
+            column[j] = cell;
+        }
+        mapData.push_back(column);
     }
 }

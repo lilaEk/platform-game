@@ -26,4 +26,5 @@ public:
 
     int structureColumns=25;
 
+    void setMapStructure(std::vector<std::array<int, 14>> structure);
 };
