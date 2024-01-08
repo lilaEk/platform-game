@@ -39,7 +39,12 @@ sf::Sprite
 Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState) {
     if (*lastPawnState != newPawnState) {
         *lastPawnState = newPawnState;
-        restartAnim();
+
+        if (newPawnState==PawnState::squat){
+            lastPlayedFrameIndex=2;
+        }else {
+            restartAnim();
+        }
     }
 
     this->elapsed += deltaTime;

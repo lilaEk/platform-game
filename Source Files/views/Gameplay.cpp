@@ -47,17 +47,35 @@ void Gameplay::updateMovement(float d) {
             sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
     bool jump =
             sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
+    bool squat =
+            sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
 
     updateJumping(d);
 
     this->player->currentPawnState = PawnState::idle;
+
+
     //lewo
     if (moveLeft) {
         if (this->player->direction == Direction::right) {
             this->player->direction = Direction::left;
         }
-        this->player->currentPawnState = PawnState::run;
+        if (player->lastPawnState!=PawnState::squat) {
+            this->player->currentPawnState = PawnState::run;
+        }
 
+        if (squat) {
+            this->player->currentPawnState = PawnState::squat;
+        }
+        if (player->currentPawnState==PawnState::squat && !checkCollisionWithCells(this->player->pos_x - this->player->movementSpeed * d,
+                                                                                   this->player->pos_y+player->height/2)){
+            if (player->pos_x <= +player->width) {
+                player->pos_x = player->width;
+            } else {
+                this->player->pos_x -= this->player->movementSpeed * d;
+            }
+            return;
+        }
         if (!checkCollisionWithCells(this->player->pos_x - this->player->movementSpeed * d,
                                      this->player->pos_y)) {
             if (player->pos_x <= +player->width) {
@@ -73,16 +91,23 @@ void Gameplay::updateMovement(float d) {
         if (this->player->direction == Direction::left) {
             this->player->direction = Direction::right;
         }
-        this->player->currentPawnState = PawnState::run;
-//
-//        if (player->currentPawnState==PawnState::squat && !checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
-//                                                                                   this->player->pos_y+player->height/2)){
-//            if (this->player->pos_x < (Game::width / 2)) {
-//                this->player->pos_x += this->player->movementSpeed * d;
-//            } else {
-//                mapManager->scrollMap(d);
-//            }
-//        }
+        if (player->lastPawnState!=PawnState::squat) {
+            this->player->currentPawnState = PawnState::run;
+        }
+
+        if (squat) {
+            this->player->currentPawnState = PawnState::squat;
+        }
+
+        if (player->currentPawnState==PawnState::squat && !checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
+                                                                                   this->player->pos_y+player->height/2)){
+            if (this->player->pos_x < (Game::width / 2)) {
+                this->player->pos_x += this->player->movementSpeed * d;
+            } else {
+                mapManager->scrollMap(d);
+            }
+            return;
+        }
         if (!checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
                                      this->player->pos_y)) {
             if (this->player->pos_x < (Game::width / 2)) {
@@ -106,11 +131,8 @@ void Gameplay::updateMovement(float d) {
         sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
 
         this->player->currentPawnState = PawnState::squat;
-
-        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + player->height/2)) {
-            return;
-        }
     }
+
 
     //attack
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)) {
