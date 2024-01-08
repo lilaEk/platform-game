@@ -65,7 +65,6 @@ void Gameplay::updateMovement(float d) {
             } else {
                 this->player->pos_x -= this->player->movementSpeed * d;
             }
-//            std::cout << "player: (" << player->pos_x << "," << player->pos_y << ")" << std::endl;
         }
     }
 
@@ -83,7 +82,6 @@ void Gameplay::updateMovement(float d) {
             } else {
                 mapManager->scrollMap(d);
             }
-//             std::cout << "player: (" << player->pos_x << "," << player->pos_y << ")" << std::endl;
         }
     }
 
@@ -101,15 +99,10 @@ void Gameplay::updateMovement(float d) {
 
         this->player->currentPawnState = PawnState::squat;
 
-        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + 24.f)) {
+//        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + 24.f - player->height/2)) {
+            if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + 24.f)) {
             return;
         }
-//        else {
-//            this->player->pos_y += gravity * d;
-//            if (this->player->pos_y > Game::height - 48 * 2.5) {
-//                //kill player
-//            };
-//        }
     }
 
     //attack

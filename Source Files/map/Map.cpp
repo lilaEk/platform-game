@@ -64,12 +64,10 @@ void Map::initMap() {
 void Map::updateMap() {
 
     if (!mapData.empty() && mapData.front().front().pos_x + Cell::cellSize <= 0.f) {
-//        std::cout << "usunieto kolumne" << std::endl;
         mapData.erase(mapData.begin());
     }
 
     while (mapData.size() < Map::MaxVisibleColumns) {
-//        std::cout << "25 NOWYCH KOLUMN" << std::endl;
         addNextRandomStructure();
     }
 }
@@ -101,7 +99,7 @@ void Map::scrollMap(float currentTime) {
 void Map::addNextRandomStructure() {
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int randomValue = rand() % 1 + 1;
+    int randomValue = rand() % 4 + 1;
 
     std::vector<std::array<int, 14>> structure;
     Cell cell;
@@ -228,18 +226,7 @@ void Map::addNextRandomStructure() {
             setMapStructure(structure);
             break;
         }
-//        case 5:
-//            std::cout << "Otrzymano wartość 5" << std::endl;
-//            break;
-//        case 6:
-//            std::cout << "Otrzymano wartość 6" << std::endl;
-//            break;
-//        case 7:
-//            std::cout << "Otrzymano wartość 7" << std::endl;
-//            break;
-//        case 8:
-//            std::cout << "Otrzymano wartość 8" << std::endl;
-//            break;
+
         default:
             std::cerr << "Nieprawidłowa wartość" << std::endl;
             break;
