@@ -11,17 +11,17 @@ class Animation {
 
 private:
     sf::Texture texture;
-    sf::Sprite sprite; //widoczny obrazek
+    sf::Sprite sprite;
     PawnState *lastPawnState;
 
     float scale;
-    float elapsed = 0; //czas jaki upłynął
+    float elapsed = 0;
     const float frameDuration = 120/1000.0f; //ms
 
 public:
-    int framesNumber; //klatki animacji
-    int lastPlayedFrameIndex = 0; //ostatnia klatka
-    const std::string assetPath; //scieżka do assetu
+    int framesNumber;
+    int lastPlayedFrameIndex = 0;
+    const std::string assetPath;
 
     Animation() = default;
     Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *currentPawnState);

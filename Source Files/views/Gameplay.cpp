@@ -74,7 +74,15 @@ void Gameplay::updateMovement(float d) {
             this->player->direction = Direction::right;
         }
         this->player->currentPawnState = PawnState::run;
-
+//
+//        if (player->currentPawnState==PawnState::squat && !checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
+//                                                                                   this->player->pos_y+player->height/2)){
+//            if (this->player->pos_x < (Game::width / 2)) {
+//                this->player->pos_x += this->player->movementSpeed * d;
+//            } else {
+//                mapManager->scrollMap(d);
+//            }
+//        }
         if (!checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
                                      this->player->pos_y)) {
             if (this->player->pos_x < (Game::width / 2)) {
@@ -99,14 +107,8 @@ void Gameplay::updateMovement(float d) {
 
         this->player->currentPawnState = PawnState::squat;
 
-//        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + 24.f - player->height/2)) {
-//            if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + 24.f)) {
-//            return;
-//        }
-
-        if (!checkCollisionWithCells(this->player->pos_x, this->player->pos_y+24.f + player->height/2)) {
-            this->player->currentPawnState = PawnState::idle;
-            this->player->pos_y += 24.f;
+        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y + player->height/2)) {
+            return;
         }
     }
 
