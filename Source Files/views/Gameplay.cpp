@@ -128,7 +128,7 @@ void Gameplay::updateJumping(float d) {
         player->jumpHeight = jumpSpeed * d;
         std::cout << player->jumpHeight << std::endl;
 
-        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y - player->jumpHeight)) {
+        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y -20.f- player->jumpHeight)) {
             this->player->currentPawnState = PawnState::idle;
             this->player->isJumping = false;
             this->player->isFalling = true;

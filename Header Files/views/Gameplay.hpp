@@ -20,8 +20,8 @@ public:
 
     bool checkCollisionWithCells(float x, float y);
 
-    const float jumpSpeed = 900.0f;
-    const float gravity = 1200.0f;
+    const float jumpSpeed = 800.0f;
+    const float gravity = 1000.0f;
 
 private:
     MapManager* mapManager;
