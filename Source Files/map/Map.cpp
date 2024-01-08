@@ -101,7 +101,7 @@ void Map::scrollMap(float currentTime) {
 void Map::addNextRandomStructure() {
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int randomValue = rand() % 2 + 1;
+    int randomValue = rand() % 1 + 1;
 
     std::vector<std::array<int, 14>> structure;
     Cell cell;
@@ -170,7 +170,7 @@ void Map::addNextRandomStructure() {
             break;
         }
         case 3:{
-            std::vector<std::array<int, 14>> structure = {
+           structure = {
 
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
@@ -198,7 +198,7 @@ void Map::addNextRandomStructure() {
             break;
         }
         case 4: {
-            std::vector<std::array<int, 14>> structure = {
+            structure = {
 
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
