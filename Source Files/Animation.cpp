@@ -45,7 +45,7 @@ Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction,
     this->elapsed += deltaTime;
     if (elapsed >= frameDuration) {
 
-        if (newPawnState == PawnState::squat && lastPlayedFrameIndex==3){
+        if ((newPawnState == PawnState::squat && lastPlayedFrameIndex==3)|| (newPawnState==PawnState::die && lastPlayedFrameIndex==7)){
             elapsed = 0;
             newDirectionAndScale(this->sprite, direction, scale);
             return getSprite(w, h);;
