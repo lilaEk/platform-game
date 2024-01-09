@@ -154,7 +154,7 @@ void Gameplay::updateJumping(float d) {
 
         player->jumpHeight = jumpSpeed * d;
 
-        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y - 24.f - player->jumpHeight)) {
+        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y - 24.f+16.f - player->jumpHeight)) {
             this->player->currentPawnState = PawnState::idle;
             this->player->isJumping = false;
             this->player->isFalling = true;
@@ -229,7 +229,6 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                         player->pos_y = cell.pos_y - player->height - 16;
                         player->isFalling = false;
                     }
-
 
                     if (cell.cellType == CellType::randomReward) {
                         cell.changeCellType(CellType::emptyRandomReward);
