@@ -61,15 +61,16 @@ void Gameplay::updateMovement(float d) {
             this->player->direction = Direction::left;
         }
 
-        if (player->lastPawnState!=PawnState::squat) {
+        if (player->lastPawnState != PawnState::squat) {
             this->player->currentPawnState = PawnState::run;
         }
 
         if (squat) {
             this->player->currentPawnState = PawnState::squat;
         }
-        if (player->currentPawnState==PawnState::squat && !checkCollisionWithCells(this->player->pos_x - this->player->movementSpeed * d,
-                                                                                   this->player->pos_y)){
+        if (player->currentPawnState == PawnState::squat &&
+            !checkCollisionWithCells(this->player->pos_x - this->player->movementSpeed * d,
+                                     this->player->pos_y)) {
             if (player->pos_x <= +player->width) {
                 player->pos_x = player->width;
             } else {
@@ -78,7 +79,7 @@ void Gameplay::updateMovement(float d) {
             return;
         }
         if (!checkCollisionWithCells(this->player->pos_x - this->player->movementSpeed * d,
-                                     this->player->pos_y-player->height/2-16)) {
+                                     this->player->pos_y - player->height / 2 - 16)) {
             if (player->pos_x <= +player->width) {
                 player->pos_x = player->width;
             } else {
@@ -92,7 +93,7 @@ void Gameplay::updateMovement(float d) {
         if (this->player->direction == Direction::left) {
             this->player->direction = Direction::right;
         }
-        if (player->lastPawnState!=PawnState::squat) {
+        if (player->lastPawnState != PawnState::squat) {
             this->player->currentPawnState = PawnState::run;
         }
 
@@ -100,8 +101,9 @@ void Gameplay::updateMovement(float d) {
             this->player->currentPawnState = PawnState::squat;
         }
 
-        if (player->currentPawnState==PawnState::squat && !checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
-                                                                                   this->player->pos_y)){
+        if (player->currentPawnState == PawnState::squat &&
+            !checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
+                                     this->player->pos_y)) {
             if (this->player->pos_x < (Game::width / 2)) {
                 this->player->pos_x += this->player->movementSpeed * d;
             } else {
@@ -110,7 +112,7 @@ void Gameplay::updateMovement(float d) {
             return;
         }
         if (!checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
-                                     this->player->pos_y-player->height/2-16)) {
+                                     this->player->pos_y - player->height / 2 - 16)) {
             if (this->player->pos_x < (Game::width / 2)) {
                 this->player->pos_x += this->player->movementSpeed * d;
             } else {
@@ -214,11 +216,16 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                 bool collisionX = x + player->width > cell.pos_x
                                   && cell.pos_x + cell.width > x;
 
-                bool collisionY = y + player->height > cell.pos_y &&
-                                 cell.pos_y + cell.height > y-16;
+                bool collisionY;
+                if (player->currentPawnState == PawnState::squat) {
+                    collisionY = y + player->height > cell.pos_y && y < cell.pos_y;
+                } else {
+                    collisionY = y + player->height > cell.pos_y &&
+                                 cell.pos_y + cell.height > y - 16;
+                }
 
                 if (collisionX && collisionY) {
-                    if (player->isFalling) {
+                    if (player->isFalling && collisionY == y + player->height > cell.pos_y + cell.height && y < cell.pos_y + cell.height) {
                         player->pos_y = cell.pos_y - player->height - 16;
                         player->isFalling = false;
                     }
