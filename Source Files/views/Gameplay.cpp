@@ -67,16 +67,16 @@ void Gameplay::updateMovement(float d) {
             this->player->currentPawnState = PawnState::squat;
         }
 
-        float adjustedPlayerHeight = (player->currentPawnState == PawnState::squat) ? player->height / 2 : player->height;
+        float collisionHeightOffset = (player->currentPawnState == PawnState::squat) ? player->height / 2 : 0.0f;
+
         if (!checkCollisionWithCells(this->player->pos_x - this->player->movementSpeed * d,
-                                     this->player->pos_y - adjustedPlayerHeight)) {
+                                     this->player->pos_y - collisionHeightOffset)) {
             if (player->pos_x <= +player->width) {
                 player->pos_x = player->width;
             } else {
                 this->player->pos_x -= this->player->movementSpeed * d;
             }
         }
-
     }
 
     //prawo
@@ -91,9 +91,10 @@ void Gameplay::updateMovement(float d) {
             this->player->currentPawnState = PawnState::squat;
         }
 
-        float adjustedPlayerHeight = (player->currentPawnState == PawnState::squat) ? player->height / 2 : player->height;
+        float collisionHeightOffset = (player->currentPawnState == PawnState::squat) ? player->height / 2 : 0.0f;
+
         if (!checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
-                                     this->player->pos_y - adjustedPlayerHeight)) {
+                                     this->player->pos_y - collisionHeightOffset)) {
             if (this->player->pos_x < (Game::width / 2)) {
                 this->player->pos_x += this->player->movementSpeed * d;
             } else {
