@@ -8,6 +8,7 @@ class Stats {
 public:
     int level;
     int points;
+    int power;
     std::string formattedTime;
     double lives;
 

@@ -4,7 +4,8 @@
 void Stats::initStats() {
     level = 1;
     points = 0;
-    lives = 3.5;
+    power = 10;
+    lives = 3.0;
     formattedTime = "00:00";
     elapsedTime = sf::Time::Zero;
 
@@ -24,10 +25,11 @@ void Stats::initStats() {
         std::cout << "ERROR: Could not load texture from file\n";
     }
 
-    statsBar.setSize(sf::Vector2f(450.f, 80.f));
+    statsBar.setSize(sf::Vector2f(540.f, 80.f));
     statsBar.setFillColor(sf::Color(0, 138, 182));
 
     texts.push_back(sf::Text("level", font, 20));
+    texts.push_back(sf::Text("power", font, 20));
     texts.push_back(sf::Text("points", font, 20));
     texts.push_back(sf::Text("time", font, 20));
     texts.push_back(sf::Text("lives", font, 20));
@@ -41,8 +43,8 @@ void Stats::initStats() {
         x += breakBetween;
     }
 
-
     stats.push_back(sf::Text(std::to_string(level), font, 20));
+    stats.push_back(sf::Text(std::to_string(power), font, 20));
     stats.push_back(sf::Text(std::to_string(points), font, 20));
     stats.push_back(sf::Text(formattedTime, font, 20));
 
@@ -65,7 +67,7 @@ void Stats::updateTime() {
 
     formattedTime = getFormattedTime(elapsed);
 //    timeStat.setString(formattedTime);
-    stats[2].setString(formattedTime);
+    stats[3].setString(formattedTime);
 
     std::cout << formattedTime << std::endl;
 //    std::cout << "Time Stat String: " << timeStat.getString().toAnsiString() << std::endl;
@@ -90,9 +92,9 @@ void Stats::updateLives() {
     }
 
     if (lives == 5) {
-        texts[3].setString("lives (max)");
+        texts[4].setString("lives (max)");
     } else {
-        texts[3].setString("lives");
+        texts[4].setString("lives");
     }
 }
 
@@ -152,7 +154,7 @@ void Stats::render(sf::RenderTarget &target) {
 }
 
 void Stats::renderHearts(sf::RenderTarget &target) {
-    int x=290;
+    int x=380;
     int y = 40;
     int breakBetween=28;
 
