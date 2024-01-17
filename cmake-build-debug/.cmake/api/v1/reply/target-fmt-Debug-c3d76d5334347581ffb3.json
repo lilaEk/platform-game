@@ -234,7 +234,7 @@
 		},
 		{
 			"backtrace" : 7,
-			"path" : "cmake-build-debug/_deps/fmt-src/include/fmt/core.h",
+			"path" : "cmake-build-debug/_deps/fmt-src/include/fmt/base.h",
 			"sourceGroupIndex" : 1
 		},
 		{

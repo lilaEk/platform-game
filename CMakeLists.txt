@@ -68,6 +68,8 @@ add_executable(my_game "Source Files/main.cpp"
         "Header Files/views/menu/Button.hpp"
         "Source Files/views/menu/TextInput.cpp"
         "Header Files/views/menu/TextInput.hpp"
+        "Source Files/Stats.cpp"
+        "Header Files/Stats.hpp"
 )
 
 target_link_libraries(my_game fmt)

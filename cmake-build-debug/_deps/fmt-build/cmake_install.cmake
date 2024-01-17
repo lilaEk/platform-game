@@ -57,7 +57,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/chrono.h"
     "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/color.h"
     "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/compile.h"
-    "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/core.h"
+    "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/base.h"
     "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/format.h"
     "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/format-inl.h"
     "C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/fmt-src/include/fmt/os.h"

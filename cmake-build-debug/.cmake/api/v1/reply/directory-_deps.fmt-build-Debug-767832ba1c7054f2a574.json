@@ -77,7 +77,7 @@
 				"cmake-build-debug/_deps/fmt-src/include/fmt/chrono.h",
 				"cmake-build-debug/_deps/fmt-src/include/fmt/color.h",
 				"cmake-build-debug/_deps/fmt-src/include/fmt/compile.h",
-				"cmake-build-debug/_deps/fmt-src/include/fmt/core.h",
+				"cmake-build-debug/_deps/fmt-src/include/fmt/base.h",
 				"cmake-build-debug/_deps/fmt-src/include/fmt/format.h",
 				"cmake-build-debug/_deps/fmt-src/include/fmt/format-inl.h",
 				"cmake-build-debug/_deps/fmt-src/include/fmt/os.h",
