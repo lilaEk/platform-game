@@ -18,7 +18,7 @@ public:
 
     void changeCellType(CellType cellType);
 
-    sf::FloatRect getBoundingBox();
+    CellType getRandomReward();
 
     CellType cellType;
 };

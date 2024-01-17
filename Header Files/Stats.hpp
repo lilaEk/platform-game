@@ -12,6 +12,8 @@ public:
     std::string formattedTime;
     double lives;
 
+    std::vector<sf::Text> stats;
+
     void initStats();
     void updateStats();
     void render(sf::RenderTarget &target);
@@ -28,7 +30,6 @@ private:
     sf::RectangleShape statsBar;
 
     std::vector<sf::Text> texts;
-    std::vector<sf::Text> stats;
 
     std::string hearts[5];
 

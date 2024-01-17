@@ -187,7 +187,10 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
         for (auto &cell: column) {
 
             if (cell.cellType == CellType::platform || cell.cellType == CellType::randomReward ||
-                cell.cellType == CellType::emptyRandomReward || cell.cellType == CellType::fire) {
+                cell.cellType == CellType::emptyRandomReward || cell.cellType == CellType::fire ||
+                cell.cellType == CellType::pointsReward || cell.cellType == CellType::powerReward ||
+                cell.cellType == CellType::enemyReward || cell.cellType == CellType::heartReward )
+                {
 
                 bool collisionX = x + player->width > cell.pos_x
                                   && cell.pos_x + cell.width > x;
@@ -206,23 +209,33 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                         player->isFalling = false;
                     }
 
+//                    if (cell.cellType == CellType::randomReward) {
+//                        cell.changeCellType(CellType::emptyRandomReward);
+//                    }
                     if (cell.cellType == CellType::randomReward) {
-                        cell.changeCellType(CellType::emptyRandomReward);
+                        cell.changeCellType(cell.getRandomReward());
+                    }
+
+                    if (cell.cellType == CellType::powerReward) {
+                        stats.power+=1000;
+                        cell.changeCellType(CellType::empty);
+                    }
+                    if (cell.cellType == CellType::pointsReward) {
+                        stats.points+=3;
+                        cell.changeCellType(CellType::empty);
+                    }
+                    if (cell.cellType == CellType::heartReward) {
+                        stats.lives=+1;
+                        cell.changeCellType(CellType::empty);
+                    }
+                    if (cell.cellType == CellType::enemyReward) {
+                        //todo enemy random generate
+                        cell.changeCellType(CellType::empty);
                     }
 
                     if (cell.cellType == CellType::fire) {
                         this->player->currentPawnState = PawnState::die;
                     }
-
-//                    cell.changeCellType(CellType::debbug);
-//                    std::cout << "Kolizja z komorka: (" << cell.pos_x << "," << cell.pos_y
-//                              << ")(" << cell.pos_x + cell.width << "," << cell.pos_y + cell.height << ").\n"
-//                              << "Pozycja gracza: (" << player->pos_x << "," << player->pos_y << ")"
-//                              << ")(" << player->pos_x + player->width << "," << player->pos_y + player->height
-//                              << ").\n"
-//                              << std::endl;
-
-//                    std::cout << "player: ("<<player->pos_x<<","<<player->pos_y<<")"<<std::endl;
 
                     return true;
                 }

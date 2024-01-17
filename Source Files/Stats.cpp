@@ -66,11 +66,7 @@ void Stats::updateTime() {
     sf::Time delta = elapsed - elapsedTime;
 
     formattedTime = getFormattedTime(elapsed);
-//    timeStat.setString(formattedTime);
     stats[3].setString(formattedTime);
-
-    std::cout << formattedTime << std::endl;
-//    std::cout << "Time Stat String: " << timeStat.getString().toAnsiString() << std::endl;
 
     elapsedTime = elapsed;
 
