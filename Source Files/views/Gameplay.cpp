@@ -5,6 +5,8 @@
 Gameplay::Gameplay(MapManager *mapManager, Player *player, sf::RenderWindow &window)
         : mapManager(mapManager), player(player), window(window) {
 
+    stats=Stats();
+    stats.initStats();
 }
 
 void Gameplay::handleInput() {
@@ -14,6 +16,7 @@ void Gameplay::update(float deltaTime) {
     updateMap(deltaTime);
     updateMovement(deltaTime);
     updatePlayer(deltaTime);
+    updateStats();
 }
 
 void Gameplay::updatePlayer(float d) {
@@ -24,17 +27,8 @@ void Gameplay::updateMap(float d) {
     this->mapManager->update(d);
 }
 
-void Gameplay::render() {
-    renderMap();
-    renderPlayer();
-}
-
-void Gameplay::renderPlayer() {
-    this->player->render(this->window);
-}
-
-void Gameplay::renderMap() {
-    this->mapManager->render(this->window);
+void Gameplay::updateStats() {
+    this->stats.updateStats();
 }
 
 void Gameplay::updateMovement(float d) {
@@ -236,4 +230,22 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
         }
     }
     return false;
+}
+
+void Gameplay::render() {
+    renderMap();
+    renderStats();
+    renderPlayer();
+}
+
+void Gameplay::renderPlayer() {
+    this->player->render(this->window);
+}
+
+void Gameplay::renderMap() {
+    this->mapManager->render(this->window);
+}
+
+void Gameplay::renderStats() {
+    this->stats.render(this->window);
 }

@@ -39,7 +39,7 @@ void Menu::initButtons(sf::Font font) {
     textButtons.push_back(start);
 
     sf::Texture buttonTexture;
-    if (!buttonTexture.loadFromFile("../assets/menu_elements/arrow.png")) {
+    if (!buttonTexture.loadFromFile("../assets/other_elements/arrow.png")) {
         std::cout << "ERROR: Could not load texture from file\n";
     }
     Button arrow = Button(buttonTexture, Game::width / 2 + 110, Game::height / 2 + 20, this->window,

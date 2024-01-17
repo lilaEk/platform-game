@@ -2,6 +2,7 @@
 
 #include "../map/MapManager.hpp"
 #include "../pawns/Player.hpp"
+#include "../Stats.hpp"
 
 class Gameplay {
 public:
@@ -13,10 +14,12 @@ public:
     void updatePlayer(float d);
     void updateMovement(float d);
     void updateJumping(float d);
+    void updateStats();
     void updateMap(float d);
     void render();
     void renderPlayer();
     void renderMap();
+    void renderStats();
 
     bool checkCollisionWithCells(float x, float y);
 
@@ -27,11 +30,11 @@ private:
     MapManager* mapManager;
     Player* player;
     sf::RenderWindow& window;
+    Stats stats;
 
     bool noKeyIsPressed = !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) &&
                           !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) &&
                           !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) &&
                           !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) &&
                           !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
-
 };

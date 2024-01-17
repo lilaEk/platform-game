@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include "stdafx.hpp"
 
 class Stats {
@@ -7,25 +8,38 @@ class Stats {
 public:
     int level;
     int points;
-    long gameTime;
     std::string formattedTime;
-    int lives;
-
-    sf::Clock clock;
-
-    sf::Sprite heart;
-    sf::Texture heartTexture;
+    double lives;
 
     void initStats();
     void updateStats();
     void render(sf::RenderTarget &target);
 
 private:
+    sf::Clock clock;
+    sf::Time elapsedTime;
+    sf::Sprite heartSprite;
+    sf::Texture heartFull;
+    sf::Texture heartHalf;
+    sf::Texture heartEmpty;
+    sf::Font font;
+
+    sf::RectangleShape statsBar;
+
+    std::vector<sf::Text> texts;
+    std::vector<sf::Text> stats;
+
+    std::string hearts[5];
+
     void updateLevel();
     void updatePoints();
     void updateTime();
     void updateLives();
 
-    void getFormattedTime(sf::Time time);
+    void renderHearts(sf::RenderTarget &target);
+
+    std::string getFormattedTime(sf::Time time);
+
+
 
 };
