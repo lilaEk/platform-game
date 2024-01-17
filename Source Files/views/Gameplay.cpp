@@ -209,28 +209,26 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                         player->isFalling = false;
                     }
 
-//                    if (cell.cellType == CellType::randomReward) {
-//                        cell.changeCellType(CellType::emptyRandomReward);
-//                    }
                     if (cell.cellType == CellType::randomReward) {
                         cell.changeCellType(cell.getRandomReward());
+                        return true;
                     }
 
                     if (cell.cellType == CellType::powerReward) {
                         stats.power+=1000;
-                        cell.changeCellType(CellType::empty);
+                        cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::pointsReward) {
                         stats.points+=3;
-                        cell.changeCellType(CellType::empty);
+                        cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::heartReward) {
-                        stats.lives=+1;
-                        cell.changeCellType(CellType::empty);
+                        stats.lives+=1;
+                        cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::enemyReward) {
                         //todo enemy random generate
-                        cell.changeCellType(CellType::empty);
+                        cell.changeCellType(CellType::emptyRandomReward);
                     }
 
                     if (cell.cellType == CellType::fire) {
