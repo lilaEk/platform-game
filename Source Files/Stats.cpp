@@ -36,7 +36,7 @@ void Stats::initStats() {
 
     int x = 20;
     int y = 10;
-    int breakBetween=90;
+    int breakBetween = 90;
     for (sf::Text &text: texts) {
         text.setPosition(x, y);
         text.setFillColor(sf::Color::Black);
@@ -59,7 +59,13 @@ void Stats::initStats() {
 
 void Stats::updateLevel() {}
 
-void Stats::updatePoints() {}
+void Stats::updatePower() {
+    stats[1].setString(std::to_string(power));
+}
+
+void Stats::updatePoints() {
+    stats[2].setString(std::to_string(points));
+}
 
 void Stats::updateTime() {
     sf::Time elapsed = clock.getElapsedTime();
@@ -96,6 +102,7 @@ void Stats::updateLives() {
 
 void Stats::updateStats() {
     updateLevel();
+    updatePower();
     updatePoints();
     updateTime();
     updateLives();
@@ -150,32 +157,48 @@ void Stats::render(sf::RenderTarget &target) {
 }
 
 void Stats::renderHearts(sf::RenderTarget &target) {
-    int x=380;
+    int x = 380;
     int y = 40;
-    int breakBetween=28;
+    int breakBetween = 28;
 
-    for (std::string heart : hearts) {
-        if (heart=="full"){
+    for (std::string heart: hearts) {
+        if (heart == "full") {
             heartSprite.setTexture(heartFull);
-            heartSprite.setPosition(x,y);
+            heartSprite.setPosition(x, y);
             heartSprite.setScale(0.5f, 0.5f);
             target.draw(heartSprite);
-            x+=breakBetween;
+            x += breakBetween;
         }
-        if (heart=="half"){
+        if (heart == "half") {
             heartSprite.setTexture(heartHalf);
-            heartSprite.setPosition(x,y);
+            heartSprite.setPosition(x, y);
             heartSprite.setScale(0.5f, 0.5f);
             target.draw(heartSprite);
-            x+=breakBetween;
+            x += breakBetween;
         }
-        if (heart=="empty"){
+        if (heart == "empty") {
             heartSprite.setTexture(heartEmpty);
-            heartSprite.setPosition(x,y);
+            heartSprite.setPosition(x, y);
             heartSprite.setScale(0.5f, 0.5f);
             target.draw(heartSprite);
-            x+=breakBetween;
+            x += breakBetween;
         }
     }
+}
+
+void Stats::addLive() {
+    if (lives>5.0){
+        lives=5.0;
+        return;
+    }
+    lives += 1;
+}
+
+void Stats::addPoints(int pointsToAdd) {
+    this->points+=pointsToAdd;
+}
+
+void Stats::addPower(int powerPointsToAdd) {
+    power+=powerPointsToAdd;
 }
 

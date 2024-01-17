@@ -18,6 +18,10 @@ public:
     void updateStats();
     void render(sf::RenderTarget &target);
 
+    void addLive();
+    void addPoints(int pointsToAdd);
+    void addPower(int powerPointsToAdd);
+
 private:
     sf::Clock clock;
     sf::Time elapsedTime;
@@ -34,6 +38,7 @@ private:
     std::string hearts[5];
 
     void updateLevel();
+    void updatePower();
     void updatePoints();
     void updateTime();
     void updateLives();

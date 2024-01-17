@@ -215,15 +215,15 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                     }
 
                     if (cell.cellType == CellType::powerReward) {
-                        stats.power+=1000;
+                        stats.addPower(3);
                         cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::pointsReward) {
-                        stats.points+=3;
+                        stats.addPoints(100);
                         cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::heartReward) {
-                        stats.lives+=1;
+                        stats.addLive();
                         cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::enemyReward) {
