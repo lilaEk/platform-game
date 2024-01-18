@@ -352,3 +352,11 @@
 11	1230	7272897380083384	CMakeFiles/my_game.dir/Source_Files/views/menu/Menu.cpp.obj	5996c3fa5474c714
 16	1272	7272897380508522	CMakeFiles/my_game.dir/Source_Files/Stats.cpp.obj	dc96a8e93054535a
 1272	1559	7272897382918807	my_game.exe	9eed0ff899228d87
+4	600	7272903354686441	CMakeFiles/my_game.dir/Source_Files/Stats.cpp.obj	dc96a8e93054535a
+600	794	7272903356276639	my_game.exe	9eed0ff899228d87
+4	475	7272908357635252	CMakeFiles/my_game.dir/Source_Files/views/Gameplay.cpp.obj	2574d51b55b22ed6
+475	674	7272908359265498	my_game.exe	9eed0ff899228d87
+4	474	7272908917901191	CMakeFiles/my_game.dir/Source_Files/views/Gameplay.cpp.obj	2574d51b55b22ed6
+474	664	7272908919458852	my_game.exe	9eed0ff899228d87
+4	487	7272909169290094	CMakeFiles/my_game.dir/Source_Files/views/Gameplay.cpp.obj	2574d51b55b22ed6
+487	693	7272909170965182	my_game.exe	9eed0ff899228d87

@@ -210,36 +210,37 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                         player->isFalling = false;
                     }
 
-                    if (cell.cellType == CellType::randomReward) {
-                        cell.changeCellType(cell.getRandomReward());
-                        return true;
-                    }
+                    switch (cell.cellType) {
+                        case CellType::randomReward:
+                            cell.changeCellType(cell.getRandomReward());
+                            return true;
+                        case CellType::powerReward:
+                            stats->addPower(3);
+                            cell.changeCellType(CellType::emptyRandomReward);
+                            break;
+                        case CellType::pointsReward:
+                            stats->addPoints(100);
+                            cell.changeCellType(CellType::emptyRandomReward);
+                            break;
+                        case CellType::heartReward:
+                            stats->addLive();
+                            cell.changeCellType(CellType::emptyRandomReward);
+                            break;
+                        case CellType::removeHeartReward:
+                            stats->removeLive(0.5);
+                            cell.changeCellType(CellType::emptyRandomReward);
+                            break;
+                        case CellType::enemyReward:
+                            // todo enemy random generate
+                            cell.changeCellType(CellType::emptyRandomReward);
+                            break;
+                        case CellType::fire:
+                            this->player->currentPawnState = PawnState::die;
+                            break;
 
-                    if (cell.cellType == CellType::powerReward) {
-                        stats->addPower(3);
-                        cell.changeCellType(CellType::emptyRandomReward);
+                        default:
+                            break;
                     }
-                    if (cell.cellType == CellType::pointsReward) {
-                        stats->addPoints(100);
-                        cell.changeCellType(CellType::emptyRandomReward);
-                    }
-                    if (cell.cellType == CellType::heartReward) {
-                        stats->addLive();
-                        cell.changeCellType(CellType::emptyRandomReward);
-                    }
-                    if (cell.cellType == CellType::removeHeartReward) {
-                        stats->removeLive(0.5);
-                        cell.changeCellType(CellType::emptyRandomReward);
-                    }
-                    if (cell.cellType == CellType::enemyReward) {
-                        //todo enemy random generate
-                        cell.changeCellType(CellType::emptyRandomReward);
-                    }
-
-                    if (cell.cellType == CellType::fire) {
-                        this->player->currentPawnState = PawnState::die;
-                    }
-
                     return true;
                 }
             }
