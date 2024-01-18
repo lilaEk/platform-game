@@ -95,9 +95,6 @@ void Game::update_and_render(float deltaTime) {
             mainMenuView.update(deltaTime);
             mainMenuView.render();
 
-            if (1 == 0) {
-                this->currentView = ViewType::next_level;
-            }
             break;
 
         case ViewType::next_level:
@@ -110,9 +107,6 @@ void Game::update_and_render(float deltaTime) {
             nextLevelView.update(deltaTime);
             nextLevelView.render();
 
-            if (1 == 0) {
-                this->currentView = ViewType::gameplay;
-            }
             break;
 
         case ViewType::gameplay:
@@ -125,9 +119,6 @@ void Game::update_and_render(float deltaTime) {
             gameplayView.update(deltaTime);
             gameplayView.render();
 
-            if (1 == 0) {
-                this->currentView = ViewType::game_over;
-            }
             break;
 
         case ViewType::game_over:
@@ -140,9 +131,6 @@ void Game::update_and_render(float deltaTime) {
             gameOverView.update(deltaTime);
             gameOverView.render();
 
-            if (1 == 0) {
-                this->currentView = ViewType::main_menu;
-            }
             break;
     }
 

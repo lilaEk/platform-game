@@ -136,7 +136,7 @@ void Menu::updateMenuButtons() {
             }
             textButtons[2].changeColor(buttonChosenColor);
 
-            setRankingSideBlock( this->window);
+            setRankingSideBlock(this->window);
             break;
         }
         case ButtonType::rules: {
@@ -165,10 +165,12 @@ void Menu::updateMenuButtons() {
         case ButtonType::start: {
 
             if (isStartClickable == true) {
-            playerNick.updateIsFocused(true);
-
-            handleStartButtonPress();
+                playerNick.updateIsFocused(true);
+                lastButton=ButtonType::none;
+                handleStartButtonPress();
                 this->selectedButton = ButtonType::none;
+                resetNotUsingButtons();
+//                textButtons[0].changeColor(upButtonsColor);
             }
 
             if (lastButton == ButtonType::new_game) {
@@ -177,9 +179,9 @@ void Menu::updateMenuButtons() {
             } else if (lastButton == ButtonType::load_game) {
                 setLoadGameSideBlock(this->window);
             } else if (lastButton == ButtonType::rules) {
-                setRulesSideBlock( this->window, this->font);
+                setRulesSideBlock(this->window, this->font);
             } else if (lastButton == ButtonType::high_scores) {
-                setRankingSideBlock( this->window);
+                setRankingSideBlock(this->window);
             }
             break;
         }
@@ -195,6 +197,7 @@ void Menu::resetNotUsingButtons() {
     textButtons[1].changeColor(upButtonsColor);
     textButtons[2].changeColor(downButtonsColor);
     textButtons[3].changeColor(downButtonsColor);
+    textButtons[5].changeColor(sf::Color(151, 164, 166));
 
     isStartClickable = false;
     this->playerNick.updateIsFocused(false);
