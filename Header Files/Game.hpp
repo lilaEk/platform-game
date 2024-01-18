@@ -22,6 +22,8 @@ public:
     RenderWindow window;
     sf::Clock clock;
 
+    int powerLevelGoal=16;
+
     bool running() const;
     void pollEvents();
     void handleMouseClick(int mouseX, int mouseY);
@@ -48,12 +50,6 @@ private:
     NextLevel nextLevelView;
     Gameplay gameplayView;
     GameOver gameOverView;
-
-    int level{};
-    int points{};
-    int power{};
-    double lives{};
-    sf::Time elapsedTime{};
 
     static void drawBackgroundImage(sf::RenderWindow &window); //todo - parallex background
     void resetGameplayClock();

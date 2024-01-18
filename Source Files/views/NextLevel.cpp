@@ -66,7 +66,4 @@ void NextLevel::renderTextToContinue() {
     window.draw(textToContinue);
 }
 
-void NextLevel::setKeyCallback(KeyCallback callback) {
-    keyCallback = std::move(callback);
-}
 

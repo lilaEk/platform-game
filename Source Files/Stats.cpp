@@ -5,7 +5,7 @@ void Stats::initBasicValues() {
     this->level = 1;
     this->points = 0;
     this->power = 10;
-    this->lives = 1.0;
+    this->lives = 3.0;
     this->elapsedTime = sf::Time::Zero;
 }
 

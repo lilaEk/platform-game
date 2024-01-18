@@ -7,8 +7,6 @@
 
 class NextLevel {
 public:
-    using KeyCallback = std::function<void(sf::Keyboard::Key)>;
-
     NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats);
 
     void update(float d);
@@ -20,8 +18,6 @@ public:
     void renderTextProgressSaved();
     void renderTextToContinue();
 
-    void setKeyCallback(KeyCallback callback);
-
 private:
     MapManager& mapManager;
     Player* player;
@@ -32,6 +28,4 @@ private:
     sf::Text headline;
     sf::Text progressSaved;
     sf::Text textToContinue;
-
-    KeyCallback keyCallback;
 };

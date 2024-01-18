@@ -61,7 +61,3 @@ void GameOver::renderTextToContinue() {
 
     window.draw(textToContinue);
 }
-
-void GameOver::setKeyCallback(KeyCallback callback) {
-    keyCallback = std::move(callback);
-}

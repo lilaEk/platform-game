@@ -7,13 +7,8 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                mainMenuView(*mapManager, player, window),
                gameplayView(*mapManager, player, window, &stats),
                nextLevelView(*mapManager, player, window, &stats),
-               gameOverView(*mapManager, player, window, &stats),
-
-               level(1),
-               points(0),
-               power(10),
-               lives(3.0),
-               elapsedTime(sf::Time::Zero) {
+               gameOverView(*mapManager, player, window, &stats)
+                {
 
     view.setSize(static_cast<float>(Game::width), static_cast<float>(Game::height));
     view.setCenter(static_cast<float>(Game::width) / 2.f, static_cast<float>(Game::height) / 2.f);
@@ -25,21 +20,6 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
     mainMenuView.setStartButtonCallback([this] {
         currentView = ViewType::next_level;
     });
-
-//    nextLevelView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
-//        if (pressedKey == sf::Keyboard::Escape) {
-//            currentView = ViewType::main_menu;
-//        } else if (pressedKey == sf::Keyboard::Enter) {
-//            currentView = ViewType::gameplay;
-//        }
-//    });
-//    gameOverView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
-//        std::cout << "Obsługa zdarzenia klawisza w widoku GameOver" << std::endl;
-//        if (pressedKey == sf::Keyboard::Escape) {
-//            std::cout << "kliknieto esc"<<std::endl;
-//            currentView = ViewType::main_menu;
-//        }
-//    });
 }
 
 Game::~Game() {
@@ -114,7 +94,9 @@ void Game::update_and_render(float deltaTime) {
                 player->currentPawnState = PawnState::happy;
                 lastView = ViewType::next_level;
 
-                if (level != 1) {
+                player->sprite.setPosition(480,Game::height - 48 * 2.5 + 24);
+
+                if (stats.level != 1) {
                     mapManager->currentMap->initMap();
                 }
             }
@@ -127,6 +109,13 @@ void Game::update_and_render(float deltaTime) {
             if (lastView != currentView) {
                 lastView = ViewType::gameplay;
                 resetGameplayClock();
+            }
+            if(stats.power>=powerLevelGoal){
+                stats.level++;
+                powerLevelGoal+=6;
+                mapManager->currentMap->initMap();
+                currentView=ViewType::next_level;
+                return;
             }
             gameplayView.handleInput();
             gameplayView.update(deltaTime, gameplayClock);
