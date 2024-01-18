@@ -5,7 +5,7 @@
 
 class NextLevel {
 public:
-    NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &window);
+    NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &window, int level);
 
     void handleInput();
 
@@ -22,4 +22,11 @@ private:
     MapManager& mapManager;
     Player* player;
     sf::RenderWindow& window;
+    sf::Font font;
+
+    sf::Text headline;
+    sf::Text progressSaved;
+    sf::Text textToContinue;
+
+    int level;
 };

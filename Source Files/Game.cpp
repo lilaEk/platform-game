@@ -6,7 +6,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                       sf::Style::Titlebar | sf::Style::Close),
                mainMenuView(*this->mapManager, this->player, this->window),
                gameplayView(*this->mapManager, this->player, this->window,&this->stats),
-               nextLevelView(*this->mapManager, this->player, this->window),
+               nextLevelView(*this->mapManager, this->player, this->window, this->level),
                gameOverView(*this->mapManager, *this->player, this->window),
 
                level(1),
@@ -193,5 +193,7 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
 }
 
 void Game::handleStartButtonPress() {
-    this->currentView = ViewType::gameplay;
+//    this->currentView = ViewType::gameplay;
+    this->currentView = ViewType::next_level;
+
 }
