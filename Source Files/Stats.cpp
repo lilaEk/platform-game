@@ -2,12 +2,13 @@
 #include "../Header Files/Stats.hpp"
 
 void Stats::initStats() {
-    level = 1;
-    points = 0;
-    power = 10;
-    lives = 3.0;
-    formattedTime = "00:00";
-    elapsedTime = sf::Time::Zero;
+    this->level = 1;
+    this->points = 0;
+    this->power = 10;
+    this->lives = 3.0;
+    this->elapsedTime = sf::Time::Zero;
+
+    this->formattedTime = getFormattedTime(elapsedTime);
 
     clock.restart();
 

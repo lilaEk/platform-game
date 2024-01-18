@@ -31,8 +31,6 @@ public:
 
     void handleStartButtonPress();
 
-//    void scrollMap(float movement);
-
     static const int height = 624; //48*13
     static const int width = 960; //48*20
 
@@ -42,11 +40,18 @@ private:
     Event e;
     Player* player;
     MapManager* mapManager;
+    Stats stats;
 
     Menu mainMenuView;
     NextLevel nextLevelView;
     Gameplay gameplayView;
     GameOver gameOverView;
+
+    int level{};
+    int points{};
+    int power{};
+    double lives{};
+    sf::Time elapsedTime{};
 
     static void drawBackgroundImage(sf::RenderWindow &window); //todo - parallex background
 };

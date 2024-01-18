@@ -6,7 +6,8 @@
 
 class Gameplay {
 public:
-    Gameplay(MapManager *mapManager, Player *player, sf::RenderWindow &window);
+
+    Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats);
 
     void handleInput();
 
@@ -27,10 +28,10 @@ public:
     const float gravity = 1000.0f;
 
 private:
-    MapManager* mapManager;
+    MapManager& mapManager;
     Player* player;
     sf::RenderWindow& window;
-    Stats stats;
+    Stats* stats;
 
     bool noKeyIsPressed = !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) &&
                           !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) &&

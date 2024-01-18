@@ -2,11 +2,10 @@
 #include "../../Header Files/Game.hpp"
 
 
-Gameplay::Gameplay(MapManager *mapManager, Player *player, sf::RenderWindow &window)
-        : mapManager(mapManager), player(player), window(window) {
+Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats* stats)
+        : mapManager(mapManager), player(player), window(window), stats(stats) {
 
-    stats=Stats();
-    stats.initStats();
+    stats->initStats();
 }
 
 void Gameplay::handleInput() {
@@ -24,11 +23,11 @@ void Gameplay::updatePlayer(float d) {
 }
 
 void Gameplay::updateMap(float d) {
-    this->mapManager->update(d);
+    this->mapManager.update(d);
 }
 
 void Gameplay::updateStats() {
-    this->stats.updateStats();
+    this->stats->updateStats();
 }
 
 void Gameplay::updateMovement(float d) {
@@ -92,7 +91,7 @@ void Gameplay::updateMovement(float d) {
             if (this->player->pos_x < (Game::width / 2)) {
                 this->player->pos_x += this->player->movementSpeed * d;
             } else {
-                mapManager->scrollMap(d);
+                mapManager.scrollMap(d);
             }
         }
     }
@@ -183,7 +182,7 @@ void Gameplay::updateJumping(float d) {
 
 bool Gameplay::checkCollisionWithCells(float x, float y) {
 
-    for (auto &column: mapManager->currentMap->mapData) {
+    for (auto &column: mapManager.currentMap->mapData) {
         for (auto &cell: column) {
 
             if (cell.cellType == CellType::platform || cell.cellType == CellType::randomReward ||
@@ -215,15 +214,15 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                     }
 
                     if (cell.cellType == CellType::powerReward) {
-                        stats.addPower(3);
+                        stats->addPower(3);
                         cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::pointsReward) {
-                        stats.addPoints(100);
+                        stats->addPoints(100);
                         cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::heartReward) {
-                        stats.addLive();
+                        stats->addLive();
                         cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::enemyReward) {
@@ -254,9 +253,9 @@ void Gameplay::renderPlayer() {
 }
 
 void Gameplay::renderMap() {
-    this->mapManager->render(this->window);
+    this->mapManager.render(this->window);
 }
 
 void Gameplay::renderStats() {
-    this->stats.render(this->window);
+    this->stats->render(this->window);
 }

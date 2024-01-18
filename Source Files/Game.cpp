@@ -5,9 +5,15 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                window(sf::VideoMode(Game::width, Game::height), "platform game by rozalia",
                       sf::Style::Titlebar | sf::Style::Close),
                mainMenuView(*this->mapManager, this->player, this->window),
-               gameplayView(this->mapManager, this->player, this->window),
-               nextLevelView(*this->mapManager, *this->player, this->window),
-               gameOverView(*this->mapManager, *this->player, this->window) {
+               gameplayView(*this->mapManager, this->player, this->window,&this->stats),
+               nextLevelView(*this->mapManager, this->player, this->window),
+               gameOverView(*this->mapManager, *this->player, this->window),
+
+               level(1),
+               points(0),
+               power(10),
+               lives(3.0),
+               elapsedTime(sf::Time::Zero) {
 
     this->view.setSize(static_cast<float>(Game::width), static_cast<float>(Game::height));
     this->view.setCenter(static_cast<float>(Game::width) / 2.f, static_cast<float>(Game::height) / 2.f);
@@ -15,6 +21,12 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
 
     this->currentView = ViewType::main_menu;
     this->lastView = ViewType::main_menu;
+
+//    this->level = 1;
+//    this->points = 0;
+//    this->power = 10;
+//    this->lives = 3.0;
+//    this->elapsedTime = sf::Time::Zero;
 
     mainMenuView.setStartButtonCallback([this] { handleStartButtonPress(); });
 }
@@ -68,7 +80,7 @@ void Game::update_and_render(float deltaTime) {
             if (lastView != currentView) {
                 this->mapManager->currentMap->initMap();
                 this->player->currentPawnState = PawnState::idle;
-                lastView=ViewType::main_menu;
+                lastView = ViewType::main_menu;
             }
 
             mainMenuView.handleInput();
@@ -84,7 +96,7 @@ void Game::update_and_render(float deltaTime) {
 
             if (lastView != currentView) {
                 this->player->currentPawnState = PawnState::happy;
-                lastView=ViewType::next_level;
+                lastView = ViewType::next_level;
             }
 
             nextLevelView.handleInput();
@@ -99,7 +111,7 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::gameplay:
 
             if (lastView != currentView) {
-                lastView=ViewType::gameplay;
+                lastView = ViewType::gameplay;
             }
 
             gameplayView.handleInput();

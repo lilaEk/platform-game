@@ -5,7 +5,7 @@
 
 class NextLevel {
 public:
-    NextLevel(MapManager &mapManager, Player &player, sf::RenderWindow &window);
+    NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &window);
 
     void handleInput();
 
@@ -14,10 +14,12 @@ public:
     void render();
     void renderPlayer();
     void renderMap();
+    void renderHeadline();
+    void renderTextProgressSaved();
+    void renderTextToContinue();
 
 private:
     MapManager& mapManager;
-    Player& player;
+    Player* player;
     sf::RenderWindow& window;
-
 };
