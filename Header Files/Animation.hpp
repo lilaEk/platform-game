@@ -16,7 +16,7 @@ private:
 
     float scale;
     float elapsed = 0;
-    const float frameDuration = 120/1000.0f; //ms
+    const float frameDuration = 60/1000.0f; //ms
 
 public:
     int framesNumber;

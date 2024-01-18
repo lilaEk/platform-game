@@ -5,7 +5,7 @@ void Stats::initStats() {
     this->level = 1;
     this->points = 0;
     this->power = 10;
-    this->lives = 3.0;
+    this->lives = 1.0;
     this->elapsedTime = sf::Time::Zero;
 
     this->formattedTime = getFormattedTime(elapsedTime);
@@ -194,11 +194,11 @@ void Stats::addLive() {
 }
 
 void Stats::removeLive(double value) {
-    if (lives>value) {
+    if (lives>=value) {
         lives -= value;
         return;
     }
-    //kill the player
+    lives=0;
 }
 
 void Stats::addPoints(int pointsToAdd) {

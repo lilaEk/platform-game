@@ -176,7 +176,7 @@ void Gameplay::updateJumping(float d) {
         }
 
         if (this->player->pos_y > Game::height - player->height) {
-            //todo kill player
+            stats->removeLive(5);
         };
     }
 }
@@ -220,6 +220,9 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                             break;
                         case CellType::pointsReward:
                             stats->addPoints(100);
+                            if (rand() % 5 + 1==5){
+                                break;
+                            }
                             cell.changeCellType(CellType::emptyRandomReward);
                             break;
                         case CellType::heartReward:
@@ -235,7 +238,7 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                             cell.changeCellType(CellType::emptyRandomReward);
                             break;
                         case CellType::fire:
-                            this->player->currentPawnState = PawnState::die;
+                            stats->removeLive(5);
                             break;
 
                         default:

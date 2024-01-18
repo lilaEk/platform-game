@@ -24,7 +24,5 @@ public:
     const int MaxVisibleColumns = 21+2;
     int scrolledColumns=0;
 
-    int structureColumns=25;
-
     void setMapStructure(std::vector<std::array<int, 14>> structure);
 };

@@ -7,7 +7,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                mainMenuView(*this->mapManager, this->player, this->window),
                gameplayView(*this->mapManager, this->player, this->window, &this->stats),
                nextLevelView(*this->mapManager, this->player, this->window, &this->stats),
-               gameOverView(*this->mapManager, *this->player, this->window),
+               gameOverView(*this->mapManager, this->player, this->window, &this->stats),
 
                level(1),
                points(0),
@@ -33,6 +33,11 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
             this->currentView = ViewType::gameplay;
         }
     });
+    gameOverView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
+        if (pressedKey == sf::Keyboard::Escape) {
+            this->currentView = ViewType::main_menu;
+        }
+    });
 }
 
 Game::~Game() {
@@ -52,7 +57,7 @@ void Game::pollEvents() {
                 window.close();
                 break;
             case Event::KeyPressed:
-                if (e.key.code == Keyboard::Escape && currentView == ViewType::next_level) {
+                if (e.key.code == Keyboard::Escape && (currentView == ViewType::next_level || currentView==ViewType::game_over)) {
                     currentView = ViewType::main_menu;
                 } else if (e.key.code == sf::Keyboard::Enter && currentView == ViewType::next_level) {
                     currentView = ViewType::gameplay;
@@ -81,6 +86,10 @@ void Game::update_and_render(float deltaTime) {
     this->window.setView(this->view);
 
     this->drawBackgroundImage(this->window);
+
+    if (stats.lives<0.5){
+        currentView=ViewType::game_over;
+    }
 
     switch (this->currentView) {
         case ViewType::main_menu:
@@ -123,9 +132,8 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::game_over:
 
             if (lastView != currentView) {
-                this->player->currentPawnState = PawnState::die; //ale tylko raz!
+                this->player->currentPawnState = PawnState::die;
             }
-            gameOverView.handleInput();
             gameOverView.update(deltaTime);
             gameOverView.render();
 
