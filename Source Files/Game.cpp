@@ -4,10 +4,10 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                mapManager(new MapManager),
                window(sf::VideoMode(Game::width, Game::height), "platform game by rozalia",
                       sf::Style::Titlebar | sf::Style::Close),
-               mainMenuView(*this->mapManager, this->player, this->window),
-               gameplayView(*this->mapManager, this->player, this->window, &this->stats),
-               nextLevelView(*this->mapManager, this->player, this->window, &this->stats),
-               gameOverView(*this->mapManager, this->player, this->window, &this->stats),
+               mainMenuView(*mapManager, player, window),
+               gameplayView(*mapManager, player, window, &stats),
+               nextLevelView(*mapManager, player, window, &stats),
+               gameOverView(*mapManager, player, window, &stats),
 
                level(1),
                points(0),
@@ -17,7 +17,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
 
     view.setSize(static_cast<float>(Game::width), static_cast<float>(Game::height));
     view.setCenter(static_cast<float>(Game::width) / 2.f, static_cast<float>(Game::height) / 2.f);
-    window.setView(this->view);
+    window.setView(view);
 
     currentView = ViewType::main_menu;
     lastView = ViewType::main_menu;
@@ -26,20 +26,20 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
         currentView = ViewType::next_level;
     });
 
-    nextLevelView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
-        if (pressedKey == sf::Keyboard::Escape) {
-            currentView = ViewType::main_menu;
-        } else if (pressedKey == sf::Keyboard::Enter) {
-            currentView = ViewType::gameplay;
-        }
-    });
-    gameOverView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
-        std::cout << "Obsługa zdarzenia klawisza w widoku GameOver" << std::endl;
-        if (pressedKey == sf::Keyboard::Escape) {
-            std::cout << "kliknieto esc"<<std::endl;
-            currentView = ViewType::main_menu;
-        }
-    });
+//    nextLevelView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
+//        if (pressedKey == sf::Keyboard::Escape) {
+//            currentView = ViewType::main_menu;
+//        } else if (pressedKey == sf::Keyboard::Enter) {
+//            currentView = ViewType::gameplay;
+//        }
+//    });
+//    gameOverView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
+//        std::cout << "Obsługa zdarzenia klawisza w widoku GameOver" << std::endl;
+//        if (pressedKey == sf::Keyboard::Escape) {
+//            std::cout << "kliknieto esc"<<std::endl;
+//            currentView = ViewType::main_menu;
+//        }
+//    });
 }
 
 Game::~Game() {
@@ -61,8 +61,10 @@ void Game::pollEvents() {
             case Event::KeyPressed:
                 if (e.key.code == Keyboard::Escape && (currentView == ViewType::next_level || currentView==ViewType::game_over)) {
                     currentView = ViewType::main_menu;
+                    std::cout<<"zmiana widoku na menu"<<std::endl;
                 } else if (e.key.code == sf::Keyboard::Enter && currentView == ViewType::next_level) {
                     currentView = ViewType::gameplay;
+                    std::cout<<"zmiana widoku na gameplay"<<std::endl;
                 }
                 break;
             case sf::Event::MouseButtonPressed:
@@ -79,7 +81,6 @@ void Game::pollEvents() {
                 break;
         }
     }
-
 }
 
 void Game::update_and_render(float deltaTime) {
@@ -104,12 +105,11 @@ void Game::update_and_render(float deltaTime) {
             }
 
             if (lastView != currentView) {
-                std::cout<<"widok menu"<<std::endl;
-                this->mapManager->currentMap->initMap();
-                this->player->currentPawnState = PawnState::idle;
+//                mainMenuView.init();
+                mapManager->currentMap->initMap();
+                player->currentPawnState = PawnState::idle;
                 lastView = ViewType::main_menu;
             }
-            mainMenuView.handleInput();
             mainMenuView.update(deltaTime);
             mainMenuView.render();
             break;
@@ -117,11 +117,11 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::next_level:
 
             if (lastView != currentView) {
-                this->player->currentPawnState = PawnState::happy;
+                player->currentPawnState = PawnState::happy;
                 lastView = ViewType::next_level;
 
                 if (level != 1) {
-                    this->mapManager->currentMap->initMap();
+                    mapManager->currentMap->initMap();
                 }
             }
             nextLevelView.update(deltaTime);
@@ -140,9 +140,9 @@ void Game::update_and_render(float deltaTime) {
             break;
 
         case ViewType::game_over:
-
             if (lastView != currentView) {
-                this->player->currentPawnState = PawnState::die;
+                player->currentPawnState = PawnState::die;
+                lastView=ViewType::game_over;
             }
             gameOverView.update(deltaTime);
             gameOverView.render();

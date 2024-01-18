@@ -16,7 +16,8 @@ public:
 
     Menu(MapManager &mapManager, Player *player, sf::RenderWindow &window);
 
-    void handleInput();
+    void init();
+
     void handleButtonClick(int mouseX, int mouseY);
 
     void update(float d);
@@ -43,7 +44,7 @@ private:
 
     ButtonCallback startButtonCallback;
 
-    void initButtons(sf::Font font);
+    void initButtons();
 
     void setRulesSideBlock(sf::RenderWindow& window, sf::Font font);
     void setRankingSideBlock(sf::RenderWindow& window);

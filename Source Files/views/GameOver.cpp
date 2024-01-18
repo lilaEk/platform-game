@@ -54,7 +54,7 @@ void GameOver::renderTextProgressSaved() {
 
 void GameOver::renderTextToContinue() {
     textToContinue.setString("press ESC to go back to menu");
-    textToContinue.setPosition(300, 260);
+    textToContinue.setPosition(320, 260);
     textToContinue.setFillColor(sf::Color::Black);
     textToContinue.setCharacterSize(25);
     textToContinue.setFont(font);

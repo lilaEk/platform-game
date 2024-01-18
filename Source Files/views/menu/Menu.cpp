@@ -8,17 +8,16 @@ Menu::Menu(MapManager &mapManager, Player *player, sf::RenderWindow &window)
         std::cout << "ERROR: Could not load font from file\n";
     }
 
-    initButtons(this->font);
-    selectedButton = ButtonType::none;
+    init();
+}
 
+void Menu::init(){
+    initButtons();
+    selectedButton = ButtonType::none;
     isStartClickable = false;
 }
 
-void Menu::handleInput() {
-
-}
-
-void Menu::initButtons(sf::Font font) {
+void Menu::initButtons() {
     Button newGame = Button("new game", 470, 110, upButtonsColor, this->window, this->font,
                             ButtonType::new_game);
     Button loadGame = Button("load game", 700, 110, upButtonsColor, this->window, this->font,
