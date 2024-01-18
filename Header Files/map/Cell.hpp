@@ -14,7 +14,6 @@ public:
     explicit Cell(CellType type);
     static const int cellSize = 48;
 
-//    void loadTexture(CellType type);
     void render(sf::RenderTarget &target) override;
 
     void changeCellType(CellType cellType);

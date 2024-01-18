@@ -2,7 +2,7 @@
 #include "../../Header Files/Game.hpp"
 
 
-Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats* stats)
+Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats)
         : mapManager(mapManager), player(player), window(window), stats(stats) {
 
     stats->initStats();
@@ -11,7 +11,7 @@ Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &win
 void Gameplay::handleInput() {
 }
 
-void Gameplay::update(float deltaTime, sf::Clock& gameplayClock) {
+void Gameplay::update(float deltaTime, sf::Clock &gameplayClock) {
     updateMap(deltaTime);
     updateMovement(deltaTime);
     updatePlayer(deltaTime);
@@ -26,7 +26,7 @@ void Gameplay::updateMap(float d) {
     this->mapManager.update(d);
 }
 
-void Gameplay::updateStats(sf::Clock& gameplayClock) {
+void Gameplay::updateStats(sf::Clock &gameplayClock) {
     this->stats->updateStats(gameplayClock);
 }
 
@@ -47,8 +47,7 @@ void Gameplay::updateMovement(float d) {
 
     this->player->currentPawnState = PawnState::idle;
 
-
-    //lewo
+    //left
     if (moveLeft) {
         if (this->player->direction == Direction::right) {
             this->player->direction = Direction::left;
@@ -72,7 +71,7 @@ void Gameplay::updateMovement(float d) {
         }
     }
 
-    //prawo
+    //right
     if (moveRight) {
         if (this->player->direction == Direction::left) {
             this->player->direction = Direction::right;
@@ -128,7 +127,7 @@ void Gameplay::updateJumping(float d) {
 
         player->jumpHeight = jumpSpeed * d;
 
-        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y - 24.f+16.f - player->jumpHeight)) {
+        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y - 24.f + 16.f - player->jumpHeight)) {
             this->player->currentPawnState = PawnState::idle;
             this->player->isJumping = false;
             this->player->isFalling = true;
@@ -166,6 +165,9 @@ void Gameplay::updateJumping(float d) {
         }
 
     } else {
+        this->player->jumpHeight = 0.0f;
+        this->player->jumpDistance = 0.0f;
+
         if (!checkCollisionWithCells(this->player->pos_x, this->player->pos_y + gravity * d)) {
             this->player->pos_y += gravity * d;
             this->player->isFalling = true;
@@ -187,8 +189,8 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
             if (cell.cellType == CellType::platform || cell.cellType == CellType::randomReward ||
                 cell.cellType == CellType::emptyRandomReward || cell.cellType == CellType::fire ||
                 cell.cellType == CellType::pointsReward || cell.cellType == CellType::powerReward ||
-                cell.cellType == CellType::enemyReward || cell.cellType == CellType::heartReward )
-                {
+                cell.cellType == CellType::enemyReward || cell.cellType == CellType::heartReward
+                || cell.cellType == CellType::removeHeartReward) {
 
                 bool collisionX = x + player->width > cell.pos_x
                                   && cell.pos_x + cell.width > x;
@@ -202,7 +204,8 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                 }
 
                 if (collisionX && collisionY) {
-                    if (player->isFalling && y + player->height > cell.pos_y + cell.height && y < cell.pos_y + cell.height) {
+                    if (player->isFalling && y + player->height > cell.pos_y + cell.height &&
+                        y < cell.pos_y + cell.height) {
                         player->pos_y = cell.pos_y - player->height - 16;
                         player->isFalling = false;
                     }
@@ -222,6 +225,10 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                     }
                     if (cell.cellType == CellType::heartReward) {
                         stats->addLive();
+                        cell.changeCellType(CellType::emptyRandomReward);
+                    }
+                    if (cell.cellType == CellType::removeHeartReward) {
+                        stats->removeLive(0.5);
                         cell.changeCellType(CellType::emptyRandomReward);
                     }
                     if (cell.cellType == CellType::enemyReward) {

@@ -11,6 +11,7 @@ enum class CellType{
     pointsReward,
     enemyReward,
     heartReward,
+    removeHeartReward,
 
     fire,
     debbug

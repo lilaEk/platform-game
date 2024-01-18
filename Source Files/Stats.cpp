@@ -186,11 +186,19 @@ void Stats::renderHearts(sf::RenderTarget &target) {
 }
 
 void Stats::addLive() {
-    if (lives>5.0){
+    if (lives>=4.0){
         lives=5.0;
         return;
     }
     lives += 1;
+}
+
+void Stats::removeLive(double value) {
+    if (lives>value) {
+        lives -= value;
+        return;
+    }
+    //kill the player
 }
 
 void Stats::addPoints(int pointsToAdd) {
@@ -200,4 +208,3 @@ void Stats::addPoints(int pointsToAdd) {
 void Stats::addPower(int powerPointsToAdd) {
     power+=powerPointsToAdd;
 }
-

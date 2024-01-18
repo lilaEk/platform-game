@@ -9,56 +9,8 @@ Cell::Cell(CellType type) : Entity() {
 
 Cell::Cell() { }
 
-//void Cell::loadTexture(CellType type) {
-//    switch (type) {
-//        case CellType::platform:
-//            texture.loadFromFile("../assets/blocks/brick.png");
-//            break;
-//        case CellType::randomReward:
-//            texture.loadFromFile("../assets/blocks/questionMarkBlock.png");
-//            break;
-//        case CellType::emptyRandomReward:
-//            texture.loadFromFile("../assets/blocks/questionMarkEmpty.png");
-//            break;
-//        case CellType::powerReward:
-//            texture.loadFromFile("../assets/blocks/powerReward.png");
-//            break;
-//        case CellType::pointsReward:
-//            texture.loadFromFile("../assets/blocks/pointsReward.png");
-//            break;
-//        case CellType::heartReward:
-//            texture.loadFromFile("../assets/blocks/heartReward.png");
-//            break;
-//        case CellType::enemyReward:
-//            texture.loadFromFile("../assets/blocks/enemyReward.png");
-//            break;
-//        case CellType::fire:
-//            texture.loadFromFile("../assets/blocks/fire.png");
-//            break;
-//        case CellType::debbug:
-//            texture.loadFromFile("../assets/blocks/debbug.png");
-//            break;
-//        default:
-//            break;
-//    }
-//}
-
 void Cell::render(sf::RenderTarget &target) {
-//    if (this->cellType == CellType::empty) {
-//        return;
-//    }
-//
-//    if (texture.getSize().x == 0) {
-//        loadTexture(cellType);
-//    }
-//
-//    this->scale = 1.f;
-//    this->sprite.setScale(this->scale, this->scale);
-//    this->sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-//    this->sprite.setPosition(this->pos_x, this->pos_y);
-//
-//    this->sprite.setTexture(this->texture);
-//    target.draw(this->sprite);
+
     if (this->cellType == CellType::empty) {
         return;
     }
@@ -108,6 +60,12 @@ void Cell::render(sf::RenderTarget &target) {
         } else {
             this->sprite.setTexture(this->texture);
         }
+    }else if (this->cellType == CellType::removeHeartReward) {
+        if (!this->texture.loadFromFile("../assets/blocks/removeHeartReward.png")) {
+            std::cerr << "ERROR: Could not load platform texture from file\n";
+        } else {
+            this->sprite.setTexture(this->texture);
+        }
     }else if (this->cellType == CellType::fire) {
         if (!this->texture.loadFromFile("../assets/blocks/fire.png")) {
             std::cerr << "ERROR: Could not load platform texture from file\n";
@@ -131,7 +89,7 @@ void Cell::changeCellType(CellType cellType){
 CellType Cell::getRandomReward() {
 
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int random = std::rand() % 4 + 1;
+    int random = std::rand() % 5 + 1;
 
     switch (random) {
         case 1:
@@ -142,6 +100,8 @@ CellType Cell::getRandomReward() {
             return CellType::enemyReward;
         case 4:
             return CellType::heartReward;
+        case 5:
+            return CellType::removeHeartReward;
         default:
             return CellType::randomReward;
     }

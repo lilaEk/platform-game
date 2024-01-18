@@ -20,11 +20,11 @@ public:
     void render(sf::RenderTarget &target);
 
     void addLive();
+    void removeLive(double value);
     void addPoints(int pointsToAdd);
     void addPower(int powerPointsToAdd);
-
-//    sf::Clock clock;
     sf::Time elapsedTime;
+
 private:
     sf::Sprite heartSprite;
     sf::Texture heartFull;
@@ -33,9 +33,7 @@ private:
     sf::Font font;
 
     sf::RectangleShape statsBar;
-
     std::vector<sf::Text> texts;
-
     std::string hearts[5];
 
     void updateLevel();
