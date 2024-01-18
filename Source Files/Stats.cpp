@@ -10,8 +10,6 @@ void Stats::initStats() {
 
     this->formattedTime = getFormattedTime(elapsedTime);
 
-    clock.restart();
-
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
         std::cout << "ERROR: Could not load font from file\n";
     }
@@ -68,8 +66,8 @@ void Stats::updatePoints() {
     stats[2].setString(std::to_string(points));
 }
 
-void Stats::updateTime() {
-    sf::Time elapsed = clock.getElapsedTime();
+void Stats::updateTime(sf::Clock& gameplayClock) {
+    sf::Time elapsed = gameplayClock.getElapsedTime();
     sf::Time delta = elapsed - elapsedTime;
 
     formattedTime = getFormattedTime(elapsed);
@@ -101,11 +99,11 @@ void Stats::updateLives() {
     }
 }
 
-void Stats::updateStats() {
+void Stats::updateStats(sf::Clock& gameplayClock) {
     updateLevel();
     updatePower();
     updatePoints();
-    updateTime();
+    updateTime(gameplayClock);
     updateLives();
 }
 

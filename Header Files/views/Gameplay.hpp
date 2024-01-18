@@ -11,11 +11,11 @@ public:
 
     void handleInput();
 
-    void update(float d);
+    void update(float d, sf::Clock& gameplayClock);
     void updatePlayer(float d);
     void updateMovement(float d);
     void updateJumping(float d);
-    void updateStats();
+    void updateStats(sf::Clock& gameplayClock);
     void updateMap(float d);
     void render();
     void renderPlayer();

@@ -42,6 +42,8 @@ private:
     MapManager* mapManager;
     Stats stats;
 
+    sf::Clock gameplayClock;
+
     Menu mainMenuView;
     NextLevel nextLevelView;
     Gameplay gameplayView;
@@ -54,4 +56,5 @@ private:
     sf::Time elapsedTime{};
 
     static void drawBackgroundImage(sf::RenderWindow &window); //todo - parallex background
+    void resetGameplayClock();
 };

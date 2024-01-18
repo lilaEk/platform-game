@@ -16,16 +16,16 @@ public:
     std::vector<sf::Text> stats;
 
     void initStats();
-    void updateStats();
+    void updateStats(sf::Clock& gameplayClock);
     void render(sf::RenderTarget &target);
 
     void addLive();
     void addPoints(int pointsToAdd);
     void addPower(int powerPointsToAdd);
 
-private:
-    sf::Clock clock;
+//    sf::Clock clock;
     sf::Time elapsedTime;
+private:
     sf::Sprite heartSprite;
     sf::Texture heartFull;
     sf::Texture heartHalf;
@@ -41,7 +41,7 @@ private:
     void updateLevel();
     void updatePower();
     void updatePoints();
-    void updateTime();
+    void updateTime(sf::Clock& gameplayClock);
     void updateLives();
 
     void renderHearts(sf::RenderTarget &target);

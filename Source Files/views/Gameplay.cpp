@@ -11,11 +11,11 @@ Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &win
 void Gameplay::handleInput() {
 }
 
-void Gameplay::update(float deltaTime) {
+void Gameplay::update(float deltaTime, sf::Clock& gameplayClock) {
     updateMap(deltaTime);
     updateMovement(deltaTime);
     updatePlayer(deltaTime);
-    updateStats();
+    updateStats(gameplayClock);
 }
 
 void Gameplay::updatePlayer(float d) {
@@ -26,8 +26,8 @@ void Gameplay::updateMap(float d) {
     this->mapManager.update(d);
 }
 
-void Gameplay::updateStats() {
-    this->stats->updateStats();
+void Gameplay::updateStats(sf::Clock& gameplayClock) {
+    this->stats->updateStats(gameplayClock);
 }
 
 void Gameplay::updateMovement(float d) {
@@ -110,7 +110,6 @@ void Gameplay::updateMovement(float d) {
 
         this->player->currentPawnState = PawnState::squat;
     }
-
 
     //attack
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)) {

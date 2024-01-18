@@ -6,7 +6,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                       sf::Style::Titlebar | sf::Style::Close),
                mainMenuView(*this->mapManager, this->player, this->window),
                gameplayView(*this->mapManager, this->player, this->window, &this->stats),
-               nextLevelView(*this->mapManager, this->player, this->window, &this->level),
+               nextLevelView(*this->mapManager, this->player, this->window, &this->stats),
                gameOverView(*this->mapManager, *this->player, this->window),
 
                level(1),
@@ -41,21 +41,21 @@ Game::~Game() {
 }
 
 bool Game::running() const {
-    return this->window.isOpen();
+    return window.isOpen();
 }
 
 void Game::pollEvents() {
 
     while (this->window.pollEvent(this->e)) {
-        switch (this->e.type) {
+        switch (e.type) {
             case Event::Closed:
-                this->window.close();
+                window.close();
                 break;
             case Event::KeyPressed:
-                if (e.key.code == Keyboard::Escape) {
-                    this->currentView = ViewType::main_menu;
-                } else if (e.key.code == sf::Keyboard::Enter) {
-                    this->currentView = ViewType::gameplay;
+                if (e.key.code == Keyboard::Escape && currentView==ViewType::next_level) {
+                    currentView = ViewType::main_menu;
+                } else if (e.key.code == sf::Keyboard::Enter && currentView==ViewType::next_level) {
+                    currentView = ViewType::gameplay;
                 }
                 break;
             case sf::Event::MouseButtonPressed:
@@ -90,11 +90,9 @@ void Game::update_and_render(float deltaTime) {
                 this->player->currentPawnState = PawnState::idle;
                 lastView = ViewType::main_menu;
             }
-
             mainMenuView.handleInput();
             mainMenuView.update(deltaTime);
             mainMenuView.render();
-
             break;
 
         case ViewType::next_level:
@@ -103,22 +101,19 @@ void Game::update_and_render(float deltaTime) {
                 this->player->currentPawnState = PawnState::happy;
                 lastView = ViewType::next_level;
             }
-
             nextLevelView.update(deltaTime);
             nextLevelView.render();
-
             break;
 
         case ViewType::gameplay:
 
             if (lastView != currentView) {
                 lastView = ViewType::gameplay;
+                resetGameplayClock();
             }
-
             gameplayView.handleInput();
-            gameplayView.update(deltaTime);
+            gameplayView.update(deltaTime,gameplayClock);
             gameplayView.render();
-
             break;
 
         case ViewType::game_over:
@@ -126,7 +121,6 @@ void Game::update_and_render(float deltaTime) {
             if (lastView != currentView) {
                 this->player->currentPawnState = PawnState::die; //ale tylko raz!
             }
-
             gameOverView.handleInput();
             gameOverView.update(deltaTime);
             gameOverView.render();
@@ -185,4 +179,9 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
         default:
             break;
     }
+}
+
+void Game::resetGameplayClock() {
+    gameplayClock.restart();
+    stats.elapsedTime = sf::Time::Zero;
 }
