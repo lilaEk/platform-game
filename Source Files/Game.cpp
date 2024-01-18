@@ -6,7 +6,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                       sf::Style::Titlebar | sf::Style::Close),
                mainMenuView(*this->mapManager, this->player, this->window),
                gameplayView(*this->mapManager, this->player, this->window,&this->stats),
-               nextLevelView(*this->mapManager, this->player, this->window, this->level),
+               nextLevelView(*this->mapManager, this->player, this->window, &this->level),
                gameOverView(*this->mapManager, *this->player, this->window),
 
                level(1),
@@ -21,12 +21,6 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
 
     this->currentView = ViewType::main_menu;
     this->lastView = ViewType::main_menu;
-
-//    this->level = 1;
-//    this->points = 0;
-//    this->power = 10;
-//    this->lives = 3.0;
-//    this->elapsedTime = sf::Time::Zero;
 
     mainMenuView.setStartButtonCallback([this] { handleStartButtonPress(); });
 }
