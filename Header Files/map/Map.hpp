@@ -21,7 +21,7 @@ public:
 
     std::vector<std::array<Cell, 14>> mapData;
 
-    const int MaxVisibleColumns = 21;
+    const int MaxVisibleColumns = 21+2;
     int scrolledColumns=0;
 
     int structureColumns=25;

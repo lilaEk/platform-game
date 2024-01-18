@@ -8,13 +8,12 @@ NextLevel::NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &w
     }
 }
 
-
 void NextLevel::update(float deltaTime) {
-    this->updatePlayer(deltaTime);
+    updatePlayer(deltaTime);
 }
 
 void NextLevel::updatePlayer(float d) {
-    this->player->update(d, false);
+    player->update(d, false);
 }
 
 void NextLevel::render() {

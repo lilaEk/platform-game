@@ -52,9 +52,9 @@ void Game::pollEvents() {
                 window.close();
                 break;
             case Event::KeyPressed:
-                if (e.key.code == Keyboard::Escape && currentView==ViewType::next_level) {
+                if (e.key.code == Keyboard::Escape && currentView == ViewType::next_level) {
                     currentView = ViewType::main_menu;
-                } else if (e.key.code == sf::Keyboard::Enter && currentView==ViewType::next_level) {
+                } else if (e.key.code == sf::Keyboard::Enter && currentView == ViewType::next_level) {
                     currentView = ViewType::gameplay;
                 }
                 break;
@@ -100,6 +100,10 @@ void Game::update_and_render(float deltaTime) {
             if (lastView != currentView) {
                 this->player->currentPawnState = PawnState::happy;
                 lastView = ViewType::next_level;
+
+                if (level != 1) {
+                    this->mapManager->currentMap->initMap();
+                }
             }
             nextLevelView.update(deltaTime);
             nextLevelView.render();
@@ -112,7 +116,7 @@ void Game::update_and_render(float deltaTime) {
                 resetGameplayClock();
             }
             gameplayView.handleInput();
-            gameplayView.update(deltaTime,gameplayClock);
+            gameplayView.update(deltaTime, gameplayClock);
             gameplayView.render();
             break;
 

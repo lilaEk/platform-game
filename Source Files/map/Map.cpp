@@ -9,6 +9,11 @@ Map::~Map() {
 }
 
 void Map::initMap() {
+
+    if (mapData.size()!=0){
+        mapData.clear();
+    }
+
     std::vector<std::array<int, 14>> structure = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
@@ -39,7 +44,7 @@ void Map::initMap() {
 
     Cell cell;
 
-    for (int i = 0; i < 25; i++) {
+    for (int i = 0; i < 24; i++) {
         std::array<Cell, 14> column;
 
         for (int j = 0; j < 14; j++) {
@@ -67,7 +72,12 @@ void Map::updateMap() {
         mapData.erase(mapData.begin());
     }
 
+    std::cout << mapData.size()<<std::endl;
+    bool czyWhile = (mapData.size() < Map::MaxVisibleColumns);
+    std::cout << czyWhile<<std::endl;
+
     while (mapData.size() < Map::MaxVisibleColumns) {
+        std::cout << "dodano strukture\n";
         addNextRandomStructure();
     }
 }
@@ -98,7 +108,6 @@ void Map::scrollMap(float currentTime) {
 
 void Map::addNextRandomStructure() {
 
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     int randomValue = rand() % 5 + 1;
 
     std::vector<std::array<int, 14>> structure;
@@ -190,6 +199,10 @@ void Map::addNextRandomStructure() {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1}
             };
             setMapStructure(structure);
@@ -222,6 +235,7 @@ void Map::addNextRandomStructure() {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1}
             };
             setMapStructure(structure);
             break;
@@ -253,8 +267,8 @@ void Map::addNextRandomStructure() {
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
                     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
-
-
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1},
+                    {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1}
             };
             setMapStructure(structure);
             break;

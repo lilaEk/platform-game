@@ -33,7 +33,5 @@ private:
     sf::Text progressSaved;
     sf::Text textToContinue;
 
-//    int *level;
-
     KeyCallback keyCallback;
 };
