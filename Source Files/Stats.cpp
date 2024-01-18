@@ -202,7 +202,7 @@ void Stats::removeLive(double value) {
 }
 
 void Stats::addPoints(int pointsToAdd) {
-    this->points+=pointsToAdd;
+    points+=pointsToAdd;
 }
 
 void Stats::addPower(int powerPointsToAdd) {
