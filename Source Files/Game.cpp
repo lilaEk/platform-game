@@ -7,8 +7,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                mainMenuView(*mapManager, player, window),
                gameplayView(*mapManager, player, window, &stats),
                nextLevelView(*mapManager, player, window, &stats),
-               gameOverView(*mapManager, player, window, &stats)
-                {
+               gameOverView(*mapManager, player, window, &stats) {
 
     view.setSize(static_cast<float>(Game::width), static_cast<float>(Game::height));
     view.setCenter(static_cast<float>(Game::width) / 2.f, static_cast<float>(Game::height) / 2.f);
@@ -39,12 +38,11 @@ void Game::pollEvents() {
                 window.close();
                 break;
             case Event::KeyPressed:
-                if (e.key.code == Keyboard::Escape && (currentView == ViewType::next_level || currentView==ViewType::game_over)) {
+                if (e.key.code == Keyboard::Escape &&
+                    (currentView == ViewType::next_level || currentView == ViewType::game_over)) {
                     currentView = ViewType::main_menu;
-                    std::cout<<"zmiana widoku na menu"<<std::endl;
                 } else if (e.key.code == sf::Keyboard::Enter && currentView == ViewType::next_level) {
                     currentView = ViewType::gameplay;
-                    std::cout<<"zmiana widoku na gameplay"<<std::endl;
                 }
                 break;
             case sf::Event::MouseButtonPressed:
@@ -71,15 +69,15 @@ void Game::update_and_render(float deltaTime) {
 
     drawBackgroundImage(window);
 
-    if (stats.lives<0.5 && currentView==ViewType::gameplay){
-        currentView=ViewType::game_over;
+    if (stats.lives < 0.5 && currentView == ViewType::gameplay) {
+        currentView = ViewType::game_over;
     }
 
     switch (currentView) {
         case ViewType::main_menu:
 
             if (lastView != currentView) {
-                if (lastView!=ViewType::next_level) { mapManager->currentMap->initMap();}
+                if (lastView != ViewType::next_level) { mapManager->currentMap->initMap(); }
                 player->currentPawnState = PawnState::idle;
                 resetGameplay();
                 lastView = ViewType::main_menu;
@@ -94,7 +92,8 @@ void Game::update_and_render(float deltaTime) {
                 player->currentPawnState = PawnState::happy;
                 lastView = ViewType::next_level;
 
-                player->sprite.setPosition(480,Game::height - 48 * 2.5 + 24);
+                player->pos_x = 480;
+                player->pos_y=Game::height - 48 * 2.5 + 24;
 
                 if (stats.level != 1) {
                     mapManager->currentMap->initMap();
@@ -105,17 +104,16 @@ void Game::update_and_render(float deltaTime) {
             break;
 
         case ViewType::gameplay:
-
             if (lastView != currentView) {
                 lastView = ViewType::gameplay;
                 resetGameplayClock();
             }
-            if(stats.power>=powerLevelGoal){
+            if (stats.power >= powerLevelGoal) {
                 stats.level++;
-                powerLevelGoal+=6;
+                powerLevelGoal += 6;
                 mapManager->currentMap->initMap();
-                currentView=ViewType::next_level;
-                return;
+                currentView = ViewType::next_level;
+                break;
             }
             gameplayView.handleInput();
             gameplayView.update(deltaTime, gameplayClock);
@@ -125,17 +123,15 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::game_over:
             if (lastView != currentView) {
                 player->currentPawnState = PawnState::die;
-                lastView=ViewType::game_over;
+                lastView = ViewType::game_over;
             }
             gameOverView.update(deltaTime);
             gameOverView.render();
-
             break;
     }
 
     this->window.display();
 }
-
 
 const RenderWindow &Game::getWindow() const {
     return this->window;
@@ -192,6 +188,7 @@ void Game::resetGameplayClock() {
 }
 
 void Game::resetGameplay() {
-    player->sprite.setPosition(480,Game::height - 48 * 2.5 + 24);
+    player->pos_x = 480;
+    player->pos_y=Game::height - 48 * 2.5 + 24;
     stats.initBasicValues();
 }

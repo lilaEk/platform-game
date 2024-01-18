@@ -1,4 +1,5 @@
 #include "../../Header Files/views/NextLevel.hpp"
+#include "../../Header Files/Game.hpp"
 
 NextLevel::NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats)
         : mapManager(mapManager), player(player), window(window), stats(stats) {

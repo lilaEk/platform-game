@@ -31,8 +31,6 @@ public:
 
     const RenderWindow& getWindow() const;
 
-    void handleStartButtonPress();
-
     static const int height = 624; //48*13
     static const int width = 960; //48*20
 

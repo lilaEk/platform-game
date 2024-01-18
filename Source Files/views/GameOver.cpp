@@ -43,7 +43,7 @@ void GameOver::renderHeadline() {
 }
 
 void GameOver::renderTextProgressSaved() {
-    progressSaved.setString("progress saved at level " + std::to_string(stats->level));
+    progressSaved.setString("you reached level " + std::to_string(stats->level));
     progressSaved.setPosition(350, 180);
     progressSaved.setFillColor(sf::Color::Black);
     progressSaved.setCharacterSize(25);
