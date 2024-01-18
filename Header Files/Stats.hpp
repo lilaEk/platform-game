@@ -16,6 +16,8 @@ public:
     std::vector<sf::Text> stats;
 
     void initStats();
+    void initBasicValues();
+
     void updateStats(sf::Clock& gameplayClock);
     void render(sf::RenderTarget &target);
 
@@ -23,6 +25,7 @@ public:
     void removeLive(double value);
     void addPoints(int pointsToAdd);
     void addPower(int powerPointsToAdd);
+
     sf::Time elapsedTime;
 
 private:
@@ -45,7 +48,6 @@ private:
     void renderHearts(sf::RenderTarget &target);
 
     std::string getFormattedTime(sf::Time time);
-
 
 
 };

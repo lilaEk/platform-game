@@ -37,5 +37,4 @@ public:
 
     float jumpHeight=0;
     float jumpDistance = 0.0f;
-
 };

@@ -49,15 +49,9 @@ void Gameplay::updateMovement(float d) {
 
     //left
     if (moveLeft) {
-        if (this->player->direction == Direction::right) {
-            this->player->direction = Direction::left;
-        }
-        if (player->lastPawnState != PawnState::squat) {
-            this->player->currentPawnState = PawnState::run;
-        }
-        if (squat) {
-            this->player->currentPawnState = PawnState::squat;
-        }
+        if (this->player->direction == Direction::right) { this->player->direction = Direction::left; }
+        if (player->lastPawnState != PawnState::squat) { this->player->currentPawnState = PawnState::run; }
+        if (squat) { this->player->currentPawnState = PawnState::squat; }
 
         float collisionHeightOffset = (player->currentPawnState == PawnState::squat) ? player->height / 2 : 0.0f;
 
@@ -65,9 +59,7 @@ void Gameplay::updateMovement(float d) {
                                      this->player->pos_y - collisionHeightOffset)) {
             if (player->pos_x <= +player->width) {
                 player->pos_x = player->width;
-            } else {
-                this->player->pos_x -= this->player->movementSpeed * d;
-            }
+            } else { this->player->pos_x -= this->player->movementSpeed * d; }
         }
     }
 
@@ -220,7 +212,7 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                             break;
                         case CellType::pointsReward:
                             stats->addPoints(100);
-                            if (rand() % 5 + 1==5){
+                            if (rand() % 5 + 1 == 5) {
                                 break;
                             }
                             cell.changeCellType(CellType::emptyRandomReward);

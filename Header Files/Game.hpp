@@ -57,4 +57,6 @@ private:
 
     static void drawBackgroundImage(sf::RenderWindow &window); //todo - parallex background
     void resetGameplayClock();
+
+    void resetGameplay();
 };

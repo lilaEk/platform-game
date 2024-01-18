@@ -86,28 +86,22 @@ void Game::pollEvents() {
 void Game::update_and_render(float deltaTime) {
     this->pollEvents();
 
-    this->window.clear();
-    this->window.setView(this->view);
+    window.clear();
+    window.setView(view);
 
-    this->drawBackgroundImage(this->window);
+    drawBackgroundImage(window);
 
-    if (stats.lives<0.5){
+    if (stats.lives<0.5 && currentView==ViewType::gameplay){
         currentView=ViewType::game_over;
     }
 
-    switch (this->currentView) {
+    switch (currentView) {
         case ViewType::main_menu:
 
-            if (lastView==ViewType::game_over){
-                //todo usun i zrob nowego gracza
-                delete player;
-                player = new Player(PlayerChoice::Dude_Monster);
-            }
-
             if (lastView != currentView) {
-//                mainMenuView.init();
-                mapManager->currentMap->initMap();
+                if (lastView!=ViewType::next_level) { mapManager->currentMap->initMap();}
                 player->currentPawnState = PawnState::idle;
+                resetGameplay();
                 lastView = ViewType::main_menu;
             }
             mainMenuView.update(deltaTime);
@@ -206,4 +200,9 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
 void Game::resetGameplayClock() {
     gameplayClock.restart();
     stats.elapsedTime = sf::Time::Zero;
+}
+
+void Game::resetGameplay() {
+    player->sprite.setPosition(480,Game::height - 48 * 2.5 + 24);
+    stats.initBasicValues();
 }

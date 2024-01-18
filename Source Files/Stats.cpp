@@ -1,12 +1,16 @@
 #include <cmath>
 #include "../Header Files/Stats.hpp"
 
-void Stats::initStats() {
+void Stats::initBasicValues() {
     this->level = 1;
     this->points = 0;
     this->power = 10;
     this->lives = 1.0;
     this->elapsedTime = sf::Time::Zero;
+}
+
+void Stats::initStats() {
+    initBasicValues();
 
     this->formattedTime = getFormattedTime(elapsedTime);
 
@@ -208,3 +212,4 @@ void Stats::addPoints(int pointsToAdd) {
 void Stats::addPower(int powerPointsToAdd) {
     power+=powerPointsToAdd;
 }
+
