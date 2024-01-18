@@ -15,34 +15,36 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                lives(3.0),
                elapsedTime(sf::Time::Zero) {
 
-    this->view.setSize(static_cast<float>(Game::width), static_cast<float>(Game::height));
-    this->view.setCenter(static_cast<float>(Game::width) / 2.f, static_cast<float>(Game::height) / 2.f);
-    this->window.setView(this->view);
+    view.setSize(static_cast<float>(Game::width), static_cast<float>(Game::height));
+    view.setCenter(static_cast<float>(Game::width) / 2.f, static_cast<float>(Game::height) / 2.f);
+    window.setView(this->view);
 
-    this->currentView = ViewType::main_menu;
-    this->lastView = ViewType::main_menu;
+    currentView = ViewType::main_menu;
+    lastView = ViewType::main_menu;
 
     mainMenuView.setStartButtonCallback([this] {
-        this->currentView = ViewType::next_level;
+        currentView = ViewType::next_level;
     });
 
     nextLevelView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
         if (pressedKey == sf::Keyboard::Escape) {
-            this->currentView = ViewType::main_menu;
+            currentView = ViewType::main_menu;
         } else if (pressedKey == sf::Keyboard::Enter) {
-            this->currentView = ViewType::gameplay;
+            currentView = ViewType::gameplay;
         }
     });
     gameOverView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
+        std::cout << "Obsługa zdarzenia klawisza w widoku GameOver" << std::endl;
         if (pressedKey == sf::Keyboard::Escape) {
-            this->currentView = ViewType::main_menu;
+            std::cout << "kliknieto esc"<<std::endl;
+            currentView = ViewType::main_menu;
         }
     });
 }
 
 Game::~Game() {
-    delete this->player;
-    delete this->mapManager;
+    delete player;
+    delete mapManager;
 }
 
 bool Game::running() const {
@@ -93,6 +95,12 @@ void Game::update_and_render(float deltaTime) {
 
     switch (this->currentView) {
         case ViewType::main_menu:
+
+            if (lastView==ViewType::game_over){
+                //todo usun i zrob nowego gracza
+                delete player;
+                player = new Player(PlayerChoice::Dude_Monster);
+            }
 
             if (lastView != currentView) {
                 this->mapManager->currentMap->initMap();

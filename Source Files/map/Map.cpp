@@ -71,13 +71,7 @@ void Map::updateMap() {
     if (!mapData.empty() && mapData.front().front().pos_x + Cell::cellSize <= 0.f) {
         mapData.erase(mapData.begin());
     }
-
-    std::cout << mapData.size()<<std::endl;
-    bool czyWhile = (mapData.size() < Map::MaxVisibleColumns);
-    std::cout << czyWhile<<std::endl;
-
     while (mapData.size() < Map::MaxVisibleColumns) {
-        std::cout << "dodano strukture\n";
         addNextRandomStructure();
     }
 }
