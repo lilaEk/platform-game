@@ -3,28 +3,28 @@
 
 Animation::Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *lastPawnState) :
         assetPath(assetPath), framesNumber(framesNumber), lastPawnState(lastPawnState) {
-    this->scale = 1.0F;
+    scale = 1.0F;
     if (!texture.loadFromFile(assetPath)) {
         std::cout << "ERROR: Could not load texture from file\n";
     }
-    this->sprite = sf::Sprite(texture);
+    sprite = sf::Sprite(texture);
     sprite.setScale(scale, scale);
 }
 
 Animation &Animation::operator=(const Animation &other) {
 
-    const_cast<std::string &>(this->assetPath) = std::move(other.assetPath);
-    this->framesNumber = other.framesNumber;
-    this->scale = other.scale;
+    const_cast<std::string &>(assetPath) = std::move(other.assetPath);
+    framesNumber = other.framesNumber;
+    scale = other.scale;
 
-    this->texture = sf::Texture(other.texture);
-    this->sprite = sf::Sprite(this->texture);
-    this->sprite.setScale(scale, scale);
+    texture = sf::Texture(other.texture);
+    sprite = sf::Sprite(texture);
+    sprite.setScale(scale, scale);
 
-    this->elapsed = other.elapsed;
-    this->framesNumber = other.framesNumber;
+    elapsed = other.elapsed;
+    framesNumber = other.framesNumber;
 
-    this->lastPawnState = other.lastPawnState;
+    lastPawnState = other.lastPawnState;
 
     return *this;
 }
@@ -47,12 +47,12 @@ Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction,
         }
     }
 
-    this->elapsed += deltaTime;
+    elapsed += deltaTime;
     if (elapsed >= frameDuration) {
 
         if ((newPawnState == PawnState::squat && lastPlayedFrameIndex==3)|| (newPawnState==PawnState::die && lastPlayedFrameIndex==7)){
             elapsed = 0;
-            newDirectionAndScale(this->sprite, direction, scale);
+            newDirectionAndScale(sprite, direction, scale);
             return getSprite(w, h);;
         }
         lastPlayedFrameIndex++;
@@ -62,7 +62,7 @@ Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction,
         elapsed = 0;
     }
 
-    newDirectionAndScale(this->sprite, direction, scale);
+    newDirectionAndScale(sprite, direction, scale);
     return getSprite(w, h);
 }
 
