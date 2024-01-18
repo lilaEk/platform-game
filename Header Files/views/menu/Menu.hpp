@@ -54,7 +54,6 @@ private:
     sf::Color upButtonsColor = sf::Color(194, 78, 29); //orange
     sf::Color downButtonsColor = sf::Color(221, 180, 34); //yellow
 
-
     sf::Color buttonChosenColor = sf::Color(255,102,196); //pink
 
     ButtonType selectedButton = ButtonType::none;

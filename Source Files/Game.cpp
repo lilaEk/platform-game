@@ -5,7 +5,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                window(sf::VideoMode(Game::width, Game::height), "platform game by rozalia",
                       sf::Style::Titlebar | sf::Style::Close),
                mainMenuView(*this->mapManager, this->player, this->window),
-               gameplayView(*this->mapManager, this->player, this->window,&this->stats),
+               gameplayView(*this->mapManager, this->player, this->window, &this->stats),
                nextLevelView(*this->mapManager, this->player, this->window, &this->level),
                gameOverView(*this->mapManager, *this->player, this->window),
 
@@ -22,7 +22,17 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
     this->currentView = ViewType::main_menu;
     this->lastView = ViewType::main_menu;
 
-    mainMenuView.setStartButtonCallback([this] { handleStartButtonPress(); });
+    mainMenuView.setStartButtonCallback([this] {
+        this->currentView = ViewType::next_level;
+    });
+
+    nextLevelView.setKeyCallback([this](sf::Keyboard::Key pressedKey) {
+        if (pressedKey == sf::Keyboard::Escape) {
+            this->currentView = ViewType::main_menu;
+        } else if (pressedKey == sf::Keyboard::Enter) {
+            this->currentView = ViewType::gameplay;
+        }
+    });
 }
 
 Game::~Game() {
@@ -42,8 +52,11 @@ void Game::pollEvents() {
                 this->window.close();
                 break;
             case Event::KeyPressed:
-                if (e.key.code == Keyboard::Escape)
-                    this->window.close();
+                if (e.key.code == Keyboard::Escape) {
+                    this->currentView = ViewType::main_menu;
+                } else if (e.key.code == sf::Keyboard::Enter) {
+                    this->currentView = ViewType::gameplay;
+                }
                 break;
             case sf::Event::MouseButtonPressed:
                 if (currentView == ViewType::main_menu) {
@@ -58,6 +71,7 @@ void Game::pollEvents() {
                 break;
         }
     }
+
 }
 
 void Game::update_and_render(float deltaTime) {
@@ -93,7 +107,6 @@ void Game::update_and_render(float deltaTime) {
                 lastView = ViewType::next_level;
             }
 
-            nextLevelView.handleInput();
             nextLevelView.update(deltaTime);
             nextLevelView.render();
 
@@ -184,10 +197,4 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
         default:
             break;
     }
-}
-
-void Game::handleStartButtonPress() {
-//    this->currentView = ViewType::gameplay;
-    this->currentView = ViewType::next_level;
-
 }

@@ -2,12 +2,13 @@
 
 #include "../pawns/Player.hpp"
 #include "../map/MapManager.hpp"
+#include <functional>
 
 class NextLevel {
 public:
-    NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &window, int *level);
+    using KeyCallback = std::function<void(sf::Keyboard::Key)>;
 
-    void handleInput();
+    NextLevel(MapManager &mapManager, Player *player, sf::RenderWindow &window, int *level);
 
     void update(float d);
     void updatePlayer(float d);
@@ -17,6 +18,8 @@ public:
     void renderHeadline();
     void renderTextProgressSaved();
     void renderTextToContinue();
+
+    void setKeyCallback(KeyCallback callback);
 
 private:
     MapManager& mapManager;
@@ -29,4 +32,6 @@ private:
     sf::Text textToContinue;
 
     int *level;
+
+    KeyCallback keyCallback;
 };
