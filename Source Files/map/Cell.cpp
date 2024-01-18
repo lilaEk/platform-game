@@ -135,16 +135,12 @@ CellType Cell::getRandomReward() {
 
     switch (random) {
         case 1:
-            std::cout<<"pointReward"<<std::endl;
             return CellType::pointsReward;
         case 2:
-            std::cout<<"powerReward"<<std::endl;
             return CellType::powerReward;
         case 3:
-            std::cout<<"enemyReward"<<std::endl;
             return CellType::enemyReward;
         case 4:
-            std::cout<<"heartReward"<<std::endl;
             return CellType::heartReward;
         default:
             return CellType::randomReward;

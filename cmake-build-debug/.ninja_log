@@ -196,3 +196,7 @@
 546	741	7272387242299480	my_game.exe	9eed0ff899228d87
 4	555	7272388585022616	CMakeFiles/my_game.dir/Source_Files/views/Gameplay.cpp.obj	2574d51b55b22ed6
 555	751	7272388586622775	my_game.exe	9eed0ff899228d87
+8	369	7272397123156426	CMakeFiles/my_game.dir/Source_Files/views/NextLevel.cpp.obj	92269244e68d438e
+6	410	7272397123569747	CMakeFiles/my_game.dir/Source_Files/map/Cell.cpp.obj	8445d3d96a4af5c1
+4	353	7272397248726471	CMakeFiles/my_game.dir/Source_Files/views/NextLevel.cpp.obj	92269244e68d438e
+353	543	7272397250266650	my_game.exe	9eed0ff899228d87
