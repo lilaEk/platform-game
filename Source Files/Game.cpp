@@ -71,6 +71,7 @@ void Game::pollEvents() {
                         handleMouseClick(e.mouseButton.x, e.mouseButton.y);
                     }
                 }
+                break;
             case sf::Event::TextEntered:
                 if (currentView == ViewType::main_menu) {
                     mainMenuView.handleTextEntered(e);
@@ -103,6 +104,7 @@ void Game::update_and_render(float deltaTime) {
             }
 
             if (lastView != currentView) {
+                std::cout<<"widok menu"<<std::endl;
                 this->mapManager->currentMap->initMap();
                 this->player->currentPawnState = PawnState::idle;
                 lastView = ViewType::main_menu;
