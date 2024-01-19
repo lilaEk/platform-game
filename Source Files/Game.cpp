@@ -32,7 +32,7 @@ bool Game::running() const {
 
 void Game::pollEvents() {
 
-    while (this->window.pollEvent(this->e)) {
+    while (window.pollEvent(e)) {
         switch (e.type) {
             case Event::Closed:
                 window.close();
@@ -66,7 +66,7 @@ void Game::pollEvents() {
 }
 
 void Game::update_and_render(float deltaTime) {
-    this->pollEvents();
+    pollEvents();
 
     window.clear();
     window.setView(view);
@@ -136,11 +136,11 @@ void Game::update_and_render(float deltaTime) {
             break;
     }
 
-    this->window.display();
+    window.display();
 }
 
 const RenderWindow &Game::getWindow() const {
-    return this->window;
+    return window;
 }
 
 void Game::drawBackgroundImage(RenderWindow &window) {

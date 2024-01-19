@@ -2,16 +2,16 @@
 #include "../Header Files/Stats.hpp"
 
 void Stats::initBasicValues() {
-    this->level = 1;
-    this->points = 0;
-    this->power = 10;
-    this->lives = 3.0;
+    level = 1;
+    points = 0;
+    power = 10;
+    lives = 3.0;
 }
 
 void Stats::initStats() {
     initBasicValues();
 
-    this->formattedTime = getFormattedTime(sf::Time::Zero);
+    formattedTime = getFormattedTime(sf::Time::Zero);
 
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
         std::cout << "ERROR: Could not load font from file\n";
@@ -75,19 +75,14 @@ void Stats::updateTime(ViewType currentView) {
     if ((currentView == ViewType::next_level && !inBreak)) {
         breakClock.restart();
         inBreak = true;
-
-        std::cout << "jestem w if 1" << std::endl;
     }
+
     if (currentView != ViewType::next_level && inBreak) {
         allBreaksElapsedTime += breakClock.getElapsedTime();
         inBreak = false;
-
-        std::cout << "jestem w if 2" << std::endl;
-        std::cout << "totalElapsedTime" <<getFormattedTime(totalElapsedTime) << std::endl;
-        std::cout << "breakClock.getElapsedTime()" <<getFormattedTime(breakClock.getElapsedTime()) << std::endl;
     }
-    formattedTime = getFormattedTime(totalElapsedTime - allBreaksElapsedTime);
 
+    formattedTime = getFormattedTime(totalElapsedTime - allBreaksElapsedTime);
     stats[3].setString(formattedTime);
 }
 
@@ -166,7 +161,7 @@ void Stats::render(sf::RenderTarget &target) {
         target.draw(stat);
     }
 
-//    renderHearts(target);
+    renderHearts(target);
 }
 
 void Stats::renderHearts(sf::RenderTarget &target) {

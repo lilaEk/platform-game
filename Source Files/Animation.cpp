@@ -32,7 +32,7 @@ Animation &Animation::operator=(const Animation &other) {
 Animation::~Animation() = default;
 
 void Animation::restartAnim() {
-    this->lastPlayedFrameIndex = 0;
+    lastPlayedFrameIndex = 0;
 }
 
 sf::Sprite

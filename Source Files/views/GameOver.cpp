@@ -25,11 +25,11 @@ void GameOver::render() {
 }
 
 void GameOver::renderPlayer() {
-    this->player->render(this->window);
+    player->render(window);
 }
 
 void GameOver::renderMap() {
-    this->mapManager.render(this->window);
+    mapManager.render(window);
 }
 
 void GameOver::renderHeadline() {

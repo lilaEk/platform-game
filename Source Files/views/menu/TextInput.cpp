@@ -33,7 +33,7 @@ void TextInput::updateText() {
 }
 
 void TextInput::updateIsFocused(bool currentFocused){
-    this->isFocused=currentFocused;
+    isFocused=currentFocused;
 }
 
 void TextInput::draw() {
@@ -47,7 +47,7 @@ void TextInput::draw() {
 }
 
 std::string TextInput::getText() {
-    return this->inputString;
+    return inputString;
 }
 
 void TextInput::handleEvent(sf::Event &event) {

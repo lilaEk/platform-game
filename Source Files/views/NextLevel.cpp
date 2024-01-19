@@ -26,11 +26,11 @@ void NextLevel::render() {
 }
 
 void NextLevel::renderPlayer() {
-    this->player->render(this->window);
+    player->render(window);
 }
 
 void NextLevel::renderMap() {
-    this->mapManager.render(this->window);
+    mapManager.render(window);
 }
 
 void NextLevel::renderHeadline() {

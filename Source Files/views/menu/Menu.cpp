@@ -38,7 +38,7 @@ void Menu::initButtons() {
     if (!buttonTexture.loadFromFile("../assets/other_elements/arrow.png")) {
         std::cout << "ERROR: Could not load texture from file\n";
     }
-    Button arrow = Button(buttonTexture, Game::width / 2 + 110, Game::height / 2 + 20, this->window,
+    Button arrow = Button(buttonTexture, Game::width / 2 + 110, Game::height / 2 + 20, window,
                           ButtonType::choose_your_character);
     picButtons.push_back(arrow);
 }
@@ -53,11 +53,11 @@ void Menu::updatePlayer(float d) {
 }
 
 void Menu::render() {
-    this->renderMap();
-    this->renderPlayer();
-    this->renderButtons();
-    this->renderHeadline();
-    this->renderTextInput();
+    renderMap();
+    renderPlayer();
+    renderButtons();
+    renderHeadline();
+    renderTextInput();
 }
 
 void Menu::renderHeadline() {
@@ -164,7 +164,7 @@ void Menu::updateMenuButtons() {
                 playerNick.updateIsFocused(true);
                 lastButton=ButtonType::none;
                 handleStartButtonPress();
-                this->selectedButton = ButtonType::none;
+                selectedButton = ButtonType::none;
                 resetNotUsingButtons();
             }
 

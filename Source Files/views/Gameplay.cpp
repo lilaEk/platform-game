@@ -18,16 +18,16 @@ void Gameplay::update(float deltaTime) {
 }
 
 void Gameplay::updatePlayer(float d) {
-    this->player->update(d, true);
+    player->update(d, true);
 }
 
 void Gameplay::updateMap(float d) {
-    this->mapManager.update(d);
+    mapManager.update();
 }
 
 void Gameplay::updateMovement(float d) {
 
-    this->player->lastPawnState = this->player->currentPawnState;
+    player->lastPawnState = player->currentPawnState;
 
     bool moveLeft =
             sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
@@ -40,42 +40,42 @@ void Gameplay::updateMovement(float d) {
 
     updateJumping(d);
 
-    this->player->currentPawnState = PawnState::idle;
+    player->currentPawnState = PawnState::idle;
 
     //left
     if (moveLeft) {
-        if (this->player->direction == Direction::right) { this->player->direction = Direction::left; }
-        if (player->lastPawnState != PawnState::squat) { this->player->currentPawnState = PawnState::run; }
-        if (squat) { this->player->currentPawnState = PawnState::squat; }
+        if (player->direction == Direction::right) { player->direction = Direction::left; }
+        if (player->lastPawnState != PawnState::squat) { player->currentPawnState = PawnState::run; }
+        if (squat) { player->currentPawnState = PawnState::squat; }
 
         float collisionHeightOffset = (player->currentPawnState == PawnState::squat) ? player->height / 2 : 0.0f;
 
-        if (!checkCollisionWithCells(this->player->pos_x - this->player->movementSpeed * d,
-                                     this->player->pos_y - collisionHeightOffset)) {
+        if (!checkCollisionWithCells(player->pos_x - player->movementSpeed * d,
+                                     player->pos_y - collisionHeightOffset)) {
             if (player->pos_x <= +player->width) {
                 player->pos_x = player->width;
-            } else { this->player->pos_x -= this->player->movementSpeed * d; }
+            } else { player->pos_x -= player->movementSpeed * d; }
         }
     }
 
     //right
     if (moveRight) {
-        if (this->player->direction == Direction::left) {
-            this->player->direction = Direction::right;
+        if (player->direction == Direction::left) {
+            player->direction = Direction::right;
         }
         if (player->lastPawnState != PawnState::squat) {
-            this->player->currentPawnState = PawnState::run;
+            player->currentPawnState = PawnState::run;
         }
         if (squat) {
-            this->player->currentPawnState = PawnState::squat;
+            player->currentPawnState = PawnState::squat;
         }
 
         float collisionHeightOffset = (player->currentPawnState == PawnState::squat) ? player->height / 2 : 0.0f;
 
-        if (!checkCollisionWithCells(this->player->pos_x + this->player->movementSpeed * d,
-                                     this->player->pos_y - collisionHeightOffset)) {
-            if (this->player->pos_x < (Game::width / 2)) {
-                this->player->pos_x += this->player->movementSpeed * d;
+        if (!checkCollisionWithCells(player->pos_x + player->movementSpeed * d,
+                                     player->pos_y - collisionHeightOffset)) {
+            if (player->pos_x < (Game::width / 2)) {
+                player->pos_x += player->movementSpeed * d;
             } else {
                 mapManager.scrollMap(d);
             }
@@ -84,9 +84,9 @@ void Gameplay::updateMovement(float d) {
 
     //jump
     if (jump) {
-        if (!this->player->isJumping && !this->player->isFalling) {
-            this->player->currentPawnState = PawnState::jump;
-            this->player->isJumping = true;
+        if (!player->isJumping && !player->isFalling) {
+            player->currentPawnState = PawnState::jump;
+            player->isJumping = true;
         }
     }
 
@@ -94,17 +94,17 @@ void Gameplay::updateMovement(float d) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
 
-        this->player->currentPawnState = PawnState::squat;
+        player->currentPawnState = PawnState::squat;
     }
 
     //attack
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K)) {
-        this->player->currentPawnState = PawnState::directDoubleAttack;
+        player->currentPawnState = PawnState::directDoubleAttack;
     }
 
     //throw
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)) {
-        this->player->currentPawnState = PawnState::throwAttack;
+        player->currentPawnState = PawnState::throwAttack;
     }
 
 }
@@ -114,55 +114,55 @@ void Gameplay::updateJumping(float d) {
 
         player->jumpHeight = jumpSpeed * d;
 
-        if (checkCollisionWithCells(this->player->pos_x, this->player->pos_y - 24.f + 16.f - player->jumpHeight)) {
-            this->player->currentPawnState = PawnState::idle;
-            this->player->isJumping = false;
-            this->player->isFalling = true;
-            this->player->jumpHeight = 0.0f;
+        if (checkCollisionWithCells(player->pos_x, player->pos_y - 24.f + 16.f - player->jumpHeight)) {
+            player->currentPawnState = PawnState::idle;
+            player->isJumping = false;
+            player->isFalling = true;
+            player->jumpHeight = 0.0f;
             return;
         }
 
-        if (this->player->pos_y < 60.f) {
-            this->player->pos_y = 60.f;
-            this->player->isJumping = false;
-            this->player->isFalling = true;
-            this->player->jumpHeight = 0.0f;
-            this->player->currentPawnState = PawnState::idle;
+        if (player->pos_y < 60.f) {
+            player->pos_y = 60.f;
+            player->isJumping = false;
+            player->isFalling = true;
+            player->jumpHeight = 0.0f;
+            player->currentPawnState = PawnState::idle;
             return;
         }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-            this->player->currentPawnState = PawnState::idle;
-            this->player->jumpHeight = 0;
+            player->currentPawnState = PawnState::idle;
+            player->jumpHeight = 0;
             player->isJumping = false;
-            this->player->isFalling = true;
+            player->isFalling = true;
             return;
         }
 
-        this->player->pos_y -= player->jumpHeight;
+        player->pos_y -= player->jumpHeight;
         player->jumpDistance += player->jumpHeight;
 
-        if (this->player->jumpDistance >= 48.f * 4) {
-            this->player->jumpHeight = 0.0f;
-            this->player->jumpDistance = 0.0f;
-            this->player->currentPawnState = PawnState::idle;
+        if (player->jumpDistance >= 48.f * 4) {
+            player->jumpHeight = 0.0f;
+            player->jumpDistance = 0.0f;
+            player->currentPawnState = PawnState::idle;
             player->isJumping = false;
-            this->player->isFalling = true;
+            player->isFalling = true;
             return;
         }
 
     } else {
-        this->player->jumpHeight = 0.0f;
-        this->player->jumpDistance = 0.0f;
+        player->jumpHeight = 0.0f;
+        player->jumpDistance = 0.0f;
 
-        if (!checkCollisionWithCells(this->player->pos_x, this->player->pos_y + gravity * d)) {
-            this->player->pos_y += gravity * d;
-            this->player->isFalling = true;
+        if (!checkCollisionWithCells(player->pos_x, player->pos_y + gravity * d)) {
+            player->pos_y += gravity * d;
+            player->isFalling = true;
         } else {
-            this->player->isFalling = false;
+            player->isFalling = false;
         }
 
-        if (this->player->pos_y > Game::height - player->height) {
+        if (player->pos_y > Game::height - player->height) {
             stats->removeLive(5);
         };
     }
@@ -183,6 +183,7 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                                   && cell.pos_x + cell.width > x;
 
                 bool collisionY;
+
                 if (player->currentPawnState == PawnState::squat) {
                     collisionY = y + player->height > cell.pos_y && y < cell.pos_y;
                 } else {
@@ -246,13 +247,13 @@ void Gameplay::render() {
 }
 
 void Gameplay::renderPlayer() {
-    this->player->render(this->window);
+    player->render(window);
 }
 
 void Gameplay::renderMap() {
-    this->mapManager.render(this->window);
+    mapManager.render(window);
 }
 
 void Gameplay::renderStats() {
-    this->stats->render(this->window);
+    stats->render(window);
 }

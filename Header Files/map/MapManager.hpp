@@ -9,10 +9,7 @@ public:
     MapManager();
     ~MapManager();
 
-//    void loadMap(const std::string &mapName);
-//    void switchMap(const std::string &mapName);
-
-    void update(float deltaTime);
+    void update();
     void render(sf::RenderWindow &target);
 
     void scrollMap(float currentTime);
@@ -20,6 +17,5 @@ public:
     Map *currentMap;
 
 private:
-//    std::unordered_map<std::string, Map> maps;
-//    Map *currentMap;
+
 };

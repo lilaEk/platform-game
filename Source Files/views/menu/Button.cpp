@@ -16,8 +16,8 @@ Button::Button(std::string text, int buttonPosX, int buttonPosY,
         : buttonPosX(buttonPosX), buttonPosY(buttonPosY), buttonWidth(buttonWidth),
           buttonHeight(buttonHeight), color(color), window(window), font(font), buttonType(type) {
 
-    this->buttonWidth = 200;
-    this->buttonHeight = 60;
+    buttonWidth = 200;
+    buttonHeight = 60;
 
     this->text.setString(text);
 }
@@ -36,7 +36,7 @@ Button::~Button() {}
 
 void Button::renderTextButtons(sf::RenderWindow &window) {
 
-    sf::RectangleShape buttonShape(sf::Vector2f(this->buttonWidth, this->buttonHeight));
+    sf::RectangleShape buttonShape(sf::Vector2f(buttonWidth, buttonHeight));
     buttonShape.setPosition(buttonPosX, buttonPosY);
     buttonShape.setFillColor(color);
 
@@ -52,14 +52,14 @@ void Button::renderTextButtons(sf::RenderWindow &window) {
 
 void Button::renderPicButtons(sf::RenderWindow &window) {
 
-    this->sprite.setTexture(this->texture);
-    this->sprite.setPosition(this->buttonPosX, this->buttonPosY);
+    sprite.setTexture(texture);
+    sprite.setPosition(buttonPosX, buttonPosY);
 
-    window.draw(this->sprite);
+    window.draw(sprite);
 }
 
 void Button::changeColor(sf::Color newColor) {
-    this->color = newColor;
+    color = newColor;
 }
 
 bool Button::isClicked(int mouseX, int mouseY) const {
@@ -71,6 +71,6 @@ bool Button::isClicked(int mouseX, int mouseY) const {
 }
 
 ButtonType Button::getButtonType() {
-    return this->buttonType;
+    return buttonType;
 }
 
