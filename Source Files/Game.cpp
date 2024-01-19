@@ -49,6 +49,10 @@ void Game::pollEvents() {
                 if (currentView == ViewType::main_menu) {
                     if (e.mouseButton.button == sf::Mouse::Left) {
                         handleMouseClick(e.mouseButton.x, e.mouseButton.y);
+                        stats.gameClock.restart();
+                        stats.totalElapsedTime = sf::Time::Zero;
+                        stats.allBreaksElapsedTime=sf::Time::Zero;
+                        stats.inBreak=true;
                     }
                 }
                 break;
@@ -93,11 +97,12 @@ void Game::update_and_render(float deltaTime) {
                 lastView = ViewType::next_level;
 
                 player->pos_x = 480;
-                player->pos_y=Game::height - 48 * 2.5 + 24;
+                player->pos_y = Game::height - 48 * 2.5 + 24;
 
                 if (stats.level != 1) {
                     mapManager->currentMap->initMap();
                 }
+                stats.breakClock.restart();
             }
             nextLevelView.update(deltaTime);
             nextLevelView.render();
@@ -106,7 +111,6 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::gameplay:
             if (lastView != currentView) {
                 lastView = ViewType::gameplay;
-                resetGameplayClock();
             }
             if (stats.power >= powerLevelGoal) {
                 stats.level++;
@@ -116,7 +120,7 @@ void Game::update_and_render(float deltaTime) {
                 break;
             }
             gameplayView.handleInput();
-            gameplayView.update(deltaTime, gameplayClock);
+            gameplayView.update(deltaTime, currentView);
             gameplayView.render();
             break;
 
@@ -182,13 +186,9 @@ void Game::handleMouseClick(int mouseX, int mouseY) {
     }
 }
 
-void Game::resetGameplayClock() {
-    gameplayClock.restart();
-    stats.elapsedTime = sf::Time::Zero;
-}
-
 void Game::resetGameplay() {
     player->pos_x = 480;
-    player->pos_y=Game::height - 48 * 2.5 + 24;
+    player->pos_y = Game::height - 48 * 2.5 + 24;
     stats.initBasicValues();
+    stats.gameClock.restart();
 }

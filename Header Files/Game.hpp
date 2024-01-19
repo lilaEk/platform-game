@@ -42,15 +42,12 @@ private:
     MapManager* mapManager;
     Stats stats;
 
-    sf::Clock gameplayClock;
-
     Menu mainMenuView;
     NextLevel nextLevelView;
     Gameplay gameplayView;
     GameOver gameOverView;
 
     static void drawBackgroundImage(sf::RenderWindow &window); //todo - parallex background
-    void resetGameplayClock();
 
     void resetGameplay();
 };

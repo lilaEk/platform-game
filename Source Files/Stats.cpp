@@ -6,13 +6,12 @@ void Stats::initBasicValues() {
     this->points = 0;
     this->power = 10;
     this->lives = 3.0;
-    this->elapsedTime = sf::Time::Zero;
 }
 
 void Stats::initStats() {
     initBasicValues();
 
-    this->formattedTime = getFormattedTime(elapsedTime);
+    this->formattedTime = getFormattedTime(sf::Time::Zero);
 
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
         std::cout << "ERROR: Could not load font from file\n";
@@ -70,15 +69,24 @@ void Stats::updatePoints() {
     stats[2].setString(std::to_string(points));
 }
 
-void Stats::updateTime(sf::Clock& gameplayClock) {
-    sf::Time elapsed = gameplayClock.getElapsedTime();
-    sf::Time delta = elapsed - elapsedTime;
+void Stats::updateTime(ViewType currentView) {
+    totalElapsedTime = gameClock.getElapsedTime();
 
-    formattedTime = getFormattedTime(elapsed);
+    if ((currentView == ViewType::next_level && !inBreak) || (inBreak && currentView != ViewType::next_level)) {
+        breakStartTime = gameClock.getElapsedTime();
+        inBreak = true;
+    }
+
+    if (currentView != ViewType::next_level && inBreak) {
+        breakElapsedTime = gameClock.getElapsedTime() - breakStartTime;
+        allBreaksElapsedTime += breakElapsedTime;
+        std::cout << getFormattedTime(breakElapsedTime) << std::endl;
+        inBreak = false;
+    }
+//    formattedTime = getFormattedTime(totalElapsedTime - allBreaksElapsedTime);
+    formattedTime = getFormattedTime(totalElapsedTime) + "-" + getFormattedTime(allBreaksElapsedTime);
+
     stats[3].setString(formattedTime);
-
-    elapsedTime = elapsed;
-
 }
 
 void Stats::updateLives() {
@@ -103,11 +111,11 @@ void Stats::updateLives() {
     }
 }
 
-void Stats::updateStats(sf::Clock& gameplayClock) {
+void Stats::updateStats(ViewType currentView) {
     updateLevel();
     updatePower();
     updatePoints();
-    updateTime(gameplayClock);
+    updateTime(currentView);
     updateLives();
 }
 
@@ -156,7 +164,7 @@ void Stats::render(sf::RenderTarget &target) {
         target.draw(stat);
     }
 
-    renderHearts(target);
+//    renderHearts(target);
 }
 
 void Stats::renderHearts(sf::RenderTarget &target) {
@@ -190,26 +198,26 @@ void Stats::renderHearts(sf::RenderTarget &target) {
 }
 
 void Stats::addLive() {
-    if (lives>=4.0){
-        lives=5.0;
+    if (lives >= 4.0) {
+        lives = 5.0;
         return;
     }
     lives += 1;
 }
 
 void Stats::removeLive(double value) {
-    if (lives>=value) {
+    if (lives >= value) {
         lives -= value;
         return;
     }
-    lives=0;
+    lives = 0;
 }
 
 void Stats::addPoints(int pointsToAdd) {
-    points+=pointsToAdd;
+    points += pointsToAdd;
 }
 
 void Stats::addPower(int powerPointsToAdd) {
-    power+=powerPointsToAdd;
+    power += powerPointsToAdd;
 }
 

@@ -18,17 +18,14 @@ void Menu::init(){
 }
 
 void Menu::initButtons() {
-    Button newGame = Button("new game", 470, 110, upButtonsColor, this->window, this->font,
-                            ButtonType::new_game);
-    Button loadGame = Button("load game", 700, 110, upButtonsColor, this->window, this->font,
-                             ButtonType::load_game);
-    Button highScores = Button("high scores", 470, 200, downButtonsColor, this->window, this->font,
-                               ButtonType::high_scores);
-    Button rules = Button("rules", 700, 200, downButtonsColor, this->window, this->font, ButtonType::rules);
+    Button newGame = Button("new game", 470, 110, upButtonsColor, window, font,ButtonType::new_game);
+    Button loadGame = Button("load game", 700, 110, upButtonsColor, window, font,ButtonType::load_game);
+    Button highScores = Button("high scores", 470, 200, downButtonsColor, window, font,ButtonType::high_scores);
+    Button rules = Button("rules", 700, 200, downButtonsColor, window, font, ButtonType::rules);
     Button yourCharacter = Button("choose your\ncharacter", Game::width / 2 - 100, Game::height / 2 + 20,
-                                  200, 120, sf::Color(213, 232, 236), this->window, this->font,
+                                  200, 120, sf::Color(213, 232, 236), window, font,
                                   ButtonType::choose_your_character);
-    Button start = Button("start", 700, 450, sf::Color(151, 164, 166), this->window, this->font, ButtonType::start);
+    Button start = Button("start", 700, 450, sf::Color(151, 164, 166), window, font, ButtonType::start);
 
     textButtons.push_back(newGame);
     textButtons.push_back(loadGame);
@@ -47,12 +44,12 @@ void Menu::initButtons() {
 }
 
 void Menu::update(float deltaTime) {
-    this->updatePlayer(deltaTime);
-    this->updateMenuButtons();
+    updatePlayer(deltaTime);
+    updateMenuButtons();
 }
 
 void Menu::updatePlayer(float d) {
-    this->player->update(d, false);
+    player->update(d, false);
 }
 
 void Menu::render() {
@@ -65,29 +62,29 @@ void Menu::render() {
 
 void Menu::renderHeadline() {
 
-    this->headline.setString(this->headlineText);
-    this->headline.setPosition(40, 30);
-    this->headline.setFillColor(sf::Color(0, 0, 0));
-    this->headline.setCharacterSize(40);
-    this->headline.setFont(this->font);
+    headline.setString(headlineText);
+    headline.setPosition(40, 30);
+    headline.setFillColor(sf::Color(0, 0, 0));
+    headline.setCharacterSize(40);
+    headline.setFont(font);
 
-    window.draw(this->headline);
+    window.draw(headline);
 }
 
 void Menu::renderPlayer() {
-    this->player->render(this->window);
+    player->render(window);
 }
 
 void Menu::renderMap() {
-    this->mapManager.render(this->window);
+    mapManager.render(window);
 }
 
 void Menu::renderButtons() {
     for (Button b: textButtons) {
-        b.renderTextButtons(this->window);
+        b.renderTextButtons(window);
     }
     for (Button b: picButtons) {
-        b.renderPicButtons(this->window);
+        b.renderPicButtons(window);
     }
 }
 
@@ -99,7 +96,7 @@ void Menu::renderTextInput() {
 }
 
 void Menu::updateMenuButtons() {
-    switch (this->selectedButton) {
+    switch (selectedButton) {
         case ButtonType::new_game: {
             if (lastButton != selectedButton) {
                 resetNotUsingButtons();
@@ -125,7 +122,7 @@ void Menu::updateMenuButtons() {
             }
             textButtons[1].changeColor(buttonChosenColor);
 
-            setLoadGameSideBlock(this->window);
+            setLoadGameSideBlock(window);
             break;
         }
         case ButtonType::high_scores: {
@@ -135,7 +132,7 @@ void Menu::updateMenuButtons() {
             }
             textButtons[2].changeColor(buttonChosenColor);
 
-            setRankingSideBlock(this->window);
+            setRankingSideBlock(window);
             break;
         }
         case ButtonType::rules: {
@@ -145,7 +142,7 @@ void Menu::updateMenuButtons() {
             }
             textButtons[3].changeColor(buttonChosenColor);
 
-            setRulesSideBlock(this->window, this->font);
+            setRulesSideBlock(window, font);
             break;
         }
         case ButtonType::choose_your_character: {
@@ -155,9 +152,9 @@ void Menu::updateMenuButtons() {
             }
 
             delete player;
-            this->playerIndex++;
+            playerIndex++;
             if (playerIndex == 3) { playerIndex = 0; }
-            this->player = new Player(playersTypeArray[playerIndex]);
+            player = new Player(playersTypeArray[playerIndex]);
 
             selectedButton = ButtonType::none;
         }
@@ -169,22 +166,20 @@ void Menu::updateMenuButtons() {
                 handleStartButtonPress();
                 this->selectedButton = ButtonType::none;
                 resetNotUsingButtons();
-//                textButtons[0].changeColor(upButtonsColor);
             }
 
             if (lastButton == ButtonType::new_game) {
                 resetNotUsingButtons();
                 textButtons[0].changeColor(buttonChosenColor);
             } else if (lastButton == ButtonType::load_game) {
-                setLoadGameSideBlock(this->window);
+                setLoadGameSideBlock(window);
             } else if (lastButton == ButtonType::rules) {
-                setRulesSideBlock(this->window, this->font);
+                setRulesSideBlock(window, font);
             } else if (lastButton == ButtonType::high_scores) {
-                setRankingSideBlock(this->window);
+                setRankingSideBlock(window);
             }
             break;
         }
-
         default:
             break;
     }
@@ -199,17 +194,17 @@ void Menu::resetNotUsingButtons() {
     textButtons[5].changeColor(sf::Color(151, 164, 166));
 
     isStartClickable = false;
-    this->playerNick.updateIsFocused(false);
+    playerNick.updateIsFocused(false);
 }
 
 void Menu::handleButtonClick(int mouseX, int mouseY) {
     if (picButtons[0].isClicked(mouseX, mouseY)) {
-        this->selectedButton = picButtons[0].getButtonType();
+        selectedButton = picButtons[0].getButtonType();
         return;
     }
     for (Button &button: textButtons) {
         if (button.isClicked(mouseX, mouseY)) {
-            this->selectedButton = button.getButtonType();
+            selectedButton = button.getButtonType();
             break;
         }
     }

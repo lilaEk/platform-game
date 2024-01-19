@@ -2,7 +2,7 @@
 
 #include <array>
 #include "stdafx.hpp"
-//#include "Game.hpp"
+#include "views/ViewType.hpp"
 
 class Stats {
 
@@ -15,10 +15,21 @@ public:
 
     std::vector<sf::Text> stats;
 
+    sf::Clock gameClock;
+    sf::Clock breakClock;
+    sf::Time totalElapsedTime;
+    sf::Time breakElapsedTime;
+
+    sf::Time allBreaksElapsedTime;
+
+    sf::Time breakStartTime;
+
+    bool inBreak=true;
+
     void initStats();
     void initBasicValues();
 
-    void updateStats(sf::Clock& gameplayClock);
+    void updateStats(ViewType currentView);
     void render(sf::RenderTarget &target);
 
     void addLive();
@@ -26,7 +37,8 @@ public:
     void addPoints(int pointsToAdd);
     void addPower(int powerPointsToAdd);
 
-    sf::Time elapsedTime;
+//    sf::Time elapsedTime;
+//    sf::Time totalElapsedTime;
 
 private:
     sf::Sprite heartSprite;
@@ -42,7 +54,7 @@ private:
     void updateLevel();
     void updatePower();
     void updatePoints();
-    void updateTime(sf::Clock& gameplayClock);
+    void updateTime(ViewType currentView);
     void updateLives();
 
     void renderHearts(sf::RenderTarget &target);
