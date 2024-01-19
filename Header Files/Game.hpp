@@ -37,6 +37,8 @@ public:
     static const int width = 960; //48*20
 
 private:
+    std::string rankingFilePath = "ranking.csv";
+    const char* tempFilePath = "temp_ranking.csv";
 
     View view;
     Event e;
@@ -55,4 +57,10 @@ private:
 
     void loadStatsFromCSV(const std::string &filename);
     void saveStatsToCSV(const std::string &filename);
+
+    void generateRanking();
+
+    std::vector<std::tuple<std::string, int, int, int, double, std::string>> playerData;
+
+    void processFile(const std::filesystem::directory_entry &entry);
 };

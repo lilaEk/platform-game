@@ -59,7 +59,9 @@ void Stats::initStats() {
     }
 }
 
-void Stats::updateLevel() {}
+void Stats::updateLevel() {
+    stats[0].setString(std::to_string(level));
+    }
 
 void Stats::updatePower() {
     stats[1].setString(std::to_string(power));

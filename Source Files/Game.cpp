@@ -19,6 +19,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
     mainMenuView.setStartButtonCallback([this] {
         currentView = ViewType::next_level;
     });
+    generateRanking();
 }
 
 Game::~Game() {
@@ -51,8 +52,9 @@ void Game::pollEvents() {
                         handleMouseClick(e.mouseButton.x, e.mouseButton.y);
                         stats.gameClock.restart();
                         stats.totalElapsedTime = sf::Time::Zero;
-                        stats.allBreaksElapsedTime=sf::Time::Zero;
-                        stats.inBreak=false;
+                        stats.allBreaksElapsedTime = sf::Time::Zero;
+                        stats.inBreak = false;
+//                        writeRanking(mainMenuView.playerNick.getText());
                     }
                 }
                 break;
@@ -87,6 +89,7 @@ void Game::update_and_render(float deltaTime) {
                 player->currentPawnState = PawnState::idle;
                 resetGameplay();
                 lastView = ViewType::main_menu;
+                generateRanking();
             }
             mainMenuView.update(deltaTime);
             mainMenuView.render();
@@ -95,7 +98,8 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::next_level:
 
             if (lastView != currentView) {
-                saveStatsToCSV("../game_saves/"+mainMenuView.playerNick.getText()+"_save.csv");
+                saveStatsToCSV("../game_saves/" + mainMenuView.playerNick.getText() + "_save.csv");
+                generateRanking();
 
                 player->currentPawnState = PawnState::happy;
                 lastView = ViewType::next_level;
@@ -199,12 +203,13 @@ void Game::resetGameplay() {
     stats.allBreaksElapsedTime = sf::Time::Zero;
 }
 
-void Game::saveStatsToCSV(const std::string& filename) {
+void Game::saveStatsToCSV(const std::string &filename) {
     std::ofstream outputFile(filename);
     if (outputFile.is_open()) {
-        outputFile << "Level,Power,Points,Lives,Time\n";
+        outputFile << "name,level,power,points,lives,time\n";
 
-        outputFile << stats.level << ","
+        outputFile << mainMenuView.playerNick.getText() << ","
+                   << stats.level << ","
                    << stats.power << ","
                    << stats.points << ","
                    << stats.lives << ","
@@ -216,7 +221,7 @@ void Game::saveStatsToCSV(const std::string& filename) {
     }
 }
 
-void Game::loadStatsFromCSV(const std::string& filename) {
+void Game::loadStatsFromCSV(const std::string &filename) {
     std::ifstream inputFile(filename);
     if (inputFile.is_open()) {
         std::string header;
@@ -235,5 +240,77 @@ void Game::loadStatsFromCSV(const std::string& filename) {
         inputFile.close();
     } else {
         std::cout << "ERROR: Could not open file for reading: " << filename << std::endl;
+    }
+}
+
+void Game::generateRanking() {
+
+    std::cout<<"generuje ranking"<<std::endl;
+    playerData.clear();
+    std::ofstream rankingFile("../ranking.csv");
+
+    if (rankingFile.is_open()) {
+        rankingFile << "Rank,PlayerName,Level,Power,Points,Lives,Time\n";
+
+        for (const auto &entry: std::filesystem::directory_iterator("../game_saves")) {
+            if (entry.is_regular_file() && entry.path().extension() == ".csv") {
+                processFile(entry);
+            }
+        }
+
+        std::sort(playerData.begin(), playerData.end(), [](const auto &a, const auto &b) {
+            return std::get<3>(a) > std::get<3>(b);
+        });
+
+        for (size_t i = 0; i < playerData.size(); ++i) {
+            rankingFile << i + 1 << ","
+                        << std::get<0>(playerData[i]) << ","
+                        << std::get<1>(playerData[i]) << ","
+                        << std::get<2>(playerData[i]) << ","
+                        << std::get<3>(playerData[i]) << ","
+                        << std::get<4>(playerData[i]) << ","
+                        << std::get<5>(playerData[i]) << "\n";
+        }
+        rankingFile.flush();
+        rankingFile.close();
+    } else {
+        std::cerr << "ERROR: Could not open file for writing: ../ranking.csv" << std::endl;
+    }
+}
+
+void Game::processFile(const std::filesystem::directory_entry &entry) {
+    std::string filePath = entry.path().string();
+    std::replace(filePath.begin(), filePath.end(), '\\', '/');
+
+    std::ifstream inputFile(filePath);
+
+    if (inputFile.is_open()) {
+        std::string playerName;
+        int level, power, points;
+        double lives;
+        std::string time;
+
+        std::string line;
+        if (std::getline(inputFile, line)) {
+            while (std::getline(inputFile, line)) {
+                std::istringstream iss(line);
+                char comma;
+
+                if (std::getline(iss, playerName, ',') &&
+                    iss >> level >> comma >> power >> comma >> points >> comma >> lives >> comma >> time) {
+
+                    playerData.emplace_back(playerName, level, power, points, lives, time);
+                } else {
+                    std::cerr << "ERROR: Failed to read data from file: " << filePath << std::endl;
+                    continue;
+                }
+            }
+        } else {
+            std::cerr << "ERROR: Empty file or failed to read header: " << filePath << std::endl;
+        }
+
+        inputFile.close();
+    } else {
+        std::cerr << "ERROR: Could not open file for reading: " << filePath << std::endl;
     }
 }
