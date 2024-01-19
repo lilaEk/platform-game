@@ -15,7 +15,4 @@ public:
     void scrollMap(float currentTime);
 
     Map *currentMap;
-
-private:
-
 };

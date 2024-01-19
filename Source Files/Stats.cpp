@@ -217,4 +217,3 @@ void Stats::addPoints(int pointsToAdd) {
 void Stats::addPower(int powerPointsToAdd) {
     power += powerPointsToAdd;
 }
-
