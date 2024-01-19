@@ -8,6 +8,7 @@
 #include "Button.hpp"
 #include "TextInput.hpp"
 #include "../../pawns/enums/PlayerChoice.hpp"
+#include "algorithm"
 
 class Menu {
 
@@ -15,6 +16,8 @@ public:
     using ButtonCallback = std::function<void()>;
 
     Menu(MapManager &mapManager, Player *player, sf::RenderWindow &window);
+
+    TextInput playerNick;
 
     void init();
 
@@ -49,6 +52,7 @@ private:
     void setRulesSideBlock(sf::RenderWindow& window, sf::Font font);
     void setRankingSideBlock(sf::RenderWindow& window);
     void setLoadGameSideBlock(sf::RenderWindow& window);
+    void drawSideBlockAndHeadline(std::string headline, sf::RenderWindow& window);
 
     sf::Color sideBlockColor = sf::Color(115, 165, 126); //green
 
@@ -67,9 +71,11 @@ private:
     std::vector<Button> textButtons;
 
     bool isStartClickable = false;
-    TextInput playerNick;
 
     std::array<PlayerChoice,3> playersTypeArray{PlayerChoice::Dude_Monster, PlayerChoice::Owlet_Monster, PlayerChoice::Pink_Monster};
     int playerIndex=0;
+
+    bool isFileInFolder(const std::string &fileName, const std::string &folderPath);
+    bool doesFileNameMatch(const std::string &partialFileName);
 };
 

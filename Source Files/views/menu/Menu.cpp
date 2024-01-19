@@ -106,7 +106,7 @@ void Menu::updateMenuButtons() {
 
             playerNick.updateIsFocused(true);
 
-            if (playerNick.getText().empty()) {
+            if (playerNick.getText().empty() || doesFileNameMatch(playerNick.getText())) {
                 isStartClickable = false;
                 textButtons[5].changeColor(sf::Color(151, 164, 166));
             } else {
@@ -211,18 +211,7 @@ void Menu::handleButtonClick(int mouseX, int mouseY) {
 }
 
 void Menu::setRulesSideBlock(RenderWindow &window, Font font) {
-    sf::RectangleShape rulesSideBlock(sf::Vector2f(250, 370));
-    rulesSideBlock.setPosition(40, 110);
-    rulesSideBlock.setFillColor(sideBlockColor);
-    window.draw(rulesSideBlock);
-
-    sf::Text rulesHeadline;
-    rulesHeadline.setString("rules");
-    rulesHeadline.setPosition(60, 130);
-    rulesHeadline.setFillColor(sf::Color(0, 0, 0));
-    rulesHeadline.setCharacterSize(40);
-    rulesHeadline.setFont(font);
-    window.draw(rulesHeadline);
+    drawSideBlockAndHeadline("rules", window);
 
     sf::Text rules;
     rules.setString("a - left movement\n"
@@ -239,17 +228,11 @@ void Menu::setRulesSideBlock(RenderWindow &window, Font font) {
 }
 
 void Menu::setRankingSideBlock(RenderWindow &window) {
-    sf::RectangleShape highScoresSideBlock(sf::Vector2f(250, 370));
-    highScoresSideBlock.setPosition(40, 110);
-    highScoresSideBlock.setFillColor(sideBlockColor);
-    window.draw(highScoresSideBlock);
+    drawSideBlockAndHeadline("ranking", window);
 }
 
 void Menu::setLoadGameSideBlock(RenderWindow &window) {
-    sf::RectangleShape loadGameSideBlock(sf::Vector2f(250, 370));
-    loadGameSideBlock.setPosition(40, 110);
-    loadGameSideBlock.setFillColor(sideBlockColor);
-    window.draw(loadGameSideBlock);
+    drawSideBlockAndHeadline("load game", window);
 }
 
 void Menu::handleTextEntered(sf::Event &event) {
@@ -266,4 +249,33 @@ void Menu::handleStartButtonPress() {
     if (startButtonCallback) {
         startButtonCallback();
     }
+}
+
+bool Menu::doesFileNameMatch(const std::string& partialFileName) {
+    std::string lowerCasePartialFileName = partialFileName;
+    std::transform(lowerCasePartialFileName.begin(), lowerCasePartialFileName.end(), lowerCasePartialFileName.begin(), ::tolower);
+
+    std::string fileNameToCheck = lowerCasePartialFileName + "_save.csv";
+
+    return isFileInFolder(fileNameToCheck, "../game_saves");
+}
+
+bool Menu::isFileInFolder(const std::string& fileName, const std::string& folderPath) {
+    std::filesystem::path filePath = std::filesystem::path(folderPath) / fileName;
+    return std::filesystem::exists(filePath);
+}
+
+void Menu::drawSideBlockAndHeadline(std::string headline, RenderWindow& window){
+    sf::RectangleShape sideBlock(sf::Vector2f(250, 370));
+    sideBlock.setPosition(40, 110);
+    sideBlock.setFillColor(sideBlockColor);
+    window.draw(sideBlock);
+
+    sf::Text headlineText;
+    headlineText.setString(headline);
+    headlineText.setPosition(60, 130);
+    headlineText.setFillColor(sf::Color(0, 0, 0));
+    headlineText.setCharacterSize(30);
+    headlineText.setFont(font);
+    window.draw(headlineText);
 }

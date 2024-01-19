@@ -8,6 +8,8 @@
 #include "views/NextLevel.hpp"
 #include "views/Gameplay.hpp"
 #include "views/GameOver.hpp"
+#include <fstream>
+#include <filesystem>
 
 using namespace sf;
 
@@ -50,4 +52,7 @@ private:
     static void drawBackgroundImage(sf::RenderWindow &window); //todo - parallex background
 
     void resetGameplay();
+
+    void loadStatsFromCSV(const std::string &filename);
+    void saveStatsToCSV(const std::string &filename);
 };

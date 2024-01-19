@@ -73,6 +73,8 @@ add_executable(my_game "Source Files/main.cpp"
 )
 
 target_link_libraries(my_game fmt)
+#target_link_libraries(my_game PRIVATE nlohmann_json::nlohmann_json)
+
 
 target_link_libraries(
         my_game

@@ -210,6 +210,21 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 //Value Computed by CMake
 CMAKE_PROJECT_NAME:STATIC=my_game
 
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION:STATIC=3.11.3
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_MAJOR:STATIC=3
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_MINOR:STATIC=11
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_PATCH:STATIC=3
+
+//Value Computed by CMake
+CMAKE_PROJECT_VERSION_TWEAK:STATIC=
+
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=C:/Program Files/JetBrains/CLion 2023.2.2/bin/mingw/bin/ranlib.exe
 
@@ -335,6 +350,10 @@ FETCHCONTENT_QUIET:BOOL=ON
 FETCHCONTENT_SOURCE_DIR_FMT:PATH=
 
 //When not empty, overrides where to find pre-populated content
+// for json
+FETCHCONTENT_SOURCE_DIR_JSON:PATH=
+
+//When not empty, overrides where to find pre-populated content
 // for sfml
 FETCHCONTENT_SOURCE_DIR_SFML:PATH=
 
@@ -343,6 +362,9 @@ FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of fmt
 FETCHCONTENT_UPDATES_DISCONNECTED_FMT:BOOL=OFF
+
+//Enables UPDATE_DISCONNECTED behavior just for population of json
+FETCHCONTENT_UPDATES_DISCONNECTED_JSON:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of sfml
 FETCHCONTENT_UPDATES_DISCONNECTED_SFML:BOOL=OFF
@@ -425,6 +447,36 @@ FREETYPE_LIBRARY:FILEPATH=C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug
 
 //Git command line client
 GIT_EXECUTABLE:FILEPATH=C:/Program Files/Git/cmd/git.exe
+
+//Build the unit tests when BUILD_TESTING is enabled.
+JSON_BuildTests:BOOL=OFF
+
+//Enable CI build targets.
+JSON_CI:BOOL=OFF
+
+//Use extended diagnostic messages.
+JSON_Diagnostics:BOOL=OFF
+
+//Disable default integer enum serialization.
+JSON_DisableEnumSerialization:BOOL=OFF
+
+//Place use-defined string literals in the global namespace.
+JSON_GlobalUDLs:BOOL=ON
+
+//Enable implicit conversions.
+JSON_ImplicitConversions:BOOL=ON
+
+//Install CMake targets during install step.
+JSON_Install:BOOL=OFF
+
+//Enable legacy discarded value comparison.
+JSON_LegacyDiscardedValueComparison:BOOL=OFF
+
+//Use non-amalgamated version of the library.
+JSON_MultipleHeaders:BOOL=ON
+
+//Include as system headers (skip for clang-tidy).
+JSON_SystemInclude:BOOL=OFF
 
 //Path to a file.
 OGG_INCLUDE_DIR:PATH=C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/sfml-src/extlibs/headers
@@ -513,6 +565,15 @@ my_game_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 my_game_SOURCE_DIR:STATIC=C:/Users/Rozalia/Desktop/pjc/my_game
+
+//Value Computed by CMake
+nlohmann_json_BINARY_DIR:STATIC=C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/json-build
+
+//Value Computed by CMake
+nlohmann_json_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+nlohmann_json_SOURCE_DIR:STATIC=C:/Users/Rozalia/Desktop/pjc/my_game/cmake-build-debug/_deps/json-src
 
 //Dependencies for the target
 sfml-audio_LIB_DEPENDS:STATIC=general;sfml-system;
@@ -768,6 +829,7 @@ HAVE_STDDEF_H:INTERNAL=1
 HAVE_STDINT_H:INTERNAL=1
 //Have include sys/types.h
 HAVE_SYS_TYPES_H:INTERNAL=1
+NLOHMANN_JSON_CONFIG_INSTALL_DIR:INTERNAL=share/cmake/nlohmann_json
 //ADVANCED property for variable: OGG_INCLUDE_DIR
 OGG_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: OGG_LIBRARY

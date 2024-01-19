@@ -95,6 +95,8 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::next_level:
 
             if (lastView != currentView) {
+                saveStatsToCSV("../game_saves/"+mainMenuView.playerNick.getText()+"_save.csv");
+
                 player->currentPawnState = PawnState::happy;
                 lastView = ViewType::next_level;
 
@@ -195,4 +197,43 @@ void Game::resetGameplay() {
     stats.gameClock.restart();
     stats.totalElapsedTime = sf::Time::Zero;
     stats.allBreaksElapsedTime = sf::Time::Zero;
+}
+
+void Game::saveStatsToCSV(const std::string& filename) {
+    std::ofstream outputFile(filename);
+    if (outputFile.is_open()) {
+        outputFile << "Level,Power,Points,Lives,Time\n";
+
+        outputFile << stats.level << ","
+                   << stats.power << ","
+                   << stats.points << ","
+                   << stats.lives << ","
+                   << stats.formattedTime << "\n";
+        outputFile.flush();
+        outputFile.close();
+    } else {
+        std::cout << "ERROR: Could not open file for writing: " << filename << std::endl;
+    }
+}
+
+void Game::loadStatsFromCSV(const std::string& filename) {
+    std::ifstream inputFile(filename);
+    if (inputFile.is_open()) {
+        std::string header;
+        std::getline(inputFile, header);
+
+        inputFile >> stats.level;
+        inputFile.ignore();
+        inputFile >> stats.power;
+        inputFile.ignore();
+        inputFile >> stats.points;
+        inputFile.ignore();
+        inputFile >> stats.lives;
+        inputFile.ignore();
+        std::getline(inputFile, stats.formattedTime);
+
+        inputFile.close();
+    } else {
+        std::cout << "ERROR: Could not open file for reading: " << filename << std::endl;
+    }
 }
