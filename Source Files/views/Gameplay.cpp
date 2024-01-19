@@ -11,11 +11,10 @@ Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &win
 void Gameplay::handleInput() {
 }
 
-void Gameplay::update(float deltaTime, ViewType currentView) {
+void Gameplay::update(float deltaTime) {
     updateMap(deltaTime);
     updateMovement(deltaTime);
     updatePlayer(deltaTime);
-    updateStats(currentView);
 }
 
 void Gameplay::updatePlayer(float d) {
@@ -24,10 +23,6 @@ void Gameplay::updatePlayer(float d) {
 
 void Gameplay::updateMap(float d) {
     this->mapManager.update(d);
-}
-
-void Gameplay::updateStats(ViewType currentView) {
-    this->stats->updateStats(currentView);
 }
 
 void Gameplay::updateMovement(float d) {

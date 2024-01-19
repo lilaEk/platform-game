@@ -72,19 +72,21 @@ void Stats::updatePoints() {
 void Stats::updateTime(ViewType currentView) {
     totalElapsedTime = gameClock.getElapsedTime();
 
-    if ((currentView == ViewType::next_level && !inBreak) || (inBreak && currentView != ViewType::next_level)) {
-        breakStartTime = gameClock.getElapsedTime();
+    if ((currentView == ViewType::next_level && !inBreak)) {
+        breakClock.restart();
         inBreak = true;
-    }
 
-    if (currentView != ViewType::next_level && inBreak) {
-        breakElapsedTime = gameClock.getElapsedTime() - breakStartTime;
-        allBreaksElapsedTime += breakElapsedTime;
-        std::cout << getFormattedTime(breakElapsedTime) << std::endl;
-        inBreak = false;
+        std::cout << "jestem w if 1" << std::endl;
     }
-//    formattedTime = getFormattedTime(totalElapsedTime - allBreaksElapsedTime);
-    formattedTime = getFormattedTime(totalElapsedTime) + "-" + getFormattedTime(allBreaksElapsedTime);
+    if (currentView != ViewType::next_level && inBreak) {
+        allBreaksElapsedTime += breakClock.getElapsedTime();
+        inBreak = false;
+
+        std::cout << "jestem w if 2" << std::endl;
+        std::cout << "totalElapsedTime" <<getFormattedTime(totalElapsedTime) << std::endl;
+        std::cout << "breakClock.getElapsedTime()" <<getFormattedTime(breakClock.getElapsedTime()) << std::endl;
+    }
+    formattedTime = getFormattedTime(totalElapsedTime - allBreaksElapsedTime);
 
     stats[3].setString(formattedTime);
 }

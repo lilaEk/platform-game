@@ -11,11 +11,10 @@ public:
 
     void handleInput();
 
-    void update(float d, ViewType currentView);
+    void update(float d);
     void updatePlayer(float d);
     void updateMovement(float d);
     void updateJumping(float d);
-    void updateStats(ViewType currentView);
     void updateMap(float d);
     void render();
     void renderPlayer();
@@ -32,10 +31,4 @@ private:
     Player* player;
     sf::RenderWindow& window;
     Stats* stats;
-
-    bool noKeyIsPressed = !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) &&
-                          !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) &&
-                          !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) &&
-                          !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) &&
-                          !sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space);
 };

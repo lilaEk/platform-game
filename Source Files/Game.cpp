@@ -52,7 +52,7 @@ void Game::pollEvents() {
                         stats.gameClock.restart();
                         stats.totalElapsedTime = sf::Time::Zero;
                         stats.allBreaksElapsedTime=sf::Time::Zero;
-                        stats.inBreak=true;
+                        stats.inBreak=false;
                     }
                 }
                 break;
@@ -76,6 +76,8 @@ void Game::update_and_render(float deltaTime) {
     if (stats.lives < 0.5 && currentView == ViewType::gameplay) {
         currentView = ViewType::game_over;
     }
+
+    stats.updateStats(currentView);
 
     switch (currentView) {
         case ViewType::main_menu:
@@ -120,7 +122,7 @@ void Game::update_and_render(float deltaTime) {
                 break;
             }
             gameplayView.handleInput();
-            gameplayView.update(deltaTime, currentView);
+            gameplayView.update(deltaTime);
             gameplayView.render();
             break;
 
@@ -191,4 +193,6 @@ void Game::resetGameplay() {
     player->pos_y = Game::height - 48 * 2.5 + 24;
     stats.initBasicValues();
     stats.gameClock.restart();
+    stats.totalElapsedTime = sf::Time::Zero;
+    stats.allBreaksElapsedTime = sf::Time::Zero;
 }
