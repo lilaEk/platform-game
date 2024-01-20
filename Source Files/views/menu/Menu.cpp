@@ -479,14 +479,12 @@ void Menu::setLoadGameSideBlock(RenderWindow &window) {
 
 std::string Menu::handleTextEntered() {
     if (selectedButton == ButtonType::new_game) {
-//        playerNick.handleEvent(event);
         return playerNick.getText();
-    } else if (selectedButton == ButtonType::load_game) {
-        return nick;
     }
 }
 
 void Menu::setStartButtonCallback(ButtonCallback callback) {
+
     startButtonCallback = std::move(callback);
 }
 
@@ -575,10 +573,11 @@ void Menu::resetLoadGameValues() {
 }
 
 void Menu::loadGameDataFromSave(const std::string &gameFileName) {
-    const std::string gameFilePath = "../game_saves/" + gameFileName;
+    const std::string gameFilePath = "../game_saves/" + gameFileName+"_save.csv";
 
     std::ifstream inputFile(gameFilePath);
 
+//    std::cout<<gameFilePath<<
     if (inputFile.is_open()) {
 
         std::string playerName;

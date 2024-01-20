@@ -19,6 +19,9 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
     nick="";
 
     mainMenuView.setStartButtonCallback([this] {
+        if(nick.empty()){
+            nick=mainMenuView.nick;
+        }
         currentView = ViewType::next_level;
     });
     generateRanking();
