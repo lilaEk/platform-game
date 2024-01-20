@@ -4,7 +4,7 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
                mapManager(new MapManager),
                window(sf::VideoMode(Game::width, Game::height), "platform game by rozalia",
                       sf::Style::Titlebar | sf::Style::Close),
-               mainMenuView(*mapManager, player, window),
+               mainMenuView(*mapManager, player, window, &stats),
                gameplayView(*mapManager, player, window, &stats),
                nextLevelView(*mapManager, player, window, &stats),
                gameOverView(*mapManager, player, window, &stats) {

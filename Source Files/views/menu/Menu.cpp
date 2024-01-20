@@ -1,8 +1,8 @@
 #include "../../../Header Files/views/menu/Menu.hpp"
 #include "../../../Header Files/Game.hpp"
 
-Menu::Menu(MapManager &mapManager, Player *player, sf::RenderWindow &window)
-        : mapManager(mapManager), player(player), window(window), playerNick(window, font) {
+Menu::Menu(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats)
+        : mapManager(mapManager), player(player), window(window), playerNick(window, font), stats(stats) {
 
     if (!font.loadFromFile("../assets/font/Planes_ValMore.ttf")) {
         std::cout << "ERROR: Could not load font from file\n";
@@ -277,6 +277,8 @@ void Menu::renderGamesToLoad(const std::vector<std::string> &playableGames, cons
                 isStartClickable= true;
                 textButtons[5].changeColor(buttonChosenColor);
 
+                loadGameDataToVector(nameText);
+
             }
             nameEntry.setFillColor(buttonChosenColor);
             pointsEntry.setFillColor(buttonChosenColor);
@@ -381,6 +383,8 @@ void Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int,
                 handleStartButtonPress();
                 selectedButton = ButtonType::none;
                 resetNotUsingButtons();
+
+                //wczytaj dane z gry
             }
 
             if (lastButton == ButtonType::new_game && lastButton!=ButtonType::load_game) {
@@ -567,3 +571,33 @@ void Menu::resetLoadGameValues() {
     gameChooseToLoad=false;
 }
 
+void Menu::loadGameDataToVector(const std::string& gameFileName) {
+    const std::string gameFilePath = "../game_saves/" + gameFileName;
+
+    std::ifstream inputFile(gameFilePath);
+
+    if (inputFile.is_open()) {
+
+        std::string playerName;
+        int level, power, points;
+        double lives;
+        std::string time;
+
+        std::string line;
+        if (std::getline(inputFile, line)) {
+            while (std::getline(inputFile, line)) {
+                std::istringstream iss(line);
+                char comma;
+
+                if (std::getline(iss, playerName, ',') &&
+                    iss >> level >> comma >> power >> comma >> points >> comma >> lives >> comma >> time) {
+
+                    playerData.emplace_back(playerName, level, power, points, lives, time);
+                }
+            }
+
+        } else {
+            std::cerr << "ERROR: Could not open file for reading: " << gameFilePath << std::endl;
+        }
+    }
+}
