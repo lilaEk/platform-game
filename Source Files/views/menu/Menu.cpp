@@ -168,6 +168,121 @@ void Menu::renderRanking(const std::vector<std::tuple<std::string, int, int, int
     }
 }
 
+void Menu::renderGamesToLoad(const std::vector<std::string>& playableGames) {
+    drawSideBlockAndHeadline("load game", window);
+
+    sf::Text nameHeader, pointsHeader, powerHeader, livesHeader;
+    nameHeader.setString("NAME");
+    pointsHeader.setString("POINTS");
+    powerHeader.setString("POWER");
+    livesHeader.setString("LIVES");
+
+    nameHeader.setPosition(60, 190);
+    pointsHeader.setPosition(140, 190);
+    powerHeader.setPosition(220, 190);
+    livesHeader.setPosition(300, 190);
+
+    nameHeader.setFillColor(sf::Color(0, 0, 0));
+    pointsHeader.setFillColor(sf::Color(0, 0, 0));
+    powerHeader.setFillColor(sf::Color(0, 0, 0));
+    livesHeader.setFillColor(sf::Color(0, 0, 0));
+
+    nameHeader.setCharacterSize(18);
+    pointsHeader.setCharacterSize(18);
+    powerHeader.setCharacterSize(18);
+    livesHeader.setCharacterSize(18);
+
+    nameHeader.setFont(font);
+    pointsHeader.setFont(font);
+    powerHeader.setFont(font);
+    livesHeader.setFont(font);
+
+    window.draw(nameHeader);
+    window.draw(pointsHeader);
+    window.draw(powerHeader);
+    window.draw(livesHeader);
+
+
+    for (size_t i = 0; i < 10; ++i) {
+        std::string nameText, pointsText, powerText, livesText;
+
+        if (i < playableGames.size()) {
+            const std::string& gameFileName = playableGames[i];
+            const std::string gameFilePath = "../game_saves/" + gameFileName;
+
+            std::ifstream inputFile(gameFilePath);
+
+            if (inputFile.is_open()) {
+                std::string line;
+                std::getline(inputFile, line);
+
+                std::string level, power, points, lives, time;
+                std::getline(inputFile, nameText, ',');
+                std::getline(inputFile, level, ',');
+                std::getline(inputFile, power, ',');
+                std::getline(inputFile, points, ',');
+                std::getline(inputFile, lives, ',');
+                std::getline(inputFile, time);
+
+                inputFile.close();
+
+                pointsText = points;
+                powerText = power;
+                livesText = lives;
+
+                inputFile.close();
+            } else {
+                std::cerr << "ERROR: Could not open file for reading: " << gameFilePath << std::endl;
+                continue;
+            }
+
+        } else {
+            nameText = "[empty]";
+            pointsText = "0";
+            powerText = "0";
+            livesText = "0";
+        }
+
+        sf::Text nameEntry, pointsEntry, powerEntry, livesEntry, line;
+
+        nameEntry.setString(nameText);
+        pointsEntry.setString(pointsText);
+        powerEntry.setString(powerText);
+        livesEntry.setString(livesText);
+        line.setString("-----------------------------------------------");
+
+        nameEntry.setPosition(60, 220 + i * 25);
+        pointsEntry.setPosition(140, 220 + i * 25);
+        powerEntry.setPosition(220, 220 + i * 25);
+        livesEntry.setPosition(300, 220 + i * 25);
+        line.setPosition(60, 233 + i * 25);
+
+        nameEntry.setFillColor(sf::Color(0, 0, 0));
+        pointsEntry.setFillColor(sf::Color(0, 0, 0));
+        powerEntry.setFillColor(sf::Color(0, 0, 0));
+        livesEntry.setFillColor(sf::Color(0, 0, 0));
+        line.setFillColor(sf::Color(0, 0, 0));
+
+        nameEntry.setCharacterSize(16);
+        pointsEntry.setCharacterSize(16);
+        powerEntry.setCharacterSize(16);
+        livesEntry.setCharacterSize(16);
+        line.setCharacterSize(16);
+
+        nameEntry.setFont(font);
+        pointsEntry.setFont(font);
+        powerEntry.setFont(font);
+        livesEntry.setFont(font);
+        line.setFont(font);
+
+        window.draw(nameEntry);
+        window.draw(pointsEntry);
+        window.draw(powerEntry);
+        window.draw(livesEntry);
+        window.draw(line);
+    }
+}
+
 void Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData) {
     switch (selectedButton) {
         case ButtonType::new_game: {
@@ -306,7 +421,20 @@ void Menu::setRankingSideBlock(RenderWindow &window, const std::vector<std::tupl
 }
 
 void Menu::setLoadGameSideBlock(RenderWindow &window) {
-    drawSideBlockAndHeadline("load game", window);
+    sf::RectangleShape sideBlock(sf::Vector2f(320, 380));
+    sideBlock.setPosition(40, 110);
+    sideBlock.setFillColor(sideBlockColor);
+    window.draw(sideBlock);
+
+    sf::Text headlineText;
+    headlineText.setString("load game");
+    headlineText.setPosition(60, 130);
+    headlineText.setFillColor(sf::Color(0, 0, 0));
+    headlineText.setCharacterSize(30);
+    headlineText.setFont(font);
+    window.draw(headlineText);
+
+    renderGamesToLoad(getPlayableGames());
 }
 
 void Menu::handleTextEntered(sf::Event &event) {
@@ -340,7 +468,7 @@ bool Menu::isFileInFolder(const std::string& fileName, const std::string& folder
 }
 
 void Menu::drawSideBlockAndHeadline(std::string headline, RenderWindow& window){
-    sf::RectangleShape sideBlock(sf::Vector2f(250, 370));
+    sf::RectangleShape sideBlock(sf::Vector2f(250, 380));
     sideBlock.setPosition(40, 110);
     sideBlock.setFillColor(sideBlockColor);
     window.draw(sideBlock);
@@ -352,4 +480,48 @@ void Menu::drawSideBlockAndHeadline(std::string headline, RenderWindow& window){
     headlineText.setCharacterSize(30);
     headlineText.setFont(font);
     window.draw(headlineText);
+}
+
+std::vector<std::string> Menu::getPlayableGames() {
+    std::vector<std::string> playableGames;
+
+    for (const auto &entry : std::filesystem::directory_iterator("../game_saves")) {
+        if (entry.is_regular_file() && entry.path().extension() == ".csv") {
+
+            std::string filePath = entry.path().string();
+            std::replace(filePath.begin(), filePath.end(), '\\', '/');
+
+            std::ifstream inputFile(filePath);
+
+            if (inputFile.is_open()) {
+                std::string playerName;
+                int level, power, points;
+                double lives;
+                std::string time;
+
+                std::string line;
+
+                if (std::getline(inputFile, line)) {
+                    while (std::getline(inputFile, line)) {
+                        std::istringstream iss(line);
+                        char comma;
+
+                        if (std::getline(iss, playerName, ',') &&
+                            iss >> level >> comma >> power >> comma >> points >> comma >> lives >> comma >> time) {
+
+                            playableGames.push_back(entry.path().filename().string());
+                        } else {
+                            std::cerr << "ERROR: Failed to read data from file: " << filePath << std::endl;
+                            continue;
+                        }
+                    }
+                }
+
+                else {
+                    std::cerr << "ERROR: Failed to read data from file: " << entry.path() << std::endl;
+                }
+            }
+        }
+    }
+    return playableGames;
 }

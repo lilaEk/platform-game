@@ -79,5 +79,9 @@ private:
     bool doesFileNameMatch(const std::string &partialFileName);
 
     void renderRanking(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData);
+
+    std::vector<std::string> getPlayableGames();
+
+    void renderGamesToLoad(const std::vector<std::string> &playableGames);
 };
 
