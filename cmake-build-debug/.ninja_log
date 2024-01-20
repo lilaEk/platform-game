@@ -218,3 +218,13 @@
 402	789	7274725748656461	my_game.exe	5a65e0c0450fec
 4	627	7274727765656998	CMakeFiles/my_game.dir/Source_Files/pawns/Player.cpp.obj	ba68c26c7171e13b
 627	1002	7274727769032272	my_game.exe	5a65e0c0450fec
+4	397	7274737387959641	CMakeFiles/my_game.dir/Source_Files/Animation.cpp.obj	d1e06cfe4339585e
+5	648	7274737390479867	CMakeFiles/my_game.dir/Source_Files/pawns/Player.cpp.obj	ba68c26c7171e13b
+649	1031	7274737393920206	my_game.exe	5a65e0c0450fec
+11	855	7274741869689245	CMakeFiles/my_game.dir/Source_Files/main.cpp.obj	f649e1864ba0e29d
+12	914	7274741870284327	CMakeFiles/my_game.dir/Source_Files/pawns/Player.cpp.obj	ba68c26c7171e13b
+9	947	7274741870614323	CMakeFiles/my_game.dir/Source_Files/views/Gameplay.cpp.obj	2574d51b55b22ed6
+8	948	7274741870624322	CMakeFiles/my_game.dir/Source_Files/views/NextLevel.cpp.obj	92269244e68d438e
+7	1264	7274741873758372	CMakeFiles/my_game.dir/Source_Files/views/menu/Menu.cpp.obj	5996c3fa5474c714
+5	1334	7274741874463460	CMakeFiles/my_game.dir/Source_Files/Game.cpp.obj	9b2cc8632336c1ab
+1334	1741	7274741878184107	my_game.exe	5a65e0c0450fec

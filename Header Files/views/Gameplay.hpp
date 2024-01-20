@@ -10,7 +10,8 @@ public:
 
     Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats);
 
-    std::vector<Enemy *> enemies;
+    Enemy enemy;
+//    std::vector<Enemy *> enemies;
 
     void handleInput();
 

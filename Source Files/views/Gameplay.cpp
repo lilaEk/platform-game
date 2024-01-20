@@ -6,6 +6,7 @@ Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &win
         : mapManager(mapManager), player(player), window(window), stats(stats) {
 
     stats->initStats();
+
 }
 
 void Gameplay::handleInput() {
@@ -23,9 +24,7 @@ void Gameplay::updatePlayer(float d) {
 }
 
 void Gameplay::updateEnemies(float d) {
-    for (auto enemy : enemies) {
-        enemy->update(d, enemy->moveable);
-    }
+    enemy.update(d, true);
 }
 
 void Gameplay::updateMap(float d) {
@@ -226,7 +225,7 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                             break;
                         case CellType::removeHeartReward:
                             stats->removeLive(0.5);
-                            player->currentPawnState=PawnState::hurt;
+                            player->currentPawnState = PawnState::hurt;
                             cell.changeCellType(CellType::emptyRandomReward);
                             break;
                         case CellType::enemyReward:
@@ -260,9 +259,8 @@ void Gameplay::renderPlayer() {
 }
 
 void Gameplay::renderEnemies() {
-    for (auto enemy : enemies) {
-        enemy->render(window);
-    }
+    enemy.render(window);
+
 }
 
 void Gameplay::renderMap() {
