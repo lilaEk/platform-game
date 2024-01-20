@@ -150,6 +150,8 @@ void Game::update_and_render(float deltaTime) {
             if (lastView != currentView) {
                 player->currentPawnState = PawnState::die;
                 lastView = ViewType::game_over;
+                saveStatsToCSV("../game_saves/" + nick + "_save.csv");
+                generateRanking();
             }
             gameOverView.update(deltaTime);
             gameOverView.render();
@@ -237,27 +239,6 @@ void Game::saveStatsToCSV(const std::string &filename) {
     }
 }
 
-//void Game::loadStatsFromCSV(const std::string &filename) {
-//    std::ifstream inputFile(filename);
-//    if (inputFile.is_open()) {
-//        std::string header;
-//        std::getline(inputFile, header);
-//
-//        inputFile >> stats.level;
-//        inputFile.ignore();
-//        inputFile >> stats.power;
-//        inputFile.ignore();
-//        inputFile >> stats.points;
-//        inputFile.ignore();
-//        inputFile >> stats.lives;
-//        inputFile.ignore();
-//        std::getline(inputFile, stats.formattedTime);
-//
-//        inputFile.close();
-//    } else {
-//        std::cout << "ERROR: Could not open file for reading: " << filename << std::endl;
-//    }
-//}
 
 void Game::generateRanking() {
 

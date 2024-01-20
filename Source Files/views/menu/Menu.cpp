@@ -308,7 +308,8 @@ void Menu::renderGamesToLoad(const std::vector<std::string> &playableGames, cons
     }
 }
 
-void Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData) {
+void
+Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData) {
     switch (selectedButton) {
         case ButtonType::new_game: {
             if (lastButton != selectedButton) {
@@ -550,7 +551,7 @@ std::vector<std::string> Menu::getPlayableGames() {
                         if (std::getline(iss, playerName, ',') &&
                             iss >> level >> comma >> power >> comma >> points >> comma >> lives >> comma >> time) {
 
-                            playableGames.push_back(entry.path().filename().string());
+                            if (lives != 0) playableGames.push_back(entry.path().filename().string());
                         } else {
                             std::cerr << "ERROR: Failed to read data from file: " << filePath << std::endl;
                             continue;
@@ -572,7 +573,7 @@ void Menu::resetLoadGameValues() {
 }
 
 void Menu::loadGameDataFromSave(const std::string &gameFileName) {
-    const std::string gameFilePath = "../game_saves/" + gameFileName+"_save.csv";
+    const std::string gameFilePath = "../game_saves/" + gameFileName + "_save.csv";
 
     std::ifstream inputFile(gameFilePath);
 
@@ -592,7 +593,7 @@ void Menu::loadGameDataFromSave(const std::string &gameFileName) {
                 if (std::getline(iss, playerName, ',') &&
                     iss >> level >> comma >> power >> comma >> points >> comma >> lives >> comma >> time) {
 
-                    nick=gameFileName;
+                    nick = gameFileName;
                     stats->level = level;
                     stats->points = points;
                     stats->power = power;

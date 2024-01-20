@@ -35,9 +35,12 @@ void Animation::restartAnim() {
     lastPlayedFrameIndex = 0;
 }
 
-sf::Sprite
-Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState) {
-    if (*lastPawnState != newPawnState) {
+sf::Sprite Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState) {
+
+    if(*lastPawnState==PawnState::hurt && lastPlayedFrameIndex<3){
+        newPawnState=*lastPawnState;
+
+    } else if (*lastPawnState != newPawnState) {
         *lastPawnState = newPawnState;
 
         if (newPawnState==PawnState::squat){

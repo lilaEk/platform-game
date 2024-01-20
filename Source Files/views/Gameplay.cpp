@@ -219,6 +219,7 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                             break;
                         case CellType::removeHeartReward:
                             stats->removeLive(0.5);
+                            player->currentPawnState=PawnState::hurt;
                             cell.changeCellType(CellType::emptyRandomReward);
                             break;
                         case CellType::enemyReward:
