@@ -15,8 +15,8 @@ void Player::initPawn() {
     width = 32;
     height = 32;
 
-    pos_x = (3 * 16 * 20) / 2;
-    pos_y = Game::height - 48 * 2.5 + 24;
+    pos_x = 480;
+    pos_y = 528;
 
     movementSpeed = 600.f;
     scale = 3.f;

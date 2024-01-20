@@ -6,12 +6,18 @@
 #include "enemies/EnemyType.hpp"
 
 class Snake;
+class ForestBoss;
+
 class Enemy : public Pawn {
 
 public:
     Enemy();
-
-    virtual ~Enemy() = default;
+    virtual ~Enemy(){
+        for (auto& enemy : allEnemies) {
+            delete enemy;
+        }
+        allEnemies.clear();
+    }
 
     bool moveable= true;
     float distance=101;
@@ -24,7 +30,8 @@ public:
     Animation jump;
     Animation death;
     Animation hurt;
-    Animation attack ;
+    Animation attack;
+    Animation happy;
 
     void update(float deltaTime, bool moveable) override; //all enemies
     void render(sf::RenderTarget &target) override; //all enemies
@@ -34,6 +41,7 @@ public:
     void updateAnimations(float d) override;
 
     void initPawn(int x);
+    void initForestBoss(int x);
 
     void moveEnemy(float currentTime);
 };

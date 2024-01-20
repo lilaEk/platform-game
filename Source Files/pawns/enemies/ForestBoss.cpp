@@ -1,5 +1,3 @@
-//#include "../../../Header Files/pawns/enemies/ForestBoss.hpp"
-
 #include "../../../Header Files/pawns/enemies/ForestBoss.hpp"
 
 ForestBoss::ForestBoss() : Enemy() {
@@ -9,11 +7,11 @@ ForestBoss::ForestBoss() : Enemy() {
 }
 
 void ForestBoss::init() {
-    width = 48;
-    height = 48;
+    width = 96;
+    height = 96;
 
-    pos_x =0;//random
-    pos_y = 488;
+    pos_x =0; //random
+    pos_y = 488-80;
 
     movementSpeed = 0.f;
     scale = 3.f;
@@ -27,16 +25,18 @@ void ForestBoss::init() {
     moveable = true;
 
     sprite.setScale(scale, scale);
-    characterFolder="forest_boss";
+    characterFolder="forestboss";
 
     currentPawnState=PawnState::run;
 }
 
 void ForestBoss::initAnimations() {
-    run = Animation("../assets/enemies/" + characterFolder + "/Run.png", 4, scale, PawnState::run);
+    run = Animation("../assets/enemies/" + characterFolder + "/Walk.png", 4, scale, PawnState::run);
     death = Animation("../assets/enemies/" + characterFolder + "/Death.png", 4, scale, PawnState::die);
     hurt = Animation("../assets/enemies/" + characterFolder + "/Hurt.png", 2, scale, PawnState::hurt);
     attack = Animation("../assets/enemies/" + characterFolder + "/Attack.png", 6, scale, PawnState::directAttack);
+    happy = Animation("../assets/enemies/" + characterFolder + "/Attack.png", 6, scale, PawnState::happy);
+
 }
 
 void ForestBoss::render(sf::RenderTarget &target) {
