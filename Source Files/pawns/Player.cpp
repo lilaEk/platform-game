@@ -57,14 +57,15 @@ void Player::initAnimations() {
     climb = Animation("../assets/player/" + characterFolder + "/Climb.png", 6, scale, &lastPawnState);
     lift = Animation("../assets/player/" + characterFolder + "/Lift.png", 6, scale, &lastPawnState);
     hurt = Animation("../assets/player/" + characterFolder + "/Hurt.png", 4, scale, &lastPawnState);
-    directAttack = Animation("../assets/player/" + characterFolder + "/Attack.png", 4, scale,&lastPawnState);
-    directDoubleAttack = Animation("../assets/player/" + characterFolder + "/Attack_Double.png", 6, scale,&lastPawnState);
+    directAttack = Animation("../assets/player/" + characterFolder + "/Attack.png", 4, scale, &lastPawnState);
+    directDoubleAttack = Animation("../assets/player/" + characterFolder + "/Attack_Double.png", 6, scale,
+                                   &lastPawnState);
     throwAttack = Animation("../assets/player/" + characterFolder + "/Throw.png", 4, scale, &lastPawnState);
 }
 
 void Player::render(sf::RenderTarget &target) {
     sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-    sprite.setPosition(pos_x,pos_y - 24);
+    sprite.setPosition(pos_x, pos_y - 24);
     target.draw(sprite);
 }
 
@@ -74,34 +75,43 @@ void Player::update(float currentTime, bool moveable) {
 
 void Player::updateAnimations(float deltaTime) {
 
+    if (lastPawnState == PawnState::hurt) {
+        std::cout<<hurt.lastPlayedFrameIndex<<std::endl;
+        if (hurt.lastPlayedFrameIndex != 3) {
+            currentPawnState = PawnState::hurt;
+            sprite = hurt.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::hurt);
+            return;
+        }
+    }
+
     switch (currentPawnState) {
         case PawnState::run:
-            sprite = run.getCurrentAnimImg(deltaTime,width,height,direction,scale, PawnState::run);
+            sprite = run.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::run);
             break;
         case ::PawnState::jump:
-            sprite = jump.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::jump);
+            sprite = jump.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::jump);
             break;
         case ::PawnState::die:
-            sprite = death.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::die);
+            sprite = death.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::die);
             break;
         case ::PawnState::roll:
 
-            sprite = roll.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::roll);
+            sprite = roll.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::roll);
             break;
         case ::PawnState::squat:
-            sprite = squat.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::squat);
+            sprite = squat.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::squat);
             break;
         case ::PawnState::happy:
-            sprite = happy.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::happy);
+            sprite = happy.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::happy);
             break;
         case ::PawnState::push:
-            sprite = push.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::push);
+            sprite = push.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::push);
             break;
         case ::PawnState::lift:
-            sprite = lift.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::lift);
+            sprite = lift.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::lift);
             break;
         case ::PawnState::hurt:
-            sprite = hurt.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::hurt);
+            sprite = hurt.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::hurt);
             break;
 //        case fly:
 //            break;
@@ -116,13 +126,14 @@ void Player::updateAnimations(float deltaTime) {
 //            scale);
 //            break;
         case ::PawnState::directDoubleAttack:
-            sprite = directDoubleAttack.getCurrentAnimImg(deltaTime,width,height,direction,scale, PawnState::directDoubleAttack);
+            sprite = directDoubleAttack.getCurrentAnimImg(deltaTime, width, height, direction, scale,
+                                                          PawnState::directDoubleAttack);
             break;
         case ::PawnState::throwAttack:
-            sprite = throwAttack.getCurrentAnimImg(deltaTime,width,height,direction,scale, PawnState::throwAttack);
+            sprite = throwAttack.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::throwAttack);
             break;
         default: //idle
-            sprite = idle.getCurrentAnimImg(deltaTime,width,height,direction,scale,PawnState::idle);
+            sprite = idle.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::idle);
             break;
     }
 }

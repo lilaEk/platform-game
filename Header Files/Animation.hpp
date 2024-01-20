@@ -18,6 +18,8 @@ private:
     float elapsed = 0;
     const float frameDuration = 60/1000.0f; //ms
 
+    int hurtFrameCount = 0;
+
 public:
     int framesNumber;
     int lastPlayedFrameIndex = 0;
