@@ -26,6 +26,8 @@ void Gameplay::updatePlayer(float d) {
 
 void Gameplay::updateEnemies(float d) {
     enemy->update(d, true);
+    handleEnemyCollisions();
+
 }
 
 void Gameplay::updateMap(float d) {
@@ -58,7 +60,7 @@ void Gameplay::updateMovement(float d) {
         float collisionHeightOffset = (player->currentPawnState == PawnState::squat) ? player->height / 2 : 0.0f;
 
         if (!checkCollisionWithCells(player->pos_x - player->movementSpeed * d,
-                                     player->pos_y - collisionHeightOffset)) {
+                                     player->pos_y - collisionHeightOffset, true)) {
             if (player->pos_x <= +player->width) {
                 player->pos_x = player->width;
             } else { player->pos_x -= player->movementSpeed * d; }
@@ -80,7 +82,7 @@ void Gameplay::updateMovement(float d) {
         float collisionHeightOffset = (player->currentPawnState == PawnState::squat) ? player->height / 2 : 0.0f;
 
         if (!checkCollisionWithCells(player->pos_x + player->movementSpeed * d,
-                                     player->pos_y - collisionHeightOffset)) {
+                                     player->pos_y - collisionHeightOffset, true)) {
             if (player->pos_x < (Game::width / 2)) {
                 player->pos_x += player->movementSpeed * d;
             } else {
@@ -121,7 +123,7 @@ void Gameplay::updateJumping(float d) {
 
         player->jumpHeight = jumpSpeed * d;
 
-        if (checkCollisionWithCells(player->pos_x, player->pos_y - 24.f + 16.f - player->jumpHeight)) {
+        if (checkCollisionWithCells(player->pos_x, player->pos_y - 24.f + 16.f - player->jumpHeight, true)) {
             player->currentPawnState = PawnState::idle;
             player->isJumping = false;
             player->isFalling = true;
@@ -162,7 +164,7 @@ void Gameplay::updateJumping(float d) {
         player->jumpHeight = 0.0f;
         player->jumpDistance = 0.0f;
 
-        if (!checkCollisionWithCells(player->pos_x, player->pos_y + gravity * d)) {
+        if (!checkCollisionWithCells(player->pos_x, player->pos_y + gravity * d, true)) {
             player->pos_y += gravity * d;
             player->isFalling = true;
         } else {
@@ -175,7 +177,7 @@ void Gameplay::updateJumping(float d) {
     }
 }
 
-bool Gameplay::checkCollisionWithCells(float x, float y) {
+bool Gameplay::checkCollisionWithCells(float x, float y, bool ifPlayer) {
 
     for (auto &column: mapManager.currentMap->mapData) {
         for (auto &cell: column) {
@@ -205,41 +207,41 @@ bool Gameplay::checkCollisionWithCells(float x, float y) {
                         player->isFalling = false;
                     }
 
-                    switch (cell.cellType) {
-                        case CellType::randomReward:
-                            cell.changeCellType(cell.getRandomReward());
-                            return true;
-                        case CellType::powerReward:
-                            stats->addPower(3);
-                            cell.changeCellType(CellType::emptyRandomReward);
-                            break;
-                        case CellType::pointsReward:
-                            stats->addPoints(100);
-                            if (rand() % 5 + 1 == 5) {
+                    if (ifPlayer) {
+                        switch (cell.cellType) {
+                            case CellType::randomReward:
+                                cell.changeCellType(cell.getRandomReward());
+                                return true;
+                            case CellType::powerReward:
+                                stats->addPower(3);
+                                cell.changeCellType(CellType::emptyRandomReward);
                                 break;
-                            }
-                            cell.changeCellType(CellType::emptyRandomReward);
-                            break;
-                        case CellType::heartReward:
-                            stats->addLive();
-                            cell.changeCellType(CellType::emptyRandomReward);
-                            break;
-                        case CellType::removeHeartReward:
-                            stats->removeLive(0.5);
-                            player->currentPawnState = PawnState::hurt;
-                            player->hurt.lastPlayedFrameIndex = 0;
-                            cell.changeCellType(CellType::emptyRandomReward);
-                            break;
-                        case CellType::enemyReward:
-                            enemy->initForestBoss(cell.pos_x+cell.cellSize*3);
-                            cell.changeCellType(CellType::emptyRandomReward);
-                            break;
-                        case CellType::fire:
-                            stats->removeLive(5);
-                            break;
+                            case CellType::pointsReward:
+                                stats->addPoints(100);
+                                if (rand() % 5 + 1 == 5) {
+                                    break;
+                                }
+                                cell.changeCellType(CellType::emptyRandomReward);
+                                break;
+                            case CellType::heartReward:
+                                stats->addLive();
+                                cell.changeCellType(CellType::emptyRandomReward);
+                                break;
+                            case CellType::removeHeartReward:
+                                playerHurt(0.5);
+                                cell.changeCellType(CellType::emptyRandomReward);
+                                break;
+                            case CellType::enemyReward:
+                                enemy->initForestBoss(cell.pos_x + cell.cellSize * 3);
+                                cell.changeCellType(CellType::emptyRandomReward);
+                                break;
+                            case CellType::fire:
+                                stats->removeLive(5);
+                                break;
 
-                        default:
-                            break;
+                            default:
+                                break;
+                        }
                     }
                     return true;
                 }
@@ -270,4 +272,70 @@ void Gameplay::renderMap() {
 
 void Gameplay::renderStats() {
     stats->render(window);
+}
+
+void Gameplay::handleEnemyCollisions() {
+    for (auto &enemy: enemy->allEnemies) {
+
+        if (checkCollisionWithWalls(*enemy)) {
+            enemy->direction = (enemy->direction == Direction::left) ? Direction::right : Direction::left;
+            enemy->distance = 0.f;
+        }
+
+        if (checkCollisionWithPlayer(*enemy, *player)) {
+            enemy->currentPawnState = PawnState::directAttack;
+            if (enemy->type==EnemyType::snake) {
+                playerHurt(0.5);
+            }else if (enemy->type==EnemyType::forest_boss) {
+                playerHurt(1);
+            }
+
+        } else {
+            enemy->currentPawnState = PawnState::run;
+        }
+    }
+}
+
+bool Gameplay::checkCollisionWithWalls(Enemy &enemy) {
+
+    for (auto &column: mapManager.currentMap->mapData) {
+        for (auto &cell: column) {
+            if (cell.cellType == CellType::platform || cell.cellType == CellType::platform) {
+                bool collisionX = enemy.pos_x + enemy.width > cell.pos_x &&
+                                  cell.pos_x + cell.width > enemy.pos_x;
+
+                bool collisionY = enemy.pos_y + enemy.height > cell.pos_y &&
+                                  cell.pos_y + cell.height > enemy.pos_y;
+
+                if (collisionX && collisionY) {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+bool Gameplay::checkCollisionWithPit(Enemy &enemy) {
+    float feetPosition = enemy.pos_y + enemy.height;
+    bool isAboveGround = !checkCollisionWithCells(enemy.pos_x, feetPosition, false);
+
+    return isAboveGround;
+}
+
+bool Gameplay::checkCollisionWithPlayer(Enemy &enemy, Player &player) {
+    bool collisionX = enemy.pos_x + enemy.width > player.pos_x &&
+                      player.pos_x + player.width > enemy.pos_x;
+
+    bool collisionY = enemy.pos_y + enemy.height > player.pos_y &&
+                      player.pos_y + player.height > enemy.pos_y;
+
+    return collisionX && collisionY;
+}
+
+void Gameplay::playerHurt(int loss) {
+    player->currentPawnState = PawnState::hurt;
+    stats->removeLive(0.5);
+    player->hurt.lastPlayedFrameIndex = 0;
 }

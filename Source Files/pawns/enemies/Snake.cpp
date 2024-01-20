@@ -11,7 +11,7 @@ void Snake::init() {
     height = 48;
 
     pos_x = 0; //random
-    pos_y = 488;
+    pos_y = 486;
 
     movementSpeed = 0.f;
     scale = 3.f;

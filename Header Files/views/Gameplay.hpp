@@ -24,7 +24,7 @@ public:
     void renderMap();
     void renderStats();
 
-    bool checkCollisionWithCells(float x, float y);
+    bool checkCollisionWithCells(float x, float y, bool ifPlayer);
 
     const float jumpSpeed = 800.0f;
     const float gravity = 1000.0f;
@@ -36,4 +36,11 @@ private:
     Stats* stats;
     Enemy* enemy;
 
+    void handleEnemyCollisions();
+
+    bool checkCollisionWithWalls(Enemy &enemy);
+    bool checkCollisionWithPit(Enemy &enemy);
+    bool checkCollisionWithPlayer(Enemy &enemy, Player &player);
+
+    void playerHurt(int loss);
 };
