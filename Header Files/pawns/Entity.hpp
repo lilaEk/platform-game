@@ -25,7 +25,7 @@ public:
     float scale{};
 
     Entity();
-    virtual ~Entity() = default;
+
 
     virtual void render(sf::RenderTarget &target) = 0;
 

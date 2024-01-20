@@ -79,6 +79,7 @@ void Animation::newDirectionAndScale(sf::Sprite &sprite, Direction direction, fl
 
     if (direction == Direction::left) {
         sprite.setScale(-scale, scale);
+
     } else {
         sprite.setScale(scale, scale);
     }

@@ -7,8 +7,8 @@ MapManager::~MapManager() {
     delete currentMap;
 }
 
-void MapManager::update() {
-    currentMap->updateMap();
+void MapManager::update(Enemy& enemy) {
+    currentMap->updateMap(enemy);
 }
 
 void MapManager::render(sf::RenderWindow &target) {
@@ -17,8 +17,8 @@ void MapManager::render(sf::RenderWindow &target) {
     }
 }
 
-void MapManager::scrollMap(float currentTime) {
+void MapManager::scrollMap(float currentTime,Enemy &enemy) {
     if (currentMap) {
-        currentMap->scrollMap(currentTime);
+        currentMap->scrollMap(currentTime, enemy);
     }
 }

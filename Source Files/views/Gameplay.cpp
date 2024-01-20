@@ -29,7 +29,7 @@ void Gameplay::updateEnemies(float d) {
 }
 
 void Gameplay::updateMap(float d) {
-    mapManager.update();
+    mapManager.update(*enemy);
 }
 
 void Gameplay::updateMovement(float d) {
@@ -84,7 +84,7 @@ void Gameplay::updateMovement(float d) {
             if (player->pos_x < (Game::width / 2)) {
                 player->pos_x += player->movementSpeed * d;
             } else {
-                mapManager.scrollMap(d);
+                mapManager.scrollMap(d, *enemy);
             }
         }
     }

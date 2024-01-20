@@ -3,16 +3,17 @@
 Snake::Snake() : Enemy() {
     init();
     initAnimations();
+    allEnemies.push_back(this);
 }
 
 void Snake::init() {
     width = 48;
     height = 48;
 
-    pos_x = 200; //[random]
-    pos_y = 624 - 48 * 2.5-16;
+    pos_x = 0; //random
+    pos_y = 488;
 
-    movementSpeed = 600.f;
+    movementSpeed = 0.f;
     scale = 3.f;
 
     direction = Direction::right;

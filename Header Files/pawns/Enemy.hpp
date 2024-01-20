@@ -13,7 +13,8 @@ public:
 
     virtual ~Enemy() = default;
 
-    bool moveable;
+    bool moveable= true;
+    float distance=101;
     EnemyType type;
 
     std::vector<Enemy*> allEnemies;
@@ -25,8 +26,6 @@ public:
     Animation hurt;
     Animation attack ;
 
-//    void initForestBoss();
-
     void update(float deltaTime, bool moveable) override; //all enemies
     void render(sf::RenderTarget &target) override; //all enemies
 
@@ -34,4 +33,7 @@ public:
     void initAnimations() override;
     void updateAnimations(float d) override;
 
+    void initPawn(int x);
+
+    void moveEnemy(float currentTime);
 };
