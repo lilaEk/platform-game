@@ -66,6 +66,10 @@ void Game::pollEvents() {
                 if (currentView == ViewType::main_menu) {
                     mainMenuView.handleTextEntered(e);
                     nick=mainMenuView.playerNick.getText();
+
+                    std::replace_if(nick.begin(), nick.end(), [](char c) {
+                        return std::isspace(static_cast<unsigned char>(c));
+                    }, '_');
                 }
                 break;
         }
