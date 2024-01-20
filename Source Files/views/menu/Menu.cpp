@@ -275,6 +275,8 @@ void Menu::renderGamesToLoad(const std::vector<std::string> &playableGames, cons
 
                 gameChooseToLoad=true;
                 isStartClickable= true;
+                textButtons[5].changeColor(buttonChosenColor);
+
             }
             nameEntry.setFillColor(buttonChosenColor);
             pointsEntry.setFillColor(buttonChosenColor);
