@@ -19,6 +19,8 @@ public:
     Game();
     virtual ~Game();
 
+    std::string nick;
+
     ViewType currentView;
     ViewType lastView;
     RenderWindow window;
@@ -38,7 +40,6 @@ public:
 
 private:
     std::string rankingFilePath = "ranking.csv";
-    const char* tempFilePath = "temp_ranking.csv";
 
     View view;
     Event e;

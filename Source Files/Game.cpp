@@ -16,6 +16,8 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
     currentView = ViewType::main_menu;
     lastView = ViewType::main_menu;
 
+    nick="";
+
     mainMenuView.setStartButtonCallback([this] {
         currentView = ViewType::next_level;
     });
@@ -54,13 +56,12 @@ void Game::pollEvents() {
                         stats.totalElapsedTime = sf::Time::Zero;
                         stats.allBreaksElapsedTime = sf::Time::Zero;
                         stats.inBreak = false;
-//                        writeRanking(mainMenuView.playerNick.getText());
                     }
                 }
                 break;
             case sf::Event::TextEntered:
                 if (currentView == ViewType::main_menu) {
-                    mainMenuView.handleTextEntered(e);
+                    nick=mainMenuView.handleTextEntered();
                 }
                 break;
         }
@@ -98,7 +99,7 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::next_level:
 
             if (lastView != currentView) {
-                saveStatsToCSV("../game_saves/" + mainMenuView.playerNick.getText() + "_save.csv");
+                saveStatsToCSV("../game_saves/" + nick + "_save.csv");
                 generateRanking();
 
                 player->currentPawnState = PawnState::happy;
@@ -208,7 +209,7 @@ void Game::saveStatsToCSV(const std::string &filename) {
     if (outputFile.is_open()) {
         outputFile << "name,level,power,points,lives,time\n";
 
-        outputFile << mainMenuView.playerNick.getText() << ","
+        outputFile << nick << ","
                    << stats.level << ","
                    << stats.power << ","
                    << stats.points << ","
@@ -221,27 +222,27 @@ void Game::saveStatsToCSV(const std::string &filename) {
     }
 }
 
-void Game::loadStatsFromCSV(const std::string &filename) {
-    std::ifstream inputFile(filename);
-    if (inputFile.is_open()) {
-        std::string header;
-        std::getline(inputFile, header);
-
-        inputFile >> stats.level;
-        inputFile.ignore();
-        inputFile >> stats.power;
-        inputFile.ignore();
-        inputFile >> stats.points;
-        inputFile.ignore();
-        inputFile >> stats.lives;
-        inputFile.ignore();
-        std::getline(inputFile, stats.formattedTime);
-
-        inputFile.close();
-    } else {
-        std::cout << "ERROR: Could not open file for reading: " << filename << std::endl;
-    }
-}
+//void Game::loadStatsFromCSV(const std::string &filename) {
+//    std::ifstream inputFile(filename);
+//    if (inputFile.is_open()) {
+//        std::string header;
+//        std::getline(inputFile, header);
+//
+//        inputFile >> stats.level;
+//        inputFile.ignore();
+//        inputFile >> stats.power;
+//        inputFile.ignore();
+//        inputFile >> stats.points;
+//        inputFile.ignore();
+//        inputFile >> stats.lives;
+//        inputFile.ignore();
+//        std::getline(inputFile, stats.formattedTime);
+//
+//        inputFile.close();
+//    } else {
+//        std::cout << "ERROR: Could not open file for reading: " << filename << std::endl;
+//    }
+//}
 
 void Game::generateRanking() {
 

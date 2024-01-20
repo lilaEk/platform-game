@@ -264,20 +264,21 @@ void Menu::renderGamesToLoad(const std::vector<std::string> &playableGames, cons
         livesEntry.setFillColor(sf::Color(0, 0, 0));
         line.setFillColor(sf::Color(0, 0, 0));
 
-        if (((xChosenGame==0&&yChosenGame==0)&&(mousePosition.y >= 220 + i * 25 && mousePosition.y <= 220 + (i + 1) * 25 &&
-            mousePosition.x >= 60 && mousePosition.x <= 300))
-            ||(yChosenGame>= 220 + i * 25 && yChosenGame <= 220 + (i + 1) * 25 &&
-                                             xChosenGame >= 60 && xChosenGame <= 300)) {
+        if (((xChosenGame == 0 && yChosenGame == 0) &&
+             (mousePosition.y >= 220 + i * 25 && mousePosition.y <= 220 + (i + 1) * 25 &&
+              mousePosition.x >= 60 && mousePosition.x <= 300))
+            || (yChosenGame >= 220 + i * 25 && yChosenGame <= 220 + (i + 1) * 25 &&
+                xChosenGame >= 60 && xChosenGame <= 300)) {
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-                xChosenGame =mousePosition.x;
-                yChosenGame=mousePosition.y;
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                xChosenGame = mousePosition.x;
+                yChosenGame = mousePosition.y;
 
-                gameChooseToLoad=true;
-                isStartClickable= true;
+                gameChooseToLoad = true;
+                isStartClickable = true;
                 textButtons[5].changeColor(buttonChosenColor);
 
-                loadGameDataToVector(nameText);
+                loadGameDataFromSave(nameText);
 
             }
             nameEntry.setFillColor(buttonChosenColor);
@@ -307,7 +308,8 @@ void Menu::renderGamesToLoad(const std::vector<std::string> &playableGames, cons
     }
 }
 
-void Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData) {
+void
+Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData) {
     switch (selectedButton) {
         case ButtonType::new_game: {
             if (lastButton != selectedButton) {
@@ -383,11 +385,9 @@ void Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int,
                 handleStartButtonPress();
                 selectedButton = ButtonType::none;
                 resetNotUsingButtons();
-
-                //wczytaj dane z gry
             }
 
-            if (lastButton == ButtonType::new_game && lastButton!=ButtonType::load_game) {
+            if (lastButton == ButtonType::new_game && lastButton != ButtonType::load_game) {
                 resetNotUsingButtons();
                 textButtons[0].changeColor(buttonChosenColor);
             } else if (lastButton == ButtonType::load_game) {
@@ -427,7 +427,7 @@ void Menu::handleButtonClick(int mouseX, int mouseY) {
             selectedButton = picButtons[0].getButtonType();
             return;
         }
-        for (Button &button : textButtons) {
+        for (Button &button: textButtons) {
             if (button.isClicked(mouseX, mouseY)) {
                 selectedButton = button.getButtonType();
                 break;
@@ -477,9 +477,12 @@ void Menu::setLoadGameSideBlock(RenderWindow &window) {
     renderGamesToLoad(getPlayableGames(), mousePosition);
 }
 
-void Menu::handleTextEntered(sf::Event &event) {
+std::string Menu::handleTextEntered() {
     if (selectedButton == ButtonType::new_game) {
-        playerNick.handleEvent(event);
+//        playerNick.handleEvent(event);
+        return playerNick.getText();
+    } else if (selectedButton == ButtonType::load_game) {
+        return nick;
     }
 }
 
@@ -566,12 +569,12 @@ std::vector<std::string> Menu::getPlayableGames() {
 }
 
 void Menu::resetLoadGameValues() {
-    xChosenGame=0;
-    yChosenGame=0;
-    gameChooseToLoad=false;
+    xChosenGame = 0;
+    yChosenGame = 0;
+    gameChooseToLoad = false;
 }
 
-void Menu::loadGameDataToVector(const std::string& gameFileName) {
+void Menu::loadGameDataFromSave(const std::string &gameFileName) {
     const std::string gameFilePath = "../game_saves/" + gameFileName;
 
     std::ifstream inputFile(gameFilePath);
@@ -592,7 +595,11 @@ void Menu::loadGameDataToVector(const std::string& gameFileName) {
                 if (std::getline(iss, playerName, ',') &&
                     iss >> level >> comma >> power >> comma >> points >> comma >> lives >> comma >> time) {
 
-                    playerData.emplace_back(playerName, level, power, points, lives, time);
+                    nick=gameFileName;
+                    stats->level = level;
+                    stats->points = points;
+                    stats->power = power;
+                    stats->lives = lives;
                 }
             }
 

@@ -19,6 +19,7 @@ public:
     Menu(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats);
 
     TextInput playerNick;
+    std::string nick;
 
     void init();
 
@@ -39,7 +40,7 @@ public:
 
     void setStartButtonCallback(ButtonCallback callback);
     void handleStartButtonPress();
-    void handleTextEntered( sf::Event &event);
+    std::string handleTextEntered();
 
 private:
     MapManager &mapManager;
@@ -76,7 +77,6 @@ private:
     bool gameChooseToLoad=false;
     int xChosenGame=0;
     int yChosenGame=0;
-    std::vector<std::tuple<std::string, int, int, int, double, std::string>> playerData;
     void resetLoadGameValues();
 
     std::array<PlayerChoice,3> playersTypeArray{PlayerChoice::Dude_Monster, PlayerChoice::Owlet_Monster, PlayerChoice::Pink_Monster};
@@ -91,6 +91,6 @@ private:
 
     void renderGamesToLoad(const std::vector<std::string> &playableGames,const sf::Vector2i& mousePosition);
 
-    void loadGameDataToVector(const std::string &gameFileName);
+    void loadGameDataFromSave(const std::string &gameFileName);
 };
 
