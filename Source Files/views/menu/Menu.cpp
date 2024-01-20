@@ -99,11 +99,11 @@ void Menu::renderRanking(const std::vector<std::tuple<std::string, int, int, int
     drawSideBlockAndHeadline("ranking", window);
 
     sf::Text nameHeader, pointsHeader;
-    nameHeader.setString("Name");
-    pointsHeader.setString("Points");
+    nameHeader.setString("NAME");
+    pointsHeader.setString("POINTS");
 
-    nameHeader.setPosition(200, 200);
-    pointsHeader.setPosition(400, 200);
+    nameHeader.setPosition(100, 190);
+    pointsHeader.setPosition(200, 190);
 
     nameHeader.setFillColor(sf::Color(0, 0, 0));
     pointsHeader.setFillColor(sf::Color(0, 0, 0));
@@ -117,6 +117,8 @@ void Menu::renderRanking(const std::vector<std::tuple<std::string, int, int, int
     window.draw(nameHeader);
     window.draw(pointsHeader);
 
+    std::vector<sf::Text> texts;
+
     for (size_t i = 0; i < 10; ++i) {
         std::string placeText, nameText, pointsText;
 
@@ -127,35 +129,42 @@ void Menu::renderRanking(const std::vector<std::tuple<std::string, int, int, int
             pointsText = std::to_string(std::get<3>(playerTuple));
         } else {
             placeText = std::to_string(i + 1) + ".";
-            nameText = "empty";
+            nameText = "[empty]";
             pointsText = "0";
         }
 
-        sf::Text placeEntry, nameEntry, pointsEntry;
+        sf::Text placeEntry, nameEntry, pointsEntry, line;
 
         placeEntry.setString(placeText);
         nameEntry.setString(nameText);
         pointsEntry.setString(pointsText);
+        line.setString("----------------------------------");
 
-        placeEntry.setPosition(60, 240 + i * 30);
-        nameEntry.setPosition(200, 240 + i * 30);
-        pointsEntry.setPosition(400, 240 + i * 30);
+        placeEntry.setPosition(60, 220 + i * 25);
+        nameEntry.setPosition(100, 220 + i * 25);
+        pointsEntry.setPosition(200, 220 + i * 25);
+        line.setPosition(60, 233 + i * 25);
 
         placeEntry.setFillColor(sf::Color(0, 0, 0));
         nameEntry.setFillColor(sf::Color(0, 0, 0));
         pointsEntry.setFillColor(sf::Color(0, 0, 0));
+        line.setFillColor(sf::Color(0, 0, 0));
+        line.setFillColor(sf::Color(0, 0, 0));
 
-        placeEntry.setCharacterSize(20);
-        nameEntry.setCharacterSize(20);
-        pointsEntry.setCharacterSize(20);
+        placeEntry.setCharacterSize(16);
+        nameEntry.setCharacterSize(16);
+        pointsEntry.setCharacterSize(16);
+        line.setCharacterSize(16);
 
         placeEntry.setFont(font);
         nameEntry.setFont(font);
         pointsEntry.setFont(font);
+        line.setFont(font);
 
         window.draw(placeEntry);
         window.draw(nameEntry);
         window.draw(pointsEntry);
+        window.draw(line);
     }
 }
 
