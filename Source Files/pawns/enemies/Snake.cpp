@@ -9,8 +9,8 @@ void Snake::init() {
     width = 32;
     height = 32;
 
-    pos_x = (3 * 16 * 20) / 4; //[random]
-    pos_y = 624 - 48 * 2.5 + 24;
+    pos_x = 200; //[random]
+    pos_y = 200;
 
     movementSpeed = 600.f;
     scale = 3.f;
@@ -28,15 +28,16 @@ void Snake::init() {
 }
 
 void Snake::initAnimations() {
-    run = Animation("../assets/enemies/" + characterFolder + "/Run.png", 6, scale, PawnState::run);
-    death = Animation("../assets/enemies/" + characterFolder + "/Death.png", 8, scale, PawnState::die);
-    hurt = Animation("../assets/enemies/" + characterFolder + "/Hurt.png", 4, scale, PawnState::hurt);
-    attack = Animation("../assets/enemies/" + characterFolder + "/Attack.png", 4, scale, PawnState::directAttack);
+    run = Animation("../assets/enemies/" + characterFolder + "/Run.png", 4, scale, PawnState::run);
+    death = Animation("../assets/enemies/" + characterFolder + "/Death.png", 4, scale, PawnState::die);
+    hurt = Animation("../assets/enemies/" + characterFolder + "/Hurt.png", 2, scale, PawnState::hurt);
+    attack = Animation("../assets/enemies/" + characterFolder + "/Attack.png", 6, scale, PawnState::directAttack);
 }
 
 void Snake::render(sf::RenderTarget &target) {
     sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
-    sprite.setPosition(pos_x, pos_y - 24);
+    sprite.setPosition(pos_x, pos_y);
+    std::cout<<"renderuje snake"<<std::endl;
     target.draw(sprite);
 }
 

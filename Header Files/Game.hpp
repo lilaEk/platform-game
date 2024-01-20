@@ -47,6 +47,7 @@ private:
     Player* player;
     MapManager* mapManager;
     Stats stats;
+    Enemy enemy;
 
     Menu mainMenuView;
     NextLevel nextLevelView;

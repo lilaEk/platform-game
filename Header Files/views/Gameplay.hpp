@@ -8,10 +8,7 @@
 class Gameplay {
 public:
 
-    Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats);
-
-    Enemy enemy;
-//    std::vector<Enemy *> enemies;
+    Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats, Enemy *enemy);
 
     void handleInput();
 
@@ -37,4 +34,6 @@ private:
     Player* player;
     sf::RenderWindow& window;
     Stats* stats;
+    Enemy* enemy;
+
 };

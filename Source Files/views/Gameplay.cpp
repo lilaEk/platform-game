@@ -2,11 +2,11 @@
 #include "../../Header Files/Game.hpp"
 
 
-Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats)
-        : mapManager(mapManager), player(player), window(window), stats(stats) {
+Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &window, Stats *stats, Enemy *enemy)
+        : mapManager(mapManager), player(player), window(window), stats(stats), enemy(enemy) {
 
     stats->initStats();
-    enemy.initPawn();
+    enemy->initPawn();
 
 }
 
@@ -25,7 +25,7 @@ void Gameplay::updatePlayer(float d) {
 }
 
 void Gameplay::updateEnemies(float d) {
-    enemy.update(d, true);
+    enemy->update(d, true);
 }
 
 void Gameplay::updateMap(float d) {
@@ -262,8 +262,8 @@ void Gameplay::renderPlayer() {
 }
 
 void Gameplay::renderEnemies() {
-    enemy.render(window);
-
+    enemy->render(window);
+    std::cout<<enemy->allEnemies.size()<<std::endl;
 }
 
 void Gameplay::renderMap() {
