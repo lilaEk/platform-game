@@ -1,7 +1,7 @@
 #include "../Header Files/Animation.hpp"
 
 
-Animation::Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *lastPawnState) :
+Animation::Animation(const std::string &assetPath, int framesNumber, float scale, PawnState lastPawnState) :
         assetPath(assetPath), framesNumber(framesNumber), lastPawnState(lastPawnState) {
     scale = 1.0F;
     if (!texture.loadFromFile(assetPath)) {
@@ -37,10 +37,10 @@ void Animation::restartAnim() {
 
 sf::Sprite Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction direction, float scale, PawnState newPawnState) {
 
-    if(*lastPawnState==PawnState::hurt && lastPlayedFrameIndex<3){
-        newPawnState=*lastPawnState;
-    } else if (*lastPawnState != newPawnState) {
-        *lastPawnState = newPawnState;
+    if(lastPawnState==PawnState::hurt && lastPlayedFrameIndex<3){
+        newPawnState=PawnState::hurt;
+    } else if (lastPawnState != newPawnState) {
+        lastPawnState = newPawnState;
 
         if (newPawnState==PawnState::squat){
             lastPlayedFrameIndex=2;

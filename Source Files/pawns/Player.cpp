@@ -46,21 +46,17 @@ void Player::initAnimations() {
             break;
     }
 
-    idle = Animation("../assets/player/" + characterFolder + "/Idle.png", 4, scale, &lastPawnState);
-    run = Animation("../assets/player/" + characterFolder + "/Run.png", 6, scale, &lastPawnState);
-    jump = Animation("../assets/player/" + characterFolder + "/Jump.png", 8, scale, &lastPawnState);
-    death = Animation("../assets/player/" + characterFolder + "/Death.png", 8, scale, &lastPawnState);
-    roll = Animation("../assets/player/" + characterFolder + "/Roll.png", 6, scale, &lastPawnState);
-    squat = Animation("../assets/player/" + characterFolder + "/Squat.png", 4, scale, &lastPawnState);
-    happy = Animation("../assets/player/" + characterFolder + "/Happy.png", 6, scale, &lastPawnState);
-    push = Animation("../assets/player/" + characterFolder + "/Push.png", 6, scale, &lastPawnState);
-    climb = Animation("../assets/player/" + characterFolder + "/Climb.png", 6, scale, &lastPawnState);
-    lift = Animation("../assets/player/" + characterFolder + "/Lift.png", 6, scale, &lastPawnState);
-    hurt = Animation("../assets/player/" + characterFolder + "/Hurt.png", 4, scale, &lastPawnState);
-    directAttack = Animation("../assets/player/" + characterFolder + "/Attack.png", 4, scale, &lastPawnState);
+    idle = Animation("../assets/player/" + characterFolder + "/Idle.png", 4, scale, PawnState::idle);
+    run = Animation("../assets/player/" + characterFolder + "/Run.png", 6, scale, PawnState::run);
+    jump = Animation("../assets/player/" + characterFolder + "/Jump.png", 8, scale, PawnState::jump);
+    death = Animation("../assets/player/" + characterFolder + "/Death.png", 8, scale, PawnState::die);
+    squat = Animation("../assets/player/" + characterFolder + "/Squat.png", 4, scale, PawnState::squat);
+    happy = Animation("../assets/player/" + characterFolder + "/Happy.png", 6, scale,  PawnState::happy);
+    hurt = Animation("../assets/player/" + characterFolder + "/Hurt.png", 4, scale,  PawnState::hurt);
+    directAttack = Animation("../assets/player/" + characterFolder + "/Attack.png", 4, scale,  PawnState::directAttack);
     directDoubleAttack = Animation("../assets/player/" + characterFolder + "/Attack_Double.png", 6, scale,
-                                   &lastPawnState);
-    throwAttack = Animation("../assets/player/" + characterFolder + "/Throw.png", 4, scale, &lastPawnState);
+                                   PawnState::directDoubleAttack);
+    throwAttack = Animation("../assets/player/" + characterFolder + "/Throw.png", 4, scale,  PawnState::throwAttack);
 }
 
 void Player::render(sf::RenderTarget &target) {
@@ -75,8 +71,13 @@ void Player::update(float currentTime, bool moveable) {
 
 void Player::updateAnimations(float deltaTime) {
 
+//
+    if (currentPawnState==PawnState::happy){
+        sprite = happy.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::happy);
+        return;
+    }
+
     if (lastPawnState == PawnState::hurt) {
-        std::cout<<hurt.lastPlayedFrameIndex<<std::endl;
         if (hurt.lastPlayedFrameIndex != 3) {
             currentPawnState = PawnState::hurt;
             sprite = hurt.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::hurt);

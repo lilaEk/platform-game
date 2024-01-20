@@ -105,12 +105,13 @@ void Game::update_and_render(float deltaTime) {
             break;
 
         case ViewType::next_level:
-
             if (lastView != currentView) {
                 saveStatsToCSV("../game_saves/" + nick + "_save.csv");
                 generateRanking();
 
+                player->lastPawnState = PawnState::happy;
                 player->currentPawnState = PawnState::happy;
+
                 lastView = ViewType::next_level;
 
                 player->pos_x = 480;

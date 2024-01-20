@@ -12,13 +12,12 @@ class Animation {
 private:
     sf::Texture texture;
     sf::Sprite sprite;
-    PawnState *lastPawnState;
+    PawnState lastPawnState;
 
     float scale;
     float elapsed = 0;
     const float frameDuration = 60/1000.0f; //ms
 
-    int hurtFrameCount = 0;
 
 public:
     int framesNumber;
@@ -26,7 +25,7 @@ public:
     const std::string assetPath;
 
     Animation() = default;
-    Animation(const std::string &assetPath, int framesNumber, float scale, PawnState *currentPawnState);
+    Animation(const std::string &assetPath, int framesNumber, float scale, PawnState currentPawnState);
     virtual ~Animation();
 
     Animation& operator=(const Animation& other);
