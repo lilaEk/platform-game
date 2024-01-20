@@ -8,6 +8,7 @@
 #include "views/NextLevel.hpp"
 #include "views/Gameplay.hpp"
 #include "views/GameOver.hpp"
+#include "pawns/Enemy.hpp"
 #include <fstream>
 #include <filesystem>
 
@@ -56,7 +57,6 @@ private:
 
     void resetGameplay();
 
-    void loadStatsFromCSV(const std::string &filename);
     void saveStatsToCSV(const std::string &filename);
 
     void generateRanking();

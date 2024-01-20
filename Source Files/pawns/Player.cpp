@@ -4,13 +4,13 @@
 Player::Player(PlayerChoice playerChoice) : Pawn() {
     chosenPlayer = playerChoice;
 
-    initPlayer();
+    initPawn();
     initAnimations();
 }
 
 Player::~Player() = default;
 
-void Player::initPlayer() {
+void Player::initPawn() {
 
     width = 32;
     height = 32;
@@ -94,40 +94,16 @@ void Player::updateAnimations(float deltaTime) {
         case ::PawnState::die:
             sprite = death.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::die);
             break;
-        case ::PawnState::roll:
-
-            sprite = roll.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::roll);
-            break;
         case ::PawnState::squat:
             sprite = squat.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::squat);
             break;
         case ::PawnState::happy:
             sprite = happy.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::happy);
-            break;
-        case ::PawnState::push:
-            sprite = push.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::push);
-            break;
-        case ::PawnState::lift:
-            sprite = lift.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::lift);
-            break;
         case ::PawnState::hurt:
             sprite = hurt.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::hurt);
             break;
-//        case fly:
-//            break;
-//        case ::pic:
-//            break;
-//        case ::directAttack:
-//
-//            sprite = directAttack.getCurrentAnimImg(
-//            width,
-//            height,
-//            direction,
-//            scale);
-//            break;
         case ::PawnState::directDoubleAttack:
-            sprite = directDoubleAttack.getCurrentAnimImg(deltaTime, width, height, direction, scale,
-                                                          PawnState::directDoubleAttack);
+            sprite = directDoubleAttack.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::directDoubleAttack);
             break;
         case ::PawnState::throwAttack:
             sprite = throwAttack.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::throwAttack);

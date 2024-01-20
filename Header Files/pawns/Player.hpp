@@ -24,7 +24,7 @@ private:
     Animation directDoubleAttack;
     Animation throwAttack;
 
-    void initPlayer() override;
+    void initPawn() override;
     void initAnimations() override;
 
 public:

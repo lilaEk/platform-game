@@ -15,10 +15,17 @@ void Gameplay::update(float deltaTime) {
     updateMap(deltaTime);
     updateMovement(deltaTime);
     updatePlayer(deltaTime);
+    updateEnemies(deltaTime);
 }
 
 void Gameplay::updatePlayer(float d) {
     player->update(d, true);
+}
+
+void Gameplay::updateEnemies(float d) {
+    for (auto enemy : enemies) {
+        enemy->update(d, enemy->moveable);
+    }
 }
 
 void Gameplay::updateMap(float d) {
@@ -245,10 +252,17 @@ void Gameplay::render() {
     renderMap();
     renderStats();
     renderPlayer();
+    renderEnemies();
 }
 
 void Gameplay::renderPlayer() {
     player->render(window);
+}
+
+void Gameplay::renderEnemies() {
+    for (auto enemy : enemies) {
+        enemy->render(window);
+    }
 }
 
 void Gameplay::renderMap() {

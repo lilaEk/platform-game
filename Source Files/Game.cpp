@@ -144,6 +144,7 @@ void Game::update_and_render(float deltaTime) {
             gameplayView.handleInput();
             gameplayView.update(deltaTime);
             gameplayView.render();
+
             break;
 
         case ViewType::game_over:
