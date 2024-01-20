@@ -43,9 +43,9 @@ void Menu::initButtons() {
     picButtons.push_back(arrow);
 }
 
-void Menu::update(float deltaTime) {
+void Menu::update(float deltaTime, const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData) {
     updatePlayer(deltaTime);
-    updateMenuButtons();
+    updateMenuButtons(rankingData);
 }
 
 void Menu::updatePlayer(float d) {
@@ -95,7 +95,71 @@ void Menu::renderTextInput() {
     }
 }
 
-void Menu::updateMenuButtons() {
+void Menu::renderRanking(const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData) {
+    drawSideBlockAndHeadline("ranking", window);
+
+    sf::Text nameHeader, pointsHeader;
+    nameHeader.setString("Name");
+    pointsHeader.setString("Points");
+
+    nameHeader.setPosition(200, 200);
+    pointsHeader.setPosition(400, 200);
+
+    nameHeader.setFillColor(sf::Color(0, 0, 0));
+    pointsHeader.setFillColor(sf::Color(0, 0, 0));
+
+    nameHeader.setCharacterSize(20);
+    pointsHeader.setCharacterSize(20);
+
+    nameHeader.setFont(font);
+    pointsHeader.setFont(font);
+
+    window.draw(nameHeader);
+    window.draw(pointsHeader);
+
+    for (size_t i = 0; i < 10; ++i) {
+        std::string placeText, nameText, pointsText;
+
+        if (i < rankingData.size()) {
+            const auto& playerTuple = rankingData[i];
+            placeText = std::to_string(i + 1) + ".";
+            nameText = std::get<0>(playerTuple);
+            pointsText = std::to_string(std::get<3>(playerTuple));
+        } else {
+            placeText = std::to_string(i + 1) + ".";
+            nameText = "empty";
+            pointsText = "0";
+        }
+
+        sf::Text placeEntry, nameEntry, pointsEntry;
+
+        placeEntry.setString(placeText);
+        nameEntry.setString(nameText);
+        pointsEntry.setString(pointsText);
+
+        placeEntry.setPosition(60, 240 + i * 30);
+        nameEntry.setPosition(200, 240 + i * 30);
+        pointsEntry.setPosition(400, 240 + i * 30);
+
+        placeEntry.setFillColor(sf::Color(0, 0, 0));
+        nameEntry.setFillColor(sf::Color(0, 0, 0));
+        pointsEntry.setFillColor(sf::Color(0, 0, 0));
+
+        placeEntry.setCharacterSize(20);
+        nameEntry.setCharacterSize(20);
+        pointsEntry.setCharacterSize(20);
+
+        placeEntry.setFont(font);
+        nameEntry.setFont(font);
+        pointsEntry.setFont(font);
+
+        window.draw(placeEntry);
+        window.draw(nameEntry);
+        window.draw(pointsEntry);
+    }
+}
+
+void Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData) {
     switch (selectedButton) {
         case ButtonType::new_game: {
             if (lastButton != selectedButton) {
@@ -132,7 +196,7 @@ void Menu::updateMenuButtons() {
             }
             textButtons[2].changeColor(buttonChosenColor);
 
-            setRankingSideBlock(window);
+            setRankingSideBlock(window, rankingData);
             break;
         }
         case ButtonType::rules: {
@@ -176,7 +240,7 @@ void Menu::updateMenuButtons() {
             } else if (lastButton == ButtonType::rules) {
                 setRulesSideBlock(window, font);
             } else if (lastButton == ButtonType::high_scores) {
-                setRankingSideBlock(window);
+                setRankingSideBlock(window, rankingData);
             }
             break;
         }
@@ -227,8 +291,9 @@ void Menu::setRulesSideBlock(RenderWindow &window, Font font) {
     window.draw(rules);
 }
 
-void Menu::setRankingSideBlock(RenderWindow &window) {
+void Menu::setRankingSideBlock(RenderWindow &window, const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData) {
     drawSideBlockAndHeadline("ranking", window);
+    renderRanking(rankingData);
 }
 
 void Menu::setLoadGameSideBlock(RenderWindow &window) {

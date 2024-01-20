@@ -23,9 +23,9 @@ public:
 
     void handleButtonClick(int mouseX, int mouseY);
 
-    void update(float d);
+    void update(float d, const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData);
     void updatePlayer(float d);
-    void updateMenuButtons();
+    void updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData);
 
     void render();
     void renderPlayer();
@@ -50,7 +50,7 @@ private:
     void initButtons();
 
     void setRulesSideBlock(sf::RenderWindow& window, sf::Font font);
-    void setRankingSideBlock(sf::RenderWindow& window);
+    void setRankingSideBlock(sf::RenderWindow& window, const std::vector<std::tuple<std::string, int, int, int, double, std::string>>& rankingData);
     void setLoadGameSideBlock(sf::RenderWindow& window);
     void drawSideBlockAndHeadline(std::string headline, sf::RenderWindow& window);
 
@@ -77,5 +77,7 @@ private:
 
     bool isFileInFolder(const std::string &fileName, const std::string &folderPath);
     bool doesFileNameMatch(const std::string &partialFileName);
+
+    void renderRanking(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData);
 };
 

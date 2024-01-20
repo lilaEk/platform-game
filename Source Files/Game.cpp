@@ -91,7 +91,7 @@ void Game::update_and_render(float deltaTime) {
                 lastView = ViewType::main_menu;
                 generateRanking();
             }
-            mainMenuView.update(deltaTime);
+            mainMenuView.update(deltaTime, playerData);
             mainMenuView.render();
             break;
 
@@ -245,7 +245,6 @@ void Game::loadStatsFromCSV(const std::string &filename) {
 
 void Game::generateRanking() {
 
-    std::cout<<"generuje ranking"<<std::endl;
     playerData.clear();
     std::ofstream rankingFile("../ranking.csv");
 
