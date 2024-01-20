@@ -26,7 +26,7 @@ public:
     RenderWindow window;
     sf::Clock clock;
 
-    int powerLevelGoal=16;
+    int powerLevelGoal=20;
 
     bool running() const;
     void pollEvents();

@@ -308,8 +308,7 @@ void Menu::renderGamesToLoad(const std::vector<std::string> &playableGames, cons
     }
 }
 
-void
-Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData) {
+void Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int, double, std::string>> &rankingData) {
     switch (selectedButton) {
         case ButtonType::new_game: {
             if (lastButton != selectedButton) {
@@ -387,7 +386,7 @@ Menu::updateMenuButtons(const std::vector<std::tuple<std::string, int, int, int,
                 resetNotUsingButtons();
             }
 
-            if (lastButton == ButtonType::new_game && lastButton != ButtonType::load_game) {
+            if (lastButton == ButtonType::new_game) {
                 resetNotUsingButtons();
                 textButtons[0].changeColor(buttonChosenColor);
             } else if (lastButton == ButtonType::load_game) {
@@ -477,14 +476,14 @@ void Menu::setLoadGameSideBlock(RenderWindow &window) {
     renderGamesToLoad(getPlayableGames(), mousePosition);
 }
 
-std::string Menu::handleTextEntered() {
+void Menu::handleTextEntered(sf::Event &event) {
+
     if (selectedButton == ButtonType::new_game) {
-        return playerNick.getText();
+        playerNick.handleEvent(event);
     }
 }
 
 void Menu::setStartButtonCallback(ButtonCallback callback) {
-
     startButtonCallback = std::move(callback);
 }
 
@@ -577,7 +576,6 @@ void Menu::loadGameDataFromSave(const std::string &gameFileName) {
 
     std::ifstream inputFile(gameFilePath);
 
-//    std::cout<<gameFilePath<<
     if (inputFile.is_open()) {
 
         std::string playerName;
@@ -601,7 +599,6 @@ void Menu::loadGameDataFromSave(const std::string &gameFileName) {
                     stats->lives = lives;
                 }
             }
-
         } else {
             std::cerr << "ERROR: Could not open file for reading: " << gameFilePath << std::endl;
         }

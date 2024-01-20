@@ -16,11 +16,11 @@ Game::Game() : player(new Player(PlayerChoice::Dude_Monster)),
     currentView = ViewType::main_menu;
     lastView = ViewType::main_menu;
 
-    nick="";
+    nick = "";
 
     mainMenuView.setStartButtonCallback([this] {
-        if(nick.empty()){
-            nick=mainMenuView.nick;
+        if (nick.empty()) {
+            nick = mainMenuView.nick;
         }
         currentView = ViewType::next_level;
     });
@@ -64,7 +64,7 @@ void Game::pollEvents() {
                 break;
             case sf::Event::TextEntered:
                 if (currentView == ViewType::main_menu) {
-                    nick=mainMenuView.handleTextEntered();
+                    mainMenuView.handleTextEntered(e);
                 }
                 break;
         }
@@ -123,10 +123,15 @@ void Game::update_and_render(float deltaTime) {
         case ViewType::gameplay:
             if (lastView != currentView) {
                 lastView = ViewType::gameplay;
+                if (stats.power < 20) {
+                    powerLevelGoal = 20;
+                } else {
+                    powerLevelGoal = ((stats.power + 9) / 10) * 10;
+                }
             }
             if (stats.power >= powerLevelGoal) {
                 stats.level++;
-                powerLevelGoal += 6;
+                powerLevelGoal += 10;
                 mapManager->currentMap->initMap();
                 currentView = ViewType::next_level;
                 break;
@@ -209,6 +214,8 @@ void Game::resetGameplay() {
 
 void Game::saveStatsToCSV(const std::string &filename) {
     std::ofstream outputFile(filename);
+    outputFile.clear();
+
     if (outputFile.is_open()) {
         outputFile << "name,level,power,points,lives,time\n";
 

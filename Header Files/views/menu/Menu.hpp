@@ -40,7 +40,7 @@ public:
 
     void setStartButtonCallback(ButtonCallback callback);
     void handleStartButtonPress();
-    std::string handleTextEntered();
+    void handleTextEntered(sf::Event &event);
 
 private:
     MapManager &mapManager;
