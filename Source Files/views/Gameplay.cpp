@@ -263,7 +263,6 @@ void Gameplay::renderPlayer() {
 
 void Gameplay::renderEnemies() {
     enemy->render(window);
-    std::cout<<enemy->allEnemies.size()<<std::endl;
 }
 
 void Gameplay::renderMap() {

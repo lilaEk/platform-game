@@ -6,11 +6,11 @@ Snake::Snake() : Enemy() {
 }
 
 void Snake::init() {
-    width = 32;
-    height = 32;
+    width = 48;
+    height = 48;
 
     pos_x = 200; //[random]
-    pos_y = 200;
+    pos_y = 624 - 48 * 2.5-16;
 
     movementSpeed = 600.f;
     scale = 3.f;
@@ -25,6 +25,8 @@ void Snake::init() {
 
     sprite.setScale(scale, scale);
     characterFolder="snake";
+
+    currentPawnState=PawnState::run;
 }
 
 void Snake::initAnimations() {
@@ -37,8 +39,8 @@ void Snake::initAnimations() {
 void Snake::render(sf::RenderTarget &target) {
     sprite.setOrigin(sprite.getLocalBounds().width / 2, sprite.getLocalBounds().height / 2);
     sprite.setPosition(pos_x, pos_y);
-    std::cout<<"renderuje snake"<<std::endl;
     target.draw(sprite);
+
 }
 
 void Snake::update(float deltaTime, bool moveable) {
@@ -48,7 +50,7 @@ void Snake::update(float deltaTime, bool moveable) {
 void Snake::updateAnimations(float deltaTime) {
 
     if (lastPawnState == PawnState::hurt) {
-        std::cout<<hurt.lastPlayedFrameIndex<<std::endl;
+
         if (hurt.lastPlayedFrameIndex != 1) {
             currentPawnState = PawnState::hurt;
             sprite = hurt.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::hurt);
@@ -57,6 +59,9 @@ void Snake::updateAnimations(float deltaTime) {
     }
 
     switch (currentPawnState) {
+        case ::PawnState::run:
+            sprite = run.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::idle);
+            break;
         case ::PawnState::die:
             sprite = death.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::die);
             break;
