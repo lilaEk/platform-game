@@ -65,6 +65,7 @@ void Game::pollEvents() {
             case sf::Event::TextEntered:
                 if (currentView == ViewType::main_menu) {
                     mainMenuView.handleTextEntered(e);
+                    nick=mainMenuView.playerNick.getText();
                 }
                 break;
         }
