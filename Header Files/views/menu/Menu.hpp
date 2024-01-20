@@ -71,6 +71,10 @@ private:
     std::vector<Button> textButtons;
 
     bool isStartClickable = false;
+    bool gameChooseToLoad=false;
+    int xChosenGame=0;
+    int yChosenGame=0;
+    void resetLoadGameValues();
 
     std::array<PlayerChoice,3> playersTypeArray{PlayerChoice::Dude_Monster, PlayerChoice::Owlet_Monster, PlayerChoice::Pink_Monster};
     int playerIndex=0;
@@ -82,6 +86,6 @@ private:
 
     std::vector<std::string> getPlayableGames();
 
-    void renderGamesToLoad(const std::vector<std::string> &playableGames);
+    void renderGamesToLoad(const std::vector<std::string> &playableGames,const sf::Vector2i& mousePosition);
 };
 
