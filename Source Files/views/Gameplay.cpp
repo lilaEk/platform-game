@@ -6,6 +6,7 @@ Gameplay::Gameplay(MapManager &mapManager, Player *player, sf::RenderWindow &win
         : mapManager(mapManager), player(player), window(window), stats(stats) {
 
     stats->initStats();
+    enemy.initPawn();
 
 }
 
