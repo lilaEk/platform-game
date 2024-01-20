@@ -71,7 +71,6 @@ void Player::update(float currentTime, bool moveable) {
 
 void Player::updateAnimations(float deltaTime) {
 
-//
     if (currentPawnState==PawnState::happy){
         sprite = happy.getCurrentAnimImg(deltaTime, width, height, direction, scale, PawnState::happy);
         return;

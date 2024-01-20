@@ -39,6 +39,7 @@ sf::Sprite Animation::getCurrentAnimImg(float deltaTime, int w, int h, Direction
 
     if(lastPawnState==PawnState::hurt && lastPlayedFrameIndex<3){
         newPawnState=PawnState::hurt;
+
     } else if (lastPawnState != newPawnState) {
         lastPawnState = newPawnState;
 

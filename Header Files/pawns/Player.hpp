@@ -19,7 +19,6 @@ private:
     Animation push;
     Animation climb;
     Animation lift;
-    Animation hurt;
     Animation directAttack ;
     Animation directDoubleAttack;
     Animation throwAttack;
@@ -37,4 +36,5 @@ public:
 
     float jumpHeight=0;
     float jumpDistance = 0.0f;
+    Animation hurt;
 };

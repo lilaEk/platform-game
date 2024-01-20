@@ -270,7 +270,7 @@ void Menu::renderGamesToLoad(const std::vector<std::string> &playableGames, cons
             || (yChosenGame >= 220 + i * 25 && yChosenGame <= 220 + (i + 1) * 25 &&
                 xChosenGame >= 60 && xChosenGame <= 300)) {
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && nameText!="[empty]") {
                 xChosenGame = mousePosition.x;
                 yChosenGame = mousePosition.y;
 
